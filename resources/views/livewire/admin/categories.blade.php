@@ -13,11 +13,11 @@
 
     {{-- Header Section --}}
     <div class="mt-8 pb-4 text-2xl flex justify-between">
-        <div>Products List</div>
+        <div>افزودن دسته بندی جدید</div>
         {{-- Add Button Action --}}
         <div class="mr-2">
-            <x-jet-button wire:click="confirmProductAdd" class="bg-indigo-700 hover:bg-indigo-900">
-                Add Product
+            <x-jet-button wire:click="confirmCategoryAdd" class="bg-indigo-700 hover:bg-indigo-900">
+                افزودن دسته بندی
             </x-jet-button>
         </div>
     </div>
@@ -31,60 +31,40 @@
                         <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left">
-                                ID
+                                ردیف
                             </th>
                             <th scope="col" class="px-6 py-3 text-left">
-                                Name
+                                نام دسته بندی
                             </th>
                             <th scope="col" class="px-6 py-3 text-left">
-                                Price
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left">
-                                Active
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left">
-                                Actions
+                                عملیات
                             </th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
 
-                        {{--                        @foreach ($products as $product)--}}
-                        <tr>
-                            <td class="px-6 py-4">
-                                row 1
-                                {{--                                    {{ $product->id }}--}}
-                            </td>
-                            <td class="px-6 py-4">
-                                row 1
-                                {{--                                    {{ $product->name }}--}}
-                            </td>
-                            <td class="px-6 py-4">
-                                row 1
-                                {{--                                    {{ number_format($product->price, 2) }}--}}
-                            </td>
-                            <td class="px-6 py-4">
-                                row 1
-                                {{--                                        <span--}}
-                                {{--                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $product->active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }} ">--}}
-                                {{--                                            {{ $product->active ? 'Active' : 'Inactive' }}--}}
-                                {{--                                        </span>--}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{-- Edit Button Action --}}
-                                <x-jet-button wire:click="confirmProductEdit( {{ 1 }})"
-                                              class="bg-orange-500 hover:bg-orange-700">
-                                    Edit
-                                </x-jet-button>
-                                {{-- Delete Button Action --}}
-                                <x-jet-danger-button wire:click="confirmProductDeletion( {{ 1 }})"
-                                                     wire:loading.attr="disabled">
-                                    Delete
-                                </x-jet-danger-button>
-
-                            </td>
-                        </tr>
-                        {{--                        @endforeach--}}
+                        @foreach ($Category as $Categories)
+                            <tr>
+                                <td class="px-6 py-4">
+                                    {{ $Categories->id }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $Categories->RestaurantType }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{-- Edit Button Action --}}
+                                    <x-jet-button wire:click="confirmCategoryEdit( {{ $Categories->id }})"
+                                                  class="bg-orange-500 hover:bg-orange-700">
+                                        ویرایش
+                                    </x-jet-button>
+                                    {{-- Delete Button Action --}}
+                                    <x-jet-danger-button wire:click="confirmCategoryDeletion( {{ $Categories->id }})"
+                                                         wire:loading.attr="disabled">
+                                        حذف
+                                    </x-jet-danger-button>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -93,12 +73,12 @@
     </div>
 
     {{-- Footer Section --}}
-    {{--    <div class="mt-4">--}}
-    {{--        {{ $products->links() }}--}}
-    {{--    </div>--}}
+    {{--        <div class="mt-4">--}}
+    {{--            {{ $restaurantCategory->links() }}--}}
+    {{--        </div>--}}
 
     {{-- Modal Section --}}
-    <x-jet-confirmation-modal wire:model="confirmingProductDeletion">
+    <x-jet-confirmation-modal wire:model="confirmingCategoryDeletion">
         <x-slot name="title">
             {{ __('Delete Product') }}
         </x-slot>
@@ -108,49 +88,37 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('confirmingProductDeletion', false)" wire:loading.attr="disabled">
+            <x-jet-secondary-button wire:click="$set('confirmingCategoryDeletion', false)" wire:loading.attr="disabled">
                 {{ __('Conceal') }}
             </x-jet-secondary-button>
 
-            <x-jet-danger-button class="ml-2" wire:click="deleteProduct({{ $confirmingProductDeletion }})"
+            <x-jet-danger-button class="ml-2" wire:click="deleteCategory({{ $confirmingCategoryDeletion }})"
                                  wire:loading.attr="disabled">
                 {{ __('Delete') }}
             </x-jet-danger-button>
         </x-slot>
     </x-jet-confirmation-modal>
 
-    <x-jet-dialog-modal wire:model="confirmingProductUpdate">
+    <x-jet-dialog-modal wire:model="confirmingCategoryUpdate">
         <x-slot name="title">
-            {{ isset($this->product->id) ? 'Edit Product' : 'Add Product' }}
+            {{ isset($this->restaurantCategory->id) ? 'Edit Product' : 'Add Product' }}
         </x-slot>
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="name" value="{{ __('Name') }}"/>
-                <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="product.name"/>
-                <x-jet-input-error for="product.name" class="mt-2"/>
-            </div>
-
-            <div class="col-span-6 sm:col-span-4 mt-4">
-                <x-jet-label for="price" value="{{ __('Price') }}"/>
-                <x-jet-input id="price" type="text" class="mt-1 block w-full" wire:model.defer="product.price"/>
-                <x-jet-input-error for="product.price" class="mt-2"/>
-            </div>
-
-            <div class="col-span-6 sm:col-span-4 mt-4">
-                <label class="flex products-center">
-                    <input type="checkbox" wire:model.defer="product.active" class="form-checkbox"/>
-                    <span class="ml-2 text-sm text-gray-600">Active</span>
-                </label>
+                <x-jet-input id="name" type="text" class="mt-1 block w-full"
+                             wire:model.defer="restaurantCategory.RestaurantType"/>
+                <x-jet-input-error for="restaurantCategory.RestaurantType" class="mt-2"/>
             </div>
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('confirmingProductUpdate', false)" wire:loading.attr="disabled">
+            <x-jet-secondary-button wire:click="$set('confirmingCategoryUpdate', false)" wire:loading.attr="disabled">
                 {{ __('Conceal') }}
             </x-jet-secondary-button>
 
-            <x-jet-danger-button class="ml-2" wire:click="saveProduct()" wire:loading.attr="disabled">
+            <x-jet-danger-button class="ml-2" wire:click="saveCategory()" wire:loading.attr="disabled">
                 {{ __('Save') }}
             </x-jet-danger-button>
         </x-slot>

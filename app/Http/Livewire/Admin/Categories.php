@@ -2,35 +2,70 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\restaurantCategories;
 use Livewire\Component;
 
 class Categories extends Component
 {
-    public $confirmingProductDeletion = false;
-    public $confirmingProductUpdate = false;
+    public $restaurantCategory;
+    public $confirmingCategoryDeletion = false;
+    public $confirmingCategoryUpdate = false;
 
-    public function confirmProductAdd()
+    protected $rules = [
+        'restaurantCategory.RestaurantType' => 'required|min:3'
+    ];
+
+    public function confirmCategoryAdd()
     {
-        $this->confirmingProductUpdate = true;
+        $this->confirmingCategoryUpdate = true;
     }
 
-    public function confirmProductEdit()
+    public function saveCategory()
     {
-        $this->confirmingProductUpdate = true;
+        $this->validate();
+
+        if (isset($this->restaurantCategory->id)) {
+            $this->restaurantCategory->save();
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
+            ]);
+        } else {
+            restaurantCategories::create([
+                'RestaurantType' => $this->restaurantCategory['RestaurantType'],
+            ]);
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
+            ]);
+        }
+        $this->confirmingCategoryUpdate = false;
     }
 
-    public function confirmProductDeletion()
+    public function confirmCategoryEdit(restaurantCategories $id)
     {
-        $this->confirmingProductDeletion = true;
+        $this->resetErrorBag();
+        $this->restaurantCategory = $id;
+        $this->confirmingCategoryUpdate = true;
     }
 
-    public function deleteProduct()
+    public function confirmCategoryDeletion($id)
     {
-        dd('deleteProduct');
+        $this->confirmingCategoryDeletion = $id;
+    }
+
+    public function deleteCategory(restaurantCategories $category)
+    {
+        $category->delete();
+        $this->confirmingCategoryDeletion = false;
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'success', 'message' => 'دسته بندی با موفقیت حذف شد'
+        ]);
     }
 
     public function render()
     {
-        return view('livewire.admin.categories');
+        $Category = restaurantCategories::all();
+        return view('livewire.admin.categories', [
+            'Category' => $Category
+        ]);
     }
 }
