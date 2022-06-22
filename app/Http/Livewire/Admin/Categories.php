@@ -17,6 +17,7 @@ class Categories extends Component
 
     public function confirmCategoryAdd()
     {
+        $this->reset(['restaurantCategory']);
         $this->confirmingCategoryUpdate = true;
     }
 

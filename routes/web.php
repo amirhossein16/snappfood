@@ -21,7 +21,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('category', function () {
-        return view('component.category');
-    })->name('category');
+    Route::get('restaurantCategory', function () {
+        return view('component.restaurantCategory');
+    })->name('restaurantCategory');
+    Route::get('foodCategory', function () {
+        return view('component.foodCategory');
+    })->name('foodCategory');
 });
