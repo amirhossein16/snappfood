@@ -21,10 +21,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('restaurantCategory', function () {
-        return view('component.restaurantCategory');
-    })->name('restaurantCategory');
-    Route::get('foodCategory', function () {
-        return view('component.foodCategory');
-    })->name('foodCategory');
+    Route::group(['prefix' => 'SuperAdmin'], function () {
+        Route::get('restaurantCategory', function () {
+            return view('component.restaurantCategory');
+        })->name('restaurantCategory');
+        Route::get('foodCategory', function () {
+            return view('component.foodCategory');
+        })->name('foodCategory');
+        Route::get('roles', function () {
+            return view('component.roles');
+        })->name('roles');
+    });
 });

@@ -2,14 +2,31 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\restaurantCategories;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Categories extends Component
 {
+
     public $restaurantCategory;
     public $confirmingCategoryDeletion = false;
     public $confirmingCategoryUpdate = false;
+    /**
+     * @var Authenticatable|mixed|null
+     */
+    public mixed $user;
+
+    public function mount()
+    {
+        $controller = new Controller;
+        $controller->middleware(function ($request, $next) {
+            $this->user = Auth::guard('superAdmin')->user();
+            return $next($request);
+        });
+    }
 
     protected $rules = [
         'restaurantCategory.RestaurantType' => 'required|min:3'
