@@ -21,15 +21,17 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::group(['prefix' => 'SuperAdmin'], function () {
-        Route::get('restaurantCategory', function () {
-            return view('component.restaurantCategory');
-        })->name('restaurantCategory');
-        Route::get('foodCategory', function () {
-            return view('component.foodCategory');
-        })->name('foodCategory');
-        Route::get('roles', function () {
-            return view('component.roles');
-        })->name('roles');
+
+    Route::group(['middleware' => ['role:superadmin']], function () {
+        Route::get('restaurantCategory', \App\Http\Livewire\Admin\Categories::class)->name('restaurantCategory');
+
+        Route::get('foodCategory', \App\Http\Livewire\Admin\FoodCategory::class)->name('foodCategory');
+
+        Route::get('roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
+    });
+
+    Route::group(['middleware' => ['role:seller']], function () {
+        Route::get('RestaurantPanel', \App\Http\Livewire\Seller\RestaurantPanel::class)->name('RestaurantPanel');
+        Route::get('FoodPanel', \App\Http\Livewire\Seller\FoodPanel::class)->name('FoodPanel');
     });
 });

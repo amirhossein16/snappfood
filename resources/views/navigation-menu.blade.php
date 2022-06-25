@@ -9,12 +9,22 @@
                         <x-jet-application-mark class="block h-9 w-auto"/>
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+                    @role('seller')
+                    <x-jet-nav-link href="{{ route('RestaurantPanel') }}"
+                                    :active="request()->routeIs('RestaurantPanel')">
+                        {{ __('Restaurant Panel') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('FoodPanel') }}"
+                                    :active="request()->routeIs('FoodPanel')">
+                        {{ __('Food Panel') }}
+                    </x-jet-nav-link>
+                    @endrole
+                    @role('superadmin')
                     <x-jet-nav-link href="{{ route('restaurantCategory') }}"
                                     :active="request()->routeIs('restaurantCategory')">
                         {{ __('Restaurant Category') }}
@@ -25,9 +35,9 @@
                     <x-jet-nav-link href="{{ route('roles') }}" :active="request()->routeIs('roles')">
                         {{ __('Roles Setting') }}
                     </x-jet-nav-link>
+                    @endrole
                 </div>
             </div>
-
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())

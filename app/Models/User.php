@@ -22,6 +22,9 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
 
+
+    protected $guard_name = 'admin';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,6 +32,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'role',
         'email',
         'password',
     ];
@@ -86,5 +90,10 @@ class User extends Authenticatable
                 return false;
         }
         return true;
+    }
+
+    public function restaurantDetail()
+    {
+        return $this->hasOne(RestaurantDetail::class);
     }
 }
