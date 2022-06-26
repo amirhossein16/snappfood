@@ -28,6 +28,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('foodCategory', \App\Http\Livewire\Admin\FoodCategory::class)->name('foodCategory');
 
         Route::get('roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
+
+        Route::get('DiscountPanel', \App\Http\Livewire\Admin\DiscountPanel::class)->name('DiscountPanel');
     });
 
     Route::group(['middleware' => ['role:seller']], function () {

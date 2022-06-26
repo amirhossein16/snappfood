@@ -35,6 +35,9 @@
                     <x-jet-nav-link href="{{ route('roles') }}" :active="request()->routeIs('roles')">
                         {{ __('Roles Setting') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('DiscountPanel') }}" :active="request()->routeIs('DiscountPanel')">
+                        {{ __('Discount Panel') }}
+                    </x-jet-nav-link>
                     @endrole
                 </div>
             </div>

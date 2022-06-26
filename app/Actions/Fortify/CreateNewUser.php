@@ -45,9 +45,7 @@ class CreateNewUser implements CreatesNewUsers
             ]);
         }
         $user = User::all()->last();
-        if ($user->role == 'superAdmin')
-            $user->assignRole('superadmin');
-        elseif ($user->role == 'seller')
+        if ($user->role == 'seller')
             $user->assignRole('seller');
         return User::all()->last();
     }
