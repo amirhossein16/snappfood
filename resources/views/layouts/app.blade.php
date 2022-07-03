@@ -33,6 +33,11 @@
     </script>
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+
+
 </head>
 <body class="font-sans antialiased">
 <x-jet-banner/>
@@ -58,6 +63,8 @@
 @stack('modals')
 
 @livewireScripts
+<script src="https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoidmloZXQiLCJhIjoiY2w1M3Y4djVtMDdoZzNlcGIzbWFleXo2MCJ9.VnxA8zfJdeYV8abHiWQ2wQ
+" type="text/javascript"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
