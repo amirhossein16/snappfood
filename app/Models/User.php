@@ -12,8 +12,9 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use phpDocumentor\Reflection\Types\False_;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens;
     use HasFactory;
@@ -35,6 +36,8 @@ class User extends Authenticatable
         'role',
         'email',
         'password',
+        'latitude',
+        'longitude'
     ];
 
     /**
@@ -92,8 +95,43 @@ class User extends Authenticatable
         return true;
     }
 
+    use Notifiable;
+
+
+    // Rest omitted for brevity
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
     public function restaurantDetail()
     {
         return $this->hasOne(RestaurantDetail::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasOne(Orders::class);
     }
 }

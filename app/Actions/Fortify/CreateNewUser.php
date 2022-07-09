@@ -34,16 +34,6 @@ class CreateNewUser implements CreatesNewUsers
             'role' => $input['role'],
             'password' => Hash::make($input['password']),
         ]);
-        $role = $input['role'];
-        if ($role == 'seller') {
-            RestaurantDetail::create([
-                'name' => null,
-                'restaurant_categories_id' => null,
-                'address' => null,
-                'phone' => null,
-                'user_id' => User::all()->last()->id
-            ]);
-        }
         $user = User::all()->last();
         if ($user->role == 'seller')
             $user->assignRole('seller');
