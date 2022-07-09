@@ -36,6 +36,7 @@ class UserAddress extends Model implements JWTSubject
     }
 
     protected $fillable = [
+        'user_id',
         'title',
         'address',
         'latitude',

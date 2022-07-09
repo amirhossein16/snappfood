@@ -29,9 +29,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::apiResource('carts', \App\Http\Controllers\User\UserCartController::class);
     Route::apiResource('payment', \App\Http\Controllers\User\UserOrderController::class);
 
+//    Route::post('addresses', [\App\Http\Controllers\User\AddressController::class, 'update']);
+    Route::apiResource('addresses', \App\Http\Controllers\User\AddressController::class);
 });
 
-Route::resource('addresses', \App\Http\Controllers\Address::class);
 Route::get('restaurants/{restaurant_id}/foods', [\App\Http\Controllers\User\FoodController::class, 'show']);
 Route::apiResource('restaurants/foods', \App\Http\Controllers\User\FoodController::class, ['except' => 'show']);
 Route::resource('restaurants', \App\Http\Controllers\User\RestaurantInformation::class);

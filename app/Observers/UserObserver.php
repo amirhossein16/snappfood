@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\RestaurantDetail;
 use App\Models\User;
+use App\Models\UserAddress;
 
 class UserObserver
 {
