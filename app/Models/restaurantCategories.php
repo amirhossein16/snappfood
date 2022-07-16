@@ -11,8 +11,8 @@ class restaurantCategories extends Model
 
     protected $fillable = ['RestaurantType'];
 
-    public function restaurantDetail()
+    public function RestaurantDetail()
     {
-        return $this->hasMany(RestaurantDetail::class);
+        return $this->hasOne(RestaurantDetail::class);
     }
 }

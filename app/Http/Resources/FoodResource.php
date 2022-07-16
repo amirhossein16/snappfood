@@ -21,7 +21,7 @@ class FoodResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->name,
-            'foods' => FoodsResource::collection(\App\Models\Food::where('restaurant_detail_id', $this->id)->get(),),
+            'foods' => FoodsResource::collection(\App\Models\Food::where('restaurant_detail_id', $this->id)->get()),
         ];
     }
 }

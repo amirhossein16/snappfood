@@ -24,7 +24,7 @@ class RestaurantDetail extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function restaurantCategory()
+    public function restaurantCategories()
     {
         return $this->belongsTo(restaurantCategories::class);
     }
@@ -34,10 +34,20 @@ class RestaurantDetail extends Model
         return $this->hasMany(Food::class);
     }
 
-    protected function scopeRestaurantCategoriesId(): Attribute
+//    protected function scopeRestaurantCategoriesId(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn($value) => restaurantCategories::where('id', '=', $value)->get()->first()->RestaurantType
+//        );
+//    }
+
+    public function cartId()
     {
-        return Attribute::make(
-            get: fn($value) => restaurantCategories::where('id', '=', $value)->get()[0]->RestaurantType
-        );
+        return $this->hasOne(Cart::class);
+    }
+
+    public function WeekOpeningTime()
+    {
+        return $this->hasMany(WeekOpeningTime::class);
     }
 }

@@ -89,13 +89,19 @@ class AddressController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
-        $blog = UserAddress::where('id', '=', $id)->get()[0];
-        $blog->address = $input['address'];
-        $blog->currentAddress = true;
-        $blog->save();
-        return response()->json([
-            'msg' => "Address Update And Set Current Address successfully",
-        ]);
+        $address = UserAddress::where([['id', '=', $id], ['user_id', auth('api')->user()->id]])->get()->first();
+        if ($address == null) {
+            return response()->json([
+                'msg' => "Unauthenticated.",
+            ]);
+        } else {
+            $address->address = $input['address'];
+            $address->currentAddress = true;
+            $address->save();
+            return response()->json([
+                'msg' => "Address Update And Set Current Address successfully",
+            ]);
+        }
     }
 
     /**
