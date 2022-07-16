@@ -36,5 +36,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('RestaurantPanel', \App\Http\Livewire\Seller\RestaurantPanel::class)->name('RestaurantPanel');
         Route::get('FoodPanel', \App\Http\Livewire\Seller\FoodPanel::class)->name('FoodPanel')->middleware(\App\Http\Middleware\profile_completed::class);
         Route::get('OrdersPanel', \App\Http\Livewire\Seller\OredersPanelController::class)->name('OrdersPanel')->middleware(\App\Http\Middleware\profile_completed::class);
+        Route::get('CommentsPanel', \App\Http\Livewire\Seller\CommentsPanelController::class)->name('CommentsPanel')->middleware(\App\Http\Middleware\profile_completed::class);
     });
 });

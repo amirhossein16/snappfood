@@ -12,4 +12,14 @@ class CartFood extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
+
+    public function Food()
+    {
+        return $this->belongsTo(Food::class);
+    }
 }

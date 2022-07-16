@@ -18,8 +18,8 @@ class Discount extends Model
         return $this->belongsTo(Food::class);
     }
 
-    public function discountFood()
+    public function DiscountFood()
     {
-        return $this->belongsTo(DiscountFood::class);
+        return $this->hasOne(DiscountFood::class);
     }
 }

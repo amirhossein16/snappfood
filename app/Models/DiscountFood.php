@@ -13,8 +13,8 @@ class DiscountFood extends Model
 
     protected $fillable = ['food_id', 'discount_id'];
 
-    public function discount()
+    public function Discount()
     {
-        return $this->hasOne(Discount::class);
+        return $this->belongsTo(Discount::class);
     }
 }

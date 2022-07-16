@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\CartFood;
+use App\Models\Discount;
+use App\Models\DiscountFood;
 use App\Models\Food;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class UserCartController extends Controller
 {
@@ -23,15 +28,14 @@ class UserCartController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return JsonResponse|AnonymousResourceCollection
      */
     public function index()
     {
         $cart = Cart::where([['user_id', '=', auth('api')->user()->id], ['state', 'FirstCart']])->get()->first();
         if (!empty($cart)) {
-            $user = Cart::where([['user_id', '=', auth('api')->user()->id],['state','FirstCart']])->get()->first();
-            $UserCarts = CartFood::where('cart_id', '=', $user->id)->get();
-            return response()->json($UserCarts);
+            $userCart = Cart::where([['user_id', '=', auth('api')->user()->id], ['state', 'FirstCart']])->get();
+            return CartResource::collection($userCart);
         }
         return response()->json(['msg' => 'not product in cart']);
     }
@@ -40,40 +44,58 @@ class UserCartController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return JsonResponse
+     * @return false|JsonResponse
+     * @throws \Exception
      */
     public function store(Request $request)
     {
         try {
             $food = Food::findOrFail($request->food_id);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['msg' => 'Food Not Found'], 404);
+            return response()->json(['msg' => 'Food Not Found' . $e->getMessage()], 404);
         }
+        try {
+            if (empty(CartFood::where([['food_id', $request->food_id], ['cart_id', auth('api')->user()->cart->id]])->get()))
+                throw new \Exception('Food Exist');
+            DB::beginTransaction();
+            $cart = Cart::where([['user_id', auth('api')->id()], ['state', 'FirstCart'], ['restaurant_detail_id', $food->restaurant_detail_id]])->get()->first();
+            if ($food->off == 1) {
+                $query = Discount::where('id', DiscountFood::where('food_id', $food->id)->get()->first()->discount_id)->get()->first();
+                if ($query->type == 'Percentage') {
+                    $foodPrice = ((int)$food->price * (100 - $query->amount)) / 100;
+                } elseif ($query->type == 'Price') {
+                    $foodPrice = (int)$food->price - $query->amount;
+                }
+            }
 
+            if ($cart == null) {
+                $cart = Cart::create([
+                    'user_id' => auth('api')->user()->id,
+                    'price' => $foodPrice ? $foodPrice * $request->count : $food->price * $request->count,
+                    'state' => 'FirstCart',
+                    'restaurant_detail_id' => $food->restaurant_detail_id
+                ]);
+            }
 
-        $cart = Cart::where([['user_id', auth('api')->id()], ['state', 'FirstCart']])->get()->first();
-        if ($cart == null)
-            $cart = Cart::create([
-                'user_id' => auth('api')->user()->id,
-                'price' => (int)$food->price,
-                'state' => 'FirstCart',
-                'restaurant_detail_id' => $food->restaurant_detail_id
-            ]);
-
-        $cartFood = CartFood::where(['cart_id' => $cart->id, 'food_id' => $food->id])->get()->first();
-        if ($cartFood) {
-            $cartFood->count += $request->count;
-            $cartFood->price = 25000;
-            $cartFood->save();
-        } else {
-            $cartFood = new CartFood();
-            $cartFood->cart_id = $cart->id;
-            $cartFood->food_id = $food->id;
-            $cartFood->count = $request->count;
-            $cartFood->price = 25000;
-            $cartFood->save();
+            $cartFood = CartFood::where(['cart_id' => $cart->id, 'food_id' => $food->id])->get()->first();
+            if (!is_null($cartFood)) {
+                $cartFood->count += $request->count;
+                $cartFood->price = (int)$food->price;
+                $cartFood->save();
+            } else {
+                CartFood::create([
+                    'cart_id' => $cart->id,
+                    'food_id' => $food->id,
+                    'count' => (int)$request->count,
+                    'price' => (int)$food->price,
+                ]);
+            }
+            DB::commit();
+            return response()->json(['msg' => "added successfully"]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e->getMessage;
         }
-        return response()->json(['msg' => 'added successfully']);
     }
 
     /**
@@ -82,7 +104,8 @@ class UserCartController extends Controller
      * @param $cart_id
      * @return Response
      */
-    public function show($cart_id)
+    public
+    function show($cart_id)
     {
         return Cart::where('id', $cart_id)->get()->first();
     }
@@ -92,11 +115,35 @@ class UserCartController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return Response
+     * @return JsonResponse|Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $cart = Cart::where([['id', $id], ['user_id', auth('api')->user()->id]])->get()->first();
+        $food = CartFood::where([['food_id', (int)$request->food_id], ['cart_id', $cart->id]])->get()->first();
+        if ($food) {
+            if ((int)$request->count > 0) {
+                $food->count += (int)$request->count;
+                $food->save();
+                return \response()->json(['msg' => "Food with ID => $request->food_id Count Update"]);
+            } elseif ((int)$request->count == 0) {
+                return \response()->json(['msg' => "Your Count Request is Zero"]);
+            } else {
+                $food->count += (int)$request->count;
+                if ($food->count < 0) {
+                    return \response()->json(['msg' => "Your Food Number is less than $request->count"]);
+                } else {
+                    if ($food->count == 0) {
+                        $food->delete();
+                        return \response()->json(['msg' => "Food Remove Successfully"]);
+                    }
+                    $food->save();
+                    return \response()->json(['msg' => "Food with ID => $request->food_id Count Update"]);
+                }
+            }
+        } else {
+            return \response()->json(['msg' => 'Food Not Exist']);
+        }
     }
 
     /**
