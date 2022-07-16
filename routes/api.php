@@ -31,6 +31,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 
 //    Route::post('addresses', [\App\Http\Controllers\User\AddressController::class, 'update']);
     Route::apiResource('addresses', \App\Http\Controllers\User\AddressController::class);
+
+    Route::apiResource('comments', \App\Http\Controllers\User\CommentsController::class);
 });
 
 Route::get('restaurants/{restaurant_id}/foods', [\App\Http\Controllers\User\FoodController::class, 'show']);

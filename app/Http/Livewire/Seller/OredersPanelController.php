@@ -7,7 +7,10 @@ use App\Models\CartFood;
 use App\Models\DiscountFood;
 use App\Models\Food;
 use App\Models\Orders;
+use App\Models\User;
+use App\Notifications\OrderMailNotif;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class OredersPanelController extends Component
@@ -25,7 +28,7 @@ class OredersPanelController extends Component
     public $details = [];
 
 
-    public function ChangeOrderStatus(Cart $id)
+    public function ChangeOrderStatus(Orders $id)
     {
         $this->resetErrorBag();
         $this->order = $id;
@@ -40,12 +43,13 @@ class OredersPanelController extends Component
     public function ConvertOrderStatus()
     {
         if ($this->order->orderStatus < 5) {
-            $status = Cart::where('user_id', '=', $this->order->user_id)->get()->first();
-            $OrderStatus = Orders::where('cart_id', '=', $status->id)->get()->first();
+            $status = Cart::find($this->order->cart_id);
+            $OrderStatus = Orders::where([['cart_id', $status->id], ['id', $this->order->id]])->get()->last();
             $status->orderStatus += 1;
             $OrderStatus->OrderStatus += 1;
             $status->save();
             $OrderStatus->save();
+            Notification::send(User::find($this->order->user_id), new OrderMailNotif($OrderStatus));
             $this->dispatchBrowserEvent('alert', [
                 'type' => 'success', 'message' => 'وضعیت با موفقیت تغییر کرد !'
             ]);

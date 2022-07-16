@@ -148,14 +148,15 @@
                         <div class="col-span-6 sm:col-span-4">
                             @if(isset($this->order))
                                 @php
-                                    if (isset(\App\Models\Cart::where('orderStatus','=',$this->order->orderStatus)->get()->first()->orderStatus )){
-                                        if (\App\Models\Cart::where('orderStatus','=',$this->order->orderStatus)->get()->first()->orderStatus == 1)
+
+                                    if (isset(\App\Models\Orders::where('OrderStatus',$this->order->OrderStatus)->get()->first()->OrderStatus )){
+                                        if (\App\Models\Orders::where('OrderStatus',$this->order->OrderStatus)->get()->first()->OrderStatus == 1)
                                             echo "<p style='direction:rtl' class='text-center'> تبدیل وضعیت از <span class='text-xl text-red-500'>در حال بررسی</span> به <span class='text-xl text-green-500'>در حال آماده سازی</span></p>";
-                                        elseif (\App\Models\Cart::where('orderStatus','=',$this->order->orderStatus)->get()->first()->orderStatus == 2)
+                                        elseif (\App\Models\Orders::where('OrderStatus','=',$this->order->OrderStatus)->get()->first()->OrderStatus == 2)
                                             echo "<p style='direction:rtl' class='text-center'> تبدیل وضعیت از <span class='text-xl text-red-500'>در حال آماده سازی</span> به <span class='text-xl text-green-500'>ارسال به مقصد</span></p>";
-                                        elseif (\App\Models\Cart::where('orderStatus','=',$this->order->orderStatus)->get()->first()->orderStatus == 3)
+                                        elseif (\App\Models\Orders::where('OrderStatus','=',$this->order->OrderStatus)->get()->first()->OrderStatus == 3)
                                             echo "<p style='direction:rtl' class='text-center'> تبدیل وضعیت از <span class='text-xl text-red-500'>ارسال به مقصد</span> به <span class='text-xl text-green-500'>تحویل گرفته شد</span></p>";
-                                        elseif (\App\Models\Cart::where('orderStatus','=',$this->order->orderStatus)->get()->first()->orderStatus == 4|| \App\Models\Cart::where('orderStatus','=',$this->order->orderStatus)->get()->first()->orderStatus == 5)
+                                        elseif (\App\Models\Orders::where('OrderStatus','=',$this->order->OrderStatus)->get()->first()->OrderStatus == 4|| \App\Models\Orders::where('OrderStatus','=',$this->order->OrderStatus)->get()->first()->OrderStatus == 5)
                                             echo "تحویل گرفته شد";
                                     }
                                 @endphp

@@ -27,6 +27,10 @@
                                     :active="request()->routeIs('OrdersPanel')">
                         {{ __('Orders Panel') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('CommentsPanel') }}"
+                                    :active="request()->routeIs('CommentsPanel')">
+                        {{ __('Comments Panel') }}
+                    </x-jet-nav-link>
                     @endrole
                     @role('superadmin')
                     <x-jet-nav-link href="{{ route('restaurantCategory') }}"

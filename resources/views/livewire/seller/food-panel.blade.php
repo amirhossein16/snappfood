@@ -45,6 +45,9 @@
                                             انقضا کد تخفیف
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left">
+                                            مقدار تخفیف
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left">
                                             قیمت
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left">
@@ -54,16 +57,17 @@
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
 
+                                    @php $Row = 0 @endphp
                                     @foreach ($Category as $Categories)
                                         <tr>
                                             <td class="px-6 py-4">
-                                                {{ $Categories->id }}
+                                                {{ ++$Row }}
                                             </td>
                                             <td class="px-6 py-4">
                                                 {{ $Categories->title }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{ \App\Models\foodCategories::where('id','=',$Categories->food_categories_id)->get()[0]->FoodType }}
+                                                {{ \App\Models\foodCategories::where('id','=',$Categories->food_categories_id)->get()->first()->FoodType }}
                                             </td>
                                             <td class="px-6 py-4">
                                                 {{ $Categories->raw_material }}
@@ -86,7 +90,39 @@
                                                 @endphp
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{ $Categories->price }}
+                                                @if($Categories->off == null || $Categories->off == 0)
+                                                    ----
+                                                @elseif($Categories->off == 1)
+                                                    @php
+                                                        $discounts =\App\Models\Discount::find(\App\Models\DiscountFood::where('food_id','=',$Categories->id)->get()->first()->discount_id);
+                                                    @endphp
+                                                    @if ( $discounts->type == 'Percentage')
+                                                        {{\App\Models\Discount::find(\App\Models\DiscountFood::where('food_id',$Categories->id)->get()->first()->discount_id)->amount}}%
+                                                    @elseif($discounts->type == 'Price')
+                                                        <span class="text-sm">{{\App\Models\Discount::find(\App\Models\DiscountFood::where('food_id',$Categories->id)->get()->first()->discount_id)->amount}} تومان</span>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                @if($Categories->off == null || $Categories->off == 0)
+                                                    {{ $Categories->price }}
+                                                @elseif($Categories->off == 1)
+                                                    @php
+                                                        $discounts =\App\Models\Discount::find(\App\Models\DiscountFood::where('food_id','=',$Categories->id)->get()->first()->discount_id);
+                                                    @endphp
+                                                    @if ( $discounts->type == 'Percentage')
+                                                        <span
+                                                            class="text-red-500"><s> {{
+                                                        ($Categories->price)*(100 - $discounts->amount)
+                                                         }}</s></span>
+                                                        <span class="text-green-500"> {!! $Categories->price !!} </span>
+                                                    @elseif($discounts->type == 'Price')
+                                                        <span
+                                                            class="text-red-500"><s> {!! $Categories->price !!}</s></span>
+                                                        <span
+                                                            class="text-green-500">{!! $Categories->price -= $discounts->amount !!}</span>
+                                                    @endif
+                                                @endif
                                             </td>
                                             <td class="px-6 py-4">
                                                 {{-- Edit Button Action --}}

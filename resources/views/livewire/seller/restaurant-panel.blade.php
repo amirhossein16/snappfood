@@ -43,6 +43,18 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                <label for="green-toggle" class="inline-flex relative items-center mr-5 cursor-pointer">
+                    <input type="checkbox" wire:click="open" value="" id="green-toggle" class="sr-only peer"
+                           wire:model.defer="opening"
+                    >
+                    <div
+                        class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+                    @if($opening)
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-green-500">Open</span>
+                    @else
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-red-500">Close</span>
+                    @endif
+                </label>
                 @foreach($detail as $det)
                     <div class="mb-6">
                         <x-jet-label for="RestaurantName"
@@ -97,6 +109,28 @@
                         <x-jet-input-error for="Restaurant.restaurant_categories_id" class="mt-2"/>
                     </div>
                     <div class="mb-6">
+                        @if ($photo)
+                            Photo Preview:
+                            <img src="{{ $photo->temporaryUrl() }}" alt="Preview">
+                        @endif
+                        <div
+                            x-data="{ isUploading: false, progress: 0 }"
+                            x-on:livewire-upload-start="isUploading = true"
+                            x-on:livewire-upload-finish="isUploading = false"
+                            x-on:livewire-upload-error="isUploading = false"
+                            x-on:livewire-upload-progress="progress = $event.detail.progress"
+                        >
+                            <!-- File Input -->
+                            <input type="file" wire:model="photo">
+
+                            <!-- Progress Bar -->
+                            <div x-show="isUploading">
+                                <progress max="100" x-bind:value="progress"></progress>
+                            </div>
+                            <x-jet-input-error for="photo" class="mt-2"/>
+                        </div>
+                    </div>
+                    <div class="mb-6">
                         <x-jet-label for="Category"
                                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"/>
                         Select your Restaurant Category
@@ -105,6 +139,9 @@
                                         :markers="[['lat' => 35.701253490910126, 'long' => 51.34916022406515]]"
                                         wire:model.defer="Restaurant.lat"></x-maps-leaflet>
                         <x-jet-input-error for="Restaurant.lat" class="mt-2"/>
+                    </div>
+                    <div class="mb-6">
+                        <livewire:seller.week-opening-panel/>
                     </div>
                     {{--                    @include('component.timeInput')--}}
                     <button type="submit" wire:click.prevent="saveRestaurant"
