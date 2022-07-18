@@ -1,15 +1,12 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Restaurant Category') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <livewire:admin.categories/>
+    <!-- BEGIN: Content -->
+    <div class="wrapper wrapper--top-nav">
+        <div class="wrapper-box">
+            <!-- BEGIN: Content -->
+            <div class="content">
             </div>
+            <!-- END: Content -->
         </div>
     </div>
+    <!-- END: Content -->
 </x-app-layout>

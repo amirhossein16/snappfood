@@ -12,12 +12,15 @@ class Categories extends Component
 {
 
     public $restaurantCategory;
+    public $CategoryDeletion;
     public $confirmingCategoryDeletion = false;
     public $confirmingCategoryUpdate = false;
+    public $wire;
     /**
      * @var Authenticatable|mixed|null
      */
     public mixed $user;
+    protected $listeners = ['refreshTable' => 'Category'];
 
     public function mount()
     {
@@ -65,9 +68,11 @@ class Categories extends Component
         $this->confirmingCategoryUpdate = true;
     }
 
+
     public function confirmCategoryDeletion($id)
     {
-        $this->confirmingCategoryDeletion = $id;
+        $this->confirmingCategoryDeletion = true;
+        $this->CategoryDeletion = $id;
     }
 
     public function deleteCategory(restaurantCategories $category)
@@ -79,11 +84,18 @@ class Categories extends Component
         ]);
     }
 
+    public $Categories;
+
+    public function Category()
+    {
+        $this->Categories = restaurantCategories::all();
+    }
+
     public function render()
     {
-        $Category = restaurantCategories::all();
+        $this->Category();
         return view('livewire.admin.categories', [
-            'Category' => $Category
+            'Category' => $this->Categories
         ]);
     }
 }
