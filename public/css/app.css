@@ -1214,17 +1214,11 @@ select {
 .float-right {
   float: right;
 }
-.m-4 {
-  margin: 1rem;
-}
 .m-1 {
   margin: 0.25rem;
 }
 .m-0 {
   margin: 0px;
-}
-.m-8 {
-  margin: 2rem;
 }
 .my-auto {
   margin-top: auto;
@@ -1273,14 +1267,6 @@ select {
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
-}
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-.my-16 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -2066,9 +2052,6 @@ select {
 }
 .p-1 {
   padding: 0.25rem;
-}
-.p-8 {
-  padding: 2rem;
 }
 .px-4 {
   padding-left: 1rem;

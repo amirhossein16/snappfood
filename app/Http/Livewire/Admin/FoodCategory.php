@@ -10,6 +10,7 @@ class FoodCategory extends Component
     public $foodCategory;
     public $confirmingCategoryDeletion = false;
     public $confirmingCategoryUpdate = false;
+    protected $listeners = ['refreshFoodTable'];
 
     protected $rules = [
         'foodCategory.FoodType' => 'required|min:3'
@@ -20,6 +21,7 @@ class FoodCategory extends Component
         $this->reset(['foodCategory']);
         $this->confirmingCategoryUpdate = true;
     }
+
 
     public function saveCategory()
     {
@@ -63,11 +65,18 @@ class FoodCategory extends Component
         ]);
     }
 
+    public $category;
+
+    public function refreshFoodTable()
+    {
+        $this->category = foodCategories::all();
+    }
+
     public function render()
     {
-        $Category = foodCategories::all();
+        $this->refreshFoodTable();
         return view('livewire.admin.food-category', [
-            'Category' => $Category
+            'Category' => $this->category
         ]);
     }
 }
