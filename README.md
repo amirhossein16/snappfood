@@ -89,6 +89,7 @@ Technologies used in the project:
 *   laravel-permission
 *   laravel-maps
 *   jwt-auth
+*   tailwind CSS
 
 <h2>💖Like my work?</h2>
 
