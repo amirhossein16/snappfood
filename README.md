@@ -1,6 +1,6 @@
 <h1 align="center" id="title">Snapp Food</h1>
 
-<p align="center"><img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images/food-beverage-1.jpg" alt="project-image"></p>
+<p align="center"><img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images/" alt="project-image"></p>
 
 <p id="description">Sample Laravel Project - Simulated from Snapp Food</p>
 
@@ -12,9 +12,9 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images/food-beverage-1.jpg" alt="project-screenshot" width="250px" height="250px/">
+<img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images" alt="project-screenshot" width="250px" height="250px/">
 
-<img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images/food-beverage-1.jpg" alt="project-screenshot" width="250" height="250/">
+<img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images" alt="project-screenshot" width="250" height="250/">
 
   
   
