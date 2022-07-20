@@ -13,16 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', \App\Http\Livewire\IndexPage::class)->name('/');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard')->middleware(\App\Http\Middleware\profile_completed::class);
 
     Route::group(['middleware' => ['role:superadmin']], function () {
+        Route::get('Admin', \App\Http\Livewire\Admin\AdminDashboard::class)->name('Admin');
         Route::get('restaurantCategory', \App\Http\Livewire\Admin\Categories::class)->name('restaurantCategory');
 
         Route::get('foodCategory', \App\Http\Livewire\Admin\FoodCategory::class)->name('foodCategory');
@@ -33,6 +29,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
 
     Route::group(['middleware' => ['role:seller']], function () {
+        Route::get('/dashboard', \App\Http\Livewire\Seller\Dashboard::class)->name('dashboard')->middleware(\App\Http\Middleware\profile_completed::class);
         Route::get('RestaurantPanel', \App\Http\Livewire\Seller\RestaurantPanel::class)->name('RestaurantPanel');
         Route::get('FoodPanel', \App\Http\Livewire\Seller\FoodPanel::class)->name('FoodPanel')->middleware(\App\Http\Middleware\profile_completed::class);
         Route::get('OrdersPanel', \App\Http\Livewire\Seller\OredersPanelController::class)->name('OrdersPanel')->middleware(\App\Http\Middleware\profile_completed::class);

@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="dist/css/app.css"/>
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link rel="stylesheet" href="/dist/css/app.css"/>
     @livewireStyles
     <!-- END: CSS Assets-->
     {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />--}}
@@ -38,7 +38,7 @@
     {{--        }--}}
     {{--    </script>--}}
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('/js/app.js') }}" defer></script>
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet'/>
@@ -59,7 +59,7 @@
 <!-- BEGIN: JS Assets-->
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
-<script src="dist/js/app.js"></script>
+<script src="/dist/js/app.js"></script>
 <!-- END: JS Assets-->
 {{--<script src="https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoidmloZXQiLCJhIjoiY2w1M3Y4djVtMDdoZzNlcGIzbWFleXo2MCJ9.VnxA8zfJdeYV8abHiWQ2wQ--}}
 {{--" type="text/javascript"></script>--}}

@@ -753,32 +753,42 @@
             <div class="intro-x dropdown w-8 h-8">
                 <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
                      role="button" aria-expanded="false">
-                    <img alt="Icewall Tailwind HTML Admin Template" src="dist/images/profile-4.jpg">
+                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                        <img alt="Icewall Tailwind HTML Admin Template" src="dist/images/profile-11.jpg">
+                    @else
+                        <img alt="Icewall Tailwind HTML Admin Template" src="dist/images/profile-19.jpg">
+                    @endif
                 </div>
                 <div class="dropdown-menu w-56">
                     <div class="dropdown-menu__content box bg-theme-11 dark:bg-dark-6 text-white">
                         <div class="p-4 border-b border-theme-12 dark:border-dark-3">
-                            <div class="font-medium">انجلینا جولی</div>
-                            <div class="text-xs text-theme-13 mt-0.5 dark:text-gray-600">مهندس بک اند</div>
+                            <div class="font-medium">{{ Auth::user()->name }}</div>
+                            <div class="text-xs text-theme-13 mt-0.5 dark:text-gray-600">{{ Auth::user()->email }}</div>
                         </div>
                         <div class="p-2">
-                            <a href=""
+                            <a href="{{ route('profile.show') }}"
                                class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
                                 <i data-feather="user" class="w-4 h-4 ml-2"></i> پروفایل </a>
-                            <a href=""
-                               class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
-                                <i data-feather="edit" class="w-4 h-4 ml-2"></i> افزودن اکانت </a>
-                            <a href=""
+                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                <a href="{{ route('api-tokens.index') }}"
+                                   class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
+                                    <i data-feather="edit" class="w-4 h-4 ml-2"></i> {{__('توکن شما')}} </a>
+                            @endif
+                            <a href="{{ route('profile.show') }}"
                                class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
                                 <i data-feather="lock" class="w-4 h-4 ml-2"></i>بازیابی رمزعبور</a>
-                            <a href=""
-                               class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
-                                <i data-feather="help-circle" class="w-4 h-4 ml-2"></i>راهنمایی</a>
                         </div>
                         <div class="p-2 border-t border-theme-12 dark:border-dark-3">
-                            <a href=""
-                               class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
-                                <i data-feather="toggle-right" class="w-4 h-4 ml-2"></i>خروج</a>
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+
+                                <a href="{{ route('logout') }}"
+                                   class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"
+                                   @click.prevent="$root.submit();">
+                                    <i data-feather="toggle-right" class="w-4 h-4 ml-2"></i>
+                                    {{ __('خروج') }}
+                                </a>
+                            </form>
                         </div>
                     </div>
                 </div>

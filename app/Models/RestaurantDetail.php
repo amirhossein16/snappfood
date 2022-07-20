@@ -50,4 +50,9 @@ class RestaurantDetail extends Model
     {
         return $this->hasMany(WeekOpeningTime::class);
     }
+
+    public function Orders()
+    {
+        return $this->hasMany(Orders::class);
+    }
 }
