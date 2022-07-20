@@ -131,19 +131,18 @@
                             </div>
                         </div>
                         <div class="mb-6">
+                            <livewire:seller.week-opening-panel/>
+                        </div>
+                        <div class="mb-6">
                             <div class="mt-3">
-                                <label for="Location">دسته بندی رستوران
+                                <label for="Location" class="form-label">لوکیشن رستوران</label>
                                     <x-jet-input-error for="Restaurant.lat" class="mt-2"/>
-                                </label>
                                 <x-maps-leaflet
                                     :center-point="['lat' => 35.701253490910126, 'long' => 51.34916022406515]"
                                     :zoom-level="6"
                                     :markers="[['lat' => 35.701253490910126, 'long' => 51.34916022406515]]"
                                     wire:model.defer="Restaurant.lat" class="w-3/4 h-1/2 mx-auto border border-solid border-indigo-400 border-b-violet-700"></x-maps-leaflet>
                             </div>
-                        </div>
-                        <div class="mb-6">
-                            <livewire:seller.week-opening-panel/>
                         </div>
                         {{--                    @include('component.timeInput')--}}
                         <button type="submit" wire:click.prevent="saveRestaurant"

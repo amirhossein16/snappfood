@@ -10,7 +10,8 @@ class WeekOpeningPanel extends Component
     public $time;
     public $result = [];
     protected $rules = [
-        'schedule.1.start' => 'required'
+        'schedule.*.start' => 'required',
+        'schedule.*.end' => 'required',
     ];
 
 
@@ -37,7 +38,7 @@ class WeekOpeningPanel extends Component
         $this->validateOnly($time);
     }
 
-    public function setSchedule()
+    public function setSchedules()
     {
         $this->emit('setSchedule', $this->schedule);
     }

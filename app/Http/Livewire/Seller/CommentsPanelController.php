@@ -13,6 +13,7 @@ use Livewire\Component;
 class CommentsPanelController extends Component
 {
     public $comment;
+    public $totlaComment;
     public $comments;
     public $discount;
     public $confirmingComment = false;
@@ -23,6 +24,7 @@ class CommentsPanelController extends Component
      * @var Authenticatable|mixed|null
      */
     public mixed $user;
+    protected $listeners = ['reloadCommentTable'];
 
     protected $rules = [
         'comment.opinion' => 'string|required',
@@ -48,28 +50,6 @@ class CommentsPanelController extends Component
         }
         $this->confirmingEditDiscount = false;
     }
-
-    public function saveAnswer()
-    {
-        $this->validate();
-        $res = Comment::create([
-            'user_id' => auth()->user()->id,
-            'orders_id' => $this->comment->orders_id,
-            'restaurant_detail_id' => $this->comment->restaurant_detail_id,
-            'opinion' => $this->comments['response'],
-            'score' => null,
-            'confirm' => true,
-        ]);
-        DB::table('parent_child_comment')->insert([
-            'parent_comment_id' => $this->comment->id,
-            'child_comment_id' => $res->id,
-        ]);
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
-        ]);
-        $this->confirmingComment = false;
-    }
-
 
     public
     function addDiscount()
@@ -102,14 +82,6 @@ class CommentsPanelController extends Component
     }
 
     public
-    function referralComment(Comment $id)
-    {
-        $this->resetErrorBag();
-        $this->comment = $id;
-        $this->referralComment = true;
-    }
-
-    public
     function AnswerComments(Comment $id)
     {
         $this->resetErrorBag();
@@ -131,8 +103,7 @@ class CommentsPanelController extends Component
         $this->confirmingComment = $id;
     }
 
-    public
-    function ConfirmModalComment(Comment $comment)
+    public function ConfirmModalComment(Comment $comment)
     {
         $comment->confirm = true;
         $comment->save();
@@ -142,23 +113,16 @@ class CommentsPanelController extends Component
         ]);
     }
 
-    public
-    function ReferralModalComment(Comment $comment)
+    public function reloadCommentTable()
     {
-        $comment->confirm = 2;
-        $comment->save();
-        $this->referralComment = false;
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'کامنت با موفقیت ارجاع داده شد'
-        ]);
+        $this->totlaComment = Comment::where([['restaurant_detail_id', '=', \auth()->user()->restaurantDetail->id], ['user_id', '!=', auth()->user()->id]])->get();
     }
 
-    public
-    function render()
+    public function render()
     {
-        $Category = Comment::where([['restaurant_detail_id', '=', \auth()->user()->restaurantDetail->id],['user_id','!=',auth()->user()->id]])->get();
+        $this->reloadCommentTable();
         return view('livewire.seller.comments-panel-controller', [
-            'Category' => $Category
+            'Category' => $this->totlaComment
         ]);
     }
 }

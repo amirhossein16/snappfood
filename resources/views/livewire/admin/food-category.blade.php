@@ -1,7 +1,7 @@
 <div>
     <livewire:delete-modal/>
-    <livewire:edit-modal/>
-    <livewire:add-modal/>
+    <livewire:admin.modals.food-category-edit-modal/>
+    <livewire:admin.modals.food-category-add-modal/>
     <!-- BEGIN: Content -->
     <div class="wrapper wrapper--top-nav">
         <div class="wrapper-box">
@@ -13,26 +13,9 @@
                         تنظیمات دسته بندی غذاها
                     </x-tables.header>
                     <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-                        <button wire:click="$emit('confirmCategoryAdd')" class="btn btn-primary shadow-md ml-2">افزودن محصول جدید
+                        <button wire:click="$emit('confirmCategoryAdd')" class="btn btn-primary shadow-md ml-2">افزودن
+                            دسته بندی جدید
                         </button>
-                        <div class="dropdown mr-auto sm:ml-0">
-                            <button class="dropdown-toggle btn px-2 box text-white dark:text-gray-200"
-                                    aria-expanded="false">
-                            <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4"
-                                                                                       data-feather="plus"></i> </span>
-                            </button>
-                            <div class="dropdown-menu w-40">
-                                <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                                    <button
-                                        class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                        <i data-feather="file-plus" class="w-4 h-4 ml-2"></i>دسته بندی جدید
-                                    </button>
-                                    <a href=""
-                                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                        <i data-feather="users" class="w-4 h-4 ml-2"></i> گروه جدید </a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="intro-y box p-5 mt-5">
@@ -79,25 +62,3 @@
         </div>
     </div>
 </div>
-
-<x-jet-confirmation-modal wire:model="confirmingCategoryDeletion">
-    <x-slot name="title">
-        {{ __('Delete Product') }}
-    </x-slot>
-
-    <x-slot name="content">
-        {{ __('Are you sure you want to delete Product? ') }}
-    </x-slot>
-
-    <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$set('confirmingCategoryDeletion', false)"
-                                wire:loading.attr="disabled">
-            {{ __('Conceal') }}
-        </x-jet-secondary-button>
-
-        <x-jet-danger-button class="ml-2" wire:click="deleteCategory({{ $confirmingCategoryDeletion }})"
-                             wire:loading.attr="disabled">
-            {{ __('Delete') }}
-        </x-jet-danger-button>
-    </x-slot>
-</x-jet-confirmation-modal>

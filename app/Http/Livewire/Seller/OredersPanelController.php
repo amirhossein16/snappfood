@@ -26,36 +26,7 @@ class OredersPanelController extends Component
      */
     public mixed $user;
     public $details = [];
-
-
-    public function ChangeOrderStatus(Orders $id)
-    {
-        $this->resetErrorBag();
-        $this->order = $id;
-        if ($this->order->orderStatus == 4) {
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'warning', 'message' => 'محصول تحویل داده شده است !'
-            ]);
-        } else
-            $this->confirmingChangeOrderStatus = true;
-    }
-
-    public function ConvertOrderStatus()
-    {
-        if ($this->order->orderStatus < 5) {
-            $status = Cart::find($this->order->cart_id);
-            $OrderStatus = Orders::where([['cart_id', $status->id], ['id', $this->order->id]])->get()->last();
-            $status->orderStatus += 1;
-            $OrderStatus->OrderStatus += 1;
-            $status->save();
-            $OrderStatus->save();
-            Notification::send(User::find($this->order->user_id), new OrderMailNotif($OrderStatus));
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'وضعیت با موفقیت تغییر کرد !'
-            ]);
-        }
-        $this->confirmingChangeOrderStatus = false;
-    }
+    protected $listeners = ['reloadOrderTable'];
 
     public function confirmAddDiscount(Food $id)
     {
@@ -83,18 +54,24 @@ class OredersPanelController extends Component
 
     public function deleteCategory(Orders $category)
     {
-        dd($category);
         $this->OrderDetailsShow = false;
         $this->dispatchBrowserEvent('alert', [
             'type' => 'success', 'message' => 'دسته بندی با موفقیت حذف شد'
         ]);
     }
 
+    public $Order;
+
+    public function reloadOrderTable()
+    {
+        $this->Order = Orders::where('restaurant_detail_id', '=', \auth()->user()->restaurantDetail->id)->get();
+    }
+
     public function render()
     {
-        $Category = Orders::where('restaurant_detail_id', '=', \auth()->user()->restaurantDetail->id)->get();
+        $this->reloadOrderTable();
         return view('livewire.seller.oreders-panel-controller', [
-            'Category' => $Category
+            'Category' => $this->Order
         ]);
     }
 }

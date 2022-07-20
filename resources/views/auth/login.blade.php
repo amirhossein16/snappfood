@@ -51,9 +51,9 @@
                         <div class="intro-x mt-5 xl:mt-8 text-right xl:text-right">
                             <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
                                     type="submit">{{ __('ورود') }}</button>
-                            <button
+                            <a href="{{route('register')}}"
                                 class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">{{ __('ثبت نام') }}
-                            </button>
+                            </a>
                         </div>
                     </form>
                     <div class="intro-x mt-10 xl:mt-24 text-gray-700 dark:text-gray-600 text-right xl:text-right">

@@ -12,38 +12,6 @@ class FoodCategory extends Component
     public $confirmingCategoryUpdate = false;
     protected $listeners = ['refreshFoodTable'];
 
-    protected $rules = [
-        'foodCategory.FoodType' => 'required|min:3'
-    ];
-
-    public function confirmCategoryAdd()
-    {
-        $this->reset(['foodCategory']);
-        $this->confirmingCategoryUpdate = true;
-    }
-
-
-    public function saveCategory()
-    {
-        $this->validate();
-
-        if (isset($this->foodCategory->id)) {
-            $this->foodCategory->save();
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
-            ]);
-        } else {
-            foodCategories::create([
-                'FoodType' => $this->foodCategory['FoodType'],
-            ]);
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
-            ]);
-        }
-        $this->reset(['foodCategory']);
-        $this->confirmingCategoryUpdate = false;
-    }
-
     public function confirmCategoryEdit(foodCategories $id)
     {
         $this->resetErrorBag();

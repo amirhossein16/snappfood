@@ -5,8 +5,12 @@ namespace App\Http\Livewire\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\restaurantCategories;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use function PHPUnit\Framework\isNull;
 
 class Categories extends Component
 {
@@ -20,7 +24,7 @@ class Categories extends Component
      * @var Authenticatable|mixed|null
      */
     public mixed $user;
-    protected $listeners = ['refreshTable' => 'Category'];
+    protected $listeners = ['RefreshTable'];
 
     public function mount()
     {
@@ -29,36 +33,6 @@ class Categories extends Component
             $this->user = Auth::guard('superAdmin')->user();
             return $next($request);
         });
-    }
-
-    protected $rules = [
-        'restaurantCategory.RestaurantType' => 'required|min:3'
-    ];
-
-    public function confirmCategoryAdd()
-    {
-        $this->reset(['restaurantCategory']);
-        $this->confirmingCategoryUpdate = true;
-    }
-
-    public function saveCategory()
-    {
-        $this->validate();
-
-        if (isset($this->restaurantCategory->id)) {
-            $this->restaurantCategory->save();
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
-            ]);
-        } else {
-            restaurantCategories::create([
-                'RestaurantType' => $this->restaurantCategory['RestaurantType'],
-            ]);
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
-            ]);
-        }
-        $this->confirmingCategoryUpdate = false;
     }
 
     public function confirmCategoryEdit(restaurantCategories $id)
@@ -86,14 +60,14 @@ class Categories extends Component
 
     public $Categories;
 
-    public function Category()
+    public function RefreshTable()
     {
         $this->Categories = restaurantCategories::all();
     }
 
     public function render()
     {
-        $this->Category();
+        $this->RefreshTable();
         return view('livewire.admin.categories', [
             'Category' => $this->Categories
         ]);
