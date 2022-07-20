@@ -44,6 +44,13 @@
                                 <span class="text-sm text-gray-700">نام رستوران :</span>
                                 {{$item->name}}
                             </div>
+                            <div class="text-xl font-bold leading-8 mt-6 text-theme-17">
+                                @php
+                                    $filename = str_replace(' ','_',$item->name)
+                                @endphp
+                                <img src="{{ asset("storage/photos/Restaurant/$filename".'.png') }}"
+                                     alt="RestaurantBaner"/>
+                            </div>
                         </div>
                     </div>
                 </div>

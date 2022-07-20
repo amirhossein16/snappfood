@@ -85,7 +85,8 @@ class RestaurantPanel extends Component
         });
         $this->Restaurant->WeekOpeningTime()->whereNotIn('day', collect($this->time)->keys())->forceDelete();
         $this->validate();
-        $filename = now()->timestamp . '-' . $this->Restaurant->name . '.' . $this->photo->extension();
+        $restaurantName = str_replace(" ", "_", $this->Restaurant->name);
+        $filename = $restaurantName . '.' . $this->photo->extension();
         $this->photo->storeAs('photos/Restaurant', $filename);
         if (isset($this->Restaurant->id)) {
             $this->Restaurant->save();
