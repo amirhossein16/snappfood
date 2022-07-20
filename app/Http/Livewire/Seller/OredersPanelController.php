@@ -64,7 +64,7 @@ class OredersPanelController extends Component
 
     public function reloadOrderTable()
     {
-        $this->Order = Orders::where('restaurant_detail_id', '=', \auth()->user()->restaurantDetail->id)->get();
+        $this->Order = Orders::where([['restaurant_detail_id', '=', \auth()->user()->restaurantDetail->id], ['OrderStatus', '!=', 4]])->get();
     }
 
     public function render()

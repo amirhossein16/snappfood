@@ -9,6 +9,7 @@ use App\Models\CartFood;
 use App\Models\Discount;
 use App\Models\DiscountFood;
 use App\Models\Food;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -43,27 +44,35 @@ class UserCartController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return false|JsonResponse
-     * @throws \Exception
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Exception
      */
     public function store(Request $request)
     {
         try {
             $food = Food::findOrFail($request->food_id);
-        } catch (ModelNotFoundException $e) {
+        } catch (Exception $e) {
             return response()->json(['msg' => 'Food Not Found' . $e->getMessage()], 404);
         }
         try {
-            if (empty(CartFood::where([['food_id', $request->food_id], ['cart_id', auth('api')->user()->cart->id]])->get()))
-                throw new \Exception('Food Exist');
+            if (empty(
+            CartFood::where([['food_id', $request->food_id], ['cart_id', auth('api')->user()->cart]])->get())
+            )
+                return response()->json(['msg' => 'Food Exist']);
             DB::beginTransaction();
+
             $cart = Cart::where([['user_id', auth('api')->id()], ['state', 'FirstCart'], ['restaurant_detail_id', $food->restaurant_detail_id]])->get()->first();
             if ($food->off == 1) {
+
                 $query = Discount::where('id', DiscountFood::where('food_id', $food->id)->get()->first()->discount_id)->get()->first();
+
                 if ($query->type == 'Percentage') {
+
                     $foodPrice = ((int)$food->price * (100 - $query->amount)) / 100;
+
                 } elseif ($query->type == 'Price') {
+
                     $foodPrice = (int)$food->price - $query->amount;
                 }
             }
@@ -75,6 +84,9 @@ class UserCartController extends Controller
                     'state' => 'FirstCart',
                     'restaurant_detail_id' => $food->restaurant_detail_id
                 ]);
+            } else {
+                $cart->price += ($foodPrice * $request->count);
+                $cart->save();
             }
 
             $cartFood = CartFood::where(['cart_id' => $cart->id, 'food_id' => $food->id])->get()->first();
@@ -92,9 +104,9 @@ class UserCartController extends Controller
             }
             DB::commit();
             return response()->json(['msg' => "added successfully"]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
-            throw $e->getMessage;
+            return response()->json(['MSG' => $e->getMessage()]);
         }
     }
 
@@ -113,11 +125,11 @@ class UserCartController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return JsonResponse|Response
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $cart = Cart::where([['id', $id], ['user_id', auth('api')->user()->id]])->get()->first();
         $food = CartFood::where([['food_id', (int)$request->food_id], ['cart_id', $cart->id]])->get()->first();
@@ -150,9 +162,9 @@ class UserCartController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         //
     }

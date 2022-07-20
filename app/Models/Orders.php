@@ -21,4 +21,9 @@ class Orders extends Model
     {
         return $this->belongsTo(Cart::class);
     }
+
+    public function RestaurantDetail()
+    {
+        return $this->belongsTo(RestaurantDetail::class);
+    }
 }

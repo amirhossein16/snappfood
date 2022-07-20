@@ -43,7 +43,7 @@
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{ $Categories->id }}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{\App\Models\User::find(\App\Models\Cart::where('id',$Category->first()->cart_id)->get()->first()->user_id)->name}}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
-                                                    {{ \App\Models\Cart::where('id',$Category->first()->cart_id)->get()->first()->price }}
+                                                    {{$Categories->Total_price}}
                                                 </td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">// pvot for
                                                     address
