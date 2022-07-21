@@ -42,4 +42,9 @@ class UserAddress extends Model implements JWTSubject
         'latitude',
         'longitude',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

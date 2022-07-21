@@ -20,7 +20,7 @@
 </head>
 <!-- END: Head -->
 
-<body class="main overflow-hidden h-screen">
+<body class="main overflow-hidden">
 <!-- BEGIN: Content -->
 <div class="wrapper wrapper--top-nav mt-24">
     <div class="wrapper-box pt-16">

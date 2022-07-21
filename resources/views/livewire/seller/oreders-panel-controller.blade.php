@@ -45,9 +45,15 @@
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
                                                     {{$Categories->Total_price}}
                                                 </td>
-                                                <td class="border-b dark:border-dark-5 text-lg font-medium">// pvot for
-                                                    address
-                                                </td>
+                                                @if($Categories->cart->user->UserAddress !=null)
+                                                    <td class="report-box__indicator tooltip cursor-pointer border-b dark:border-dark-5 text-lg font-medium"
+                                                        title="{{$Categories->cart->user->UserAddress->address}}">
+                                                        {{ Str::limit($Categories->cart->user->UserAddress->address, 50) }}
+                                                    </td>
+                                                @else
+                                                    <td class="border-b dark:border-dark-5 text-lg font-medium">
+                                                    </td>
+                                                @endif
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{$Categories->created_at}}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">@php
                                                         if ($Categories->OrderStatus == 1)

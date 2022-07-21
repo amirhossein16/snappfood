@@ -116,7 +116,7 @@
                                     <div class="preview">
                                         <div class="dropzone">
                                             <div class="fallback">
-                                                <input wire:model="photo" type="file"/>
+                                                <input wire:model="photo" type="file" multiple/>
                                             </div>
                                             <div class="dz-message" data-dz-message>
                                                 <div class="text-lg font-medium">فایل خود را اینجا بکشید و رها کنید
@@ -128,7 +128,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- Progress Bar -->
                                 <div x-show="isUploading">
                                     <progress max="100" x-bind:value="progress"></progress>

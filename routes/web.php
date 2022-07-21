@@ -26,6 +26,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
 
         Route::get('DiscountPanel', \App\Http\Livewire\Admin\DiscountPanel::class)->name('DiscountPanel');
+
+        Route::get('FoodParty', \App\Http\Livewire\Admin\FoodPartyPanel::class)->name('FoodParty');
+
+        Route::get('FrontBanner', \App\Http\Livewire\Admin\Banner::class)->name('FrontBanner');
     });
 
     Route::group(['middleware' => ['role:seller']], function () {
