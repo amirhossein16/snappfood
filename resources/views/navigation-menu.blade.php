@@ -835,6 +835,20 @@
                     <div class="top-menu__title"> کدتخفیف ها</div>
                 </x-jet-nav-link>
             </li>
+            <li>
+                <x-jet-nav-link href="{{ route('FoodParty') }}" :active="request()->routeIs('FoodParty')"
+                                class="top-menu">
+                    <div class="top-menu__icon"><i data-feather="tag" class="block mx-auto"></i></div>
+                    <div class="top-menu__title">فود پارتی</div>
+                </x-jet-nav-link>
+            </li>
+            <li>
+                <x-jet-nav-link href="{{ route('FrontBanner') }}" :active="request()->routeIs('FrontBanner')"
+                                class="top-menu">
+                    <div class="top-menu__icon"><i data-feather="tag" class="block mx-auto"></i></div>
+                    <div class="top-menu__title">تنظیمات بنر</div>
+                </x-jet-nav-link>
+            </li>
             @endrole
             @role('seller')
             <li>
