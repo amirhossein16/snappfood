@@ -30,12 +30,20 @@
                 @if (Route::has('login'))
                     <div class="hidden fixed top-0 right-0 px-6 py-4 w-full sm:flex justify-center">
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="btn btn-outline-success w-24 inline-block ml-1 mb-2">پنل کاربری</a>
+                            @role('seller')
+                            <a href="{{ url('/dashboard') }}"
+                               class="btn btn-outline-success w-24 inline-block ml-1 mb-2">پنل کاربری</a>
+                            @endrole
+                            @role('superadmin')
+                            <a href="{{ url('/Admin') }}"
+                               class="btn btn-outline-success w-24 inline-block ml-1 mb-2">پنل کاربری</a>
+                            @endrole
                         @else
                             <a href="{{ route('login') }}" class="btn btn-elevated-warning w-24 ml-4 mb-2">ورود</a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn btn-elevated-danger w-24 ml-1 mb-2">ثبت نام</a>
+                                <a href="{{ route('register') }}" class="btn btn-elevated-danger w-24 ml-1 mb-2">ثبت
+                                    نام</a>
                             @endif
                         @endauth
                     </div>

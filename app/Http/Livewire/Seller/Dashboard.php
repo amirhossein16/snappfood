@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Seller;
 
 use App\Models\Orders;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Dashboard extends Component

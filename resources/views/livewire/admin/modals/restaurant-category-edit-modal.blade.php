@@ -14,6 +14,7 @@
                            wire:model.defer="restaurantCategory.RestaurantType">
                     <x-jet-input-error for="restaurantCategory.RestaurantType" class="mt-2"/>
                 </div>
+            </div>
         </x-slot>
 
         <x-slot name="footer">
@@ -23,7 +24,7 @@
             </x-jet-secondary-button>
 
             <x-jet-button class="ml-2 btn btn-primary w-20" wire:click="saveCategory()"
-                                 wire:loading.attr="disabled">
+                          wire:loading.attr="disabled">
                 {{ __('ویرایش') }}
             </x-jet-button>
         </x-slot>

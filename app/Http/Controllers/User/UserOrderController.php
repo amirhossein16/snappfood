@@ -41,25 +41,34 @@ class UserOrderController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $order = Cart::where([['id', $request->input('cart_id')], ['user_id', auth('api')->user()->id]])->get()->first();
-            if ($order != null && $order->state == 'FirstCart') {
-                $order->state = 'Payed';
-                $order->save();
-                Orders::create([
-                    'cart_id' => $request->input('cart_id'),
-                    'restaurant_detail_id' => $order->restaurant_detail_id,
-                    'Total_price' => $order->price,
-                    'orderStatus' => 1
-                ]);
-                return response()->json(['msg' => 'payed successfully']);
-            } elseif ($order != null && $order->state == 'Payed') {
-                return response()->json(['msg' => 'This shopping cart has already been paid for']);
-            } else
-                return response()->json(['msg' => 'The shopping cart is not available or you do not have access !(']);
 
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['msg' => 'Cart Not Found' . $e->getMessage()], 404);
+        if (auth('api')->user()->UserAddress()->get()->first() != null) {
+            if (!empty(auth('api')->user()->UserAddress()->get()->where('currentAddress', 1))) {
+                try {
+                    $order = Cart::where([['id', $request->input('cart_id')], ['user_id', auth('api')->user()->id]])->get()->first();
+                    if ($order != null && $order->state == 'FirstCart') {
+                        $order->state = 'Payed';
+                        $order->save();
+                        Orders::create([
+                            'cart_id' => $request->input('cart_id'),
+                            'restaurant_detail_id' => $order->restaurant_detail_id,
+                            'Total_price' => $order->price,
+                            'orderStatus' => 1
+                        ]);
+                        return response()->json(['msg' => 'payed successfully']);
+                    } elseif ($order != null && $order->state == 'Payed') {
+                        return response()->json(['msg' => 'This shopping cart has already been paid for']);
+                    } else
+                        return response()->json(['msg' => 'The shopping cart is not available or you do not have access !(']);
+
+                } catch (ModelNotFoundException $e) {
+                    return response()->json(['msg' => 'Cart Not Found' . $e->getMessage()], 404);
+                }
+            } else {
+                return response()->json(['msg' => 'You have not set your current address']);
+            }
+        } else {
+            return response()->json(['msg' => 'You Should Select Your Address']);
         }
     }
 
@@ -69,7 +78,8 @@ class UserOrderController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public
+    function show($id)
     {
         //
     }
@@ -81,7 +91,8 @@ class UserOrderController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         //
     }
@@ -92,7 +103,8 @@ class UserOrderController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         //
     }

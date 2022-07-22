@@ -13,7 +13,8 @@
                         تنظیمات دسته بندی رستوران
                     </x-tables.header>
                     <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-                        <button wire:click="$emit('confirmCategoryAdd')" class="btn btn-primary shadow-md ml-2">افزودن دسته بندی جدید
+                        <button wire:click="$emit('confirmCategoryAdd')" class="btn btn-primary shadow-md ml-2">افزودن
+                            دسته بندی جدید
                         </button>
                     </div>
                 </div>
@@ -43,11 +44,11 @@
                                                             wire:click="$emit('EditModalConfirm',{{$Categories->id}})">
                                                         ویرایش
                                                     </button>
-                                                    <x-jet-button
+                                                    <button
                                                         class="btn btn-elevated-secondary w-24 ml-1 mb-2 text-indigo-900"
-                                                        wire:click="$emit('DeleteModal',{{$Categories->id}})"
+                                                        wire:click="$emit('DeleteModals','\\App\\Models\\restaurantCategories',{{$Categories->id}},'حذف دسته بندی رستوران' ,'آیا از حذف دسته بندی {{$Categories->RestaurantType}} مطمئن هستید ؟')"
                                                     >حذف
-                                                    </x-jet-button>
+                                                    </button>
                                                 </td>
                                             </tr>
                                             @endforeach

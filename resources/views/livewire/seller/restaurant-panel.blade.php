@@ -9,11 +9,11 @@
                 @if(empty(auth()->user()->restaurantDetail->restaurant_categories_id))
                     <x-jet-confirmation-modal wire:model="confirmingPanelModal">
                         <x-slot name="title">
-                            {{ __('Incomplete information') }}
+                            {{ __('اطلاعات ناقص') }}
                         </x-slot>
 
                         <x-slot name="content">
-                            {{ __('To access the restaurant admin panel, please complete your restaurant information !') }}
+                            {{ __('برای دسترسی به پنل مدیریت رستوران، لطفا اطلاعات رستوران خود را تکمیل کنید !') }}
                         </x-slot>
 
                         <x-slot name="footer">

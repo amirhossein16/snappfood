@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class RestaurantCategoryEditModal extends Component
 {
-    public $confirmingCategoryUpdate;
+    public $confirmingCategoryUpdate = false;
     public $restaurantCategory;
     protected $listeners = ['EditModalConfirm'];
 
@@ -21,6 +21,7 @@ class RestaurantCategoryEditModal extends Component
         $this->confirmingCategoryUpdate = true;
         $this->restaurantCategory = $id;
     }
+
     public function saveCategory()
     {
         $this->validate();
@@ -34,7 +35,8 @@ class RestaurantCategoryEditModal extends Component
         $this->emit('refreshTable');
         $this->confirmingCategoryUpdate = false;
     }
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+
+    public function render()
     {
         return view('livewire.admin.modals.restaurant-category-edit-modal');
     }

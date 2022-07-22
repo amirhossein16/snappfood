@@ -1,4 +1,5 @@
 <div>
+    <livewire:delete-modal/>
     <livewire:admin.modals.banner-modal/>
     <!-- BEGIN: Content -->
     <div class="wrapper wrapper--top-nav">
@@ -8,11 +9,11 @@
                 <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
 
                     <x-tables.header>
-                        تنظیمات کدتخفیف
+                        تنظیمات بنر
                     </x-tables.header>
                     <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-                        <button wire:click="$emit('confirmDiscountAdd')" class="btn btn-primary shadow-md ml-2">افزودن
-                            کد تخفیف جدید
+                        <button wire:click="$emit('confirmBannerAdd')" class="btn btn-primary shadow-md ml-2">افزودن
+                            بنر جدید
                         </button>
                     </div>
                 </div>
@@ -24,6 +25,7 @@
                                     <thead>
                                     <tr>
                                         <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">ردیف</th>
+                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">نام بنر</th>
                                         <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">تصویر بنر</th>
                                         <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">عملیات</th>
                                     </tr>
@@ -39,29 +41,26 @@
                                         <tr class="bg-gray-200 dark:bg-dark-1 h-64">
                                             {{--                                                @endif--}}
                                             <td class="border-b dark:border-dark-5 text-lg font-medium">{{ ++$Row }}</td>
+                                            <td class="report-box__indicator tooltip cursor-pointer border-b dark:border-dark-5 text-lg font-medium"
+                                                title="{{$pic->name}}">
+                                                {{ Str::limit($pic->name, 30) }}
+                                            </td>
                                             <td class="w-2/3">
                                                 <div class="flex">
-                                                    @if(Storage::disk('public')->exists("$pic"))
+                                                    @if(Storage::disk('public')->exists("$pic->path"))
                                                         <div class="w-full h-56 image-fit zoom-in">
                                                             <img alt="Icewall Tailwind HTML Admin Template"
                                                                  class="tooltip rounded"
-                                                                 src="{{asset("storage/$pic")}}"
-                                                                 title="آپلود شده در19 آذر 1400"/>
+                                                                 src="{{asset("storage/$pic->path")}}"
+                                                                 title="بارگزاری شده در تاریخ : {{$pic->created_at}}"/>
                                                         </div>
                                                     @endif
                                                 </div>
                                             </td>
                                             <td class="border-b dark:border-dark-5 text-lg font-medium">
-                                                @php
-                                                    preg_match("#[^/]+$#",$pic,$match);
-                                                @endphp
-                                                <button class="btn text-sm btn-elevated-primary w-20 ml-1 mb-2"
-                                                        wire:click="$emit('EditModalConfirm',{{$match[0]}})">
-                                                    ویرایش
-                                                </button>
                                                 <x-jet-button
-                                                    class="btn btn-elevated-secondary w-16 ml-1 mb-2 text-indigo-900"
-                                                    wire:click="$emit('DeleteModal',{{$match[0]}})"
+                                                    class="btn btn-elevated-danger w-16 ml-1 mb-2 text-indigo-900"
+                                                    wire:click="$emit('DeleteModals','\\\App\\\Models\\\Banner',{{$pic->id}},'حذف بنر' ,'آیا از حذف بنر {{$pic->name}} مطمئن هستید ؟')"
                                                 >حذف
                                                 </x-jet-button>
                                             </td>

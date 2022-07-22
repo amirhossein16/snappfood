@@ -41,14 +41,16 @@
                                             <tr class="bg-gray-200 dark:bg-dark-1">
                                                 @endif
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{ $Categories->id }}</td>
-                                                <td class="border-b dark:border-dark-5 text-lg font-medium">{{\App\Models\User::find(\App\Models\Cart::where('id',$Category->first()->cart_id)->get()->first()->user_id)->name}}</td>
+                                                <td class="border-b dark:border-dark-5 text-lg font-medium">
+                                                    {{$Categories->cart->user->name}}
+                                                </td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
                                                     {{$Categories->Total_price}}
                                                 </td>
-                                                @if($Categories->cart->user->UserAddress !=null)
+                                                @if($Categories->cart->user->UserAddress->where('currentAddress',1)->first() !=null)
                                                     <td class="report-box__indicator tooltip cursor-pointer border-b dark:border-dark-5 text-lg font-medium"
-                                                        title="{{$Categories->cart->user->UserAddress->address}}">
-                                                        {{ Str::limit($Categories->cart->user->UserAddress->address, 50) }}
+                                                        title="{{$Categories->cart->user->UserAddress->where('currentAddress',1)->first()->address}}">
+                                                        {{ Str::limit($Categories->cart->user->UserAddress->where('currentAddress',1)->first()->address, 50) }}
                                                     </td>
                                                 @else
                                                     <td class="border-b dark:border-dark-5 text-lg font-medium">

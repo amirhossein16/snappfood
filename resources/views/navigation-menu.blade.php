@@ -800,14 +800,16 @@
     <!-- BEGIN: Top Menu -->
     <nav class="top-nav">
         <ul>
+            @role('superadmin')
             <li>
-                <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')"
-                                class="top-menu">
+                <x-jet-nav-link
+                    href="{{ route('Admin') }}"
+                    :active="request()->routeIs('Admin')"
+                    class="top-menu">
                     <div class="top-menu__icon"><i data-feather="home"></i></div>
                     <div class="top-menu__title">داشبورد</div>
                 </x-jet-nav-link>
             </li>
-            @role('superadmin')
             <li>
                 <x-jet-nav-link href="{{ route('restaurantCategory') }}"
                                 :active="request()->routeIs('restaurantCategory')" class="top-menu">
@@ -838,44 +840,60 @@
             <li>
                 <x-jet-nav-link href="{{ route('FoodParty') }}" :active="request()->routeIs('FoodParty')"
                                 class="top-menu">
-                    <div class="top-menu__icon"><i data-feather="tag" class="block mx-auto"></i></div>
+                    <div class="top-menu__icon">
+                        <i data-feather="slack" class="block mx-auto"></i>
+                    </div>
                     <div class="top-menu__title">فود پارتی</div>
                 </x-jet-nav-link>
             </li>
             <li>
                 <x-jet-nav-link href="{{ route('FrontBanner') }}" :active="request()->routeIs('FrontBanner')"
                                 class="top-menu">
-                    <div class="top-menu__icon"><i data-feather="tag" class="block mx-auto"></i></div>
+                    <div class="top-menu__icon">
+                        <i data-feather="image" class="block mx-auto"></i>
+                    </div>
                     <div class="top-menu__title">تنظیمات بنر</div>
                 </x-jet-nav-link>
             </li>
             @endrole
             @role('seller')
             <li>
+                <x-jet-nav-link
+                    href="{{ route('dashboard') }}"
+                    :active="request()->routeIs('dashboard')"
+                    class="top-menu">
+                    <div class="top-menu__icon"><i data-feather="home"></i></div>
+                    <div class="top-menu__title">داشبورد</div>
+                </x-jet-nav-link>
+            </li>
+            <li>
                 <x-jet-nav-link href="{{ route('RestaurantPanel') }}"
                                 :active="request()->routeIs('RestaurantPanel')" class="top-menu">
-                    <div class="top-menu__icon"><i data-feather="sidebar"></i></div>
+                    <div class="top-menu__icon">
+                        <i data-feather="aperture" class="block mx-auto"></i>
+                    </div>
                     <div class="top-menu__title"> پروفایل رستوران</div>
                 </x-jet-nav-link>
             </li>
             <li>
                 <x-jet-nav-link href="{{ route('FoodPanel') }}"
                                 :active="request()->routeIs('FoodPanel')" class="top-menu">
-                    <div class="top-menu__icon"><i data-feather="sidebar"></i></div>
+                    <div class="top-menu__icon"><i data-feather="coffee" class="block mx-auto"></i></div>
                     <div class="top-menu__title"> تنظیمات غذاها</div>
                 </x-jet-nav-link>
             </li>
             <li>
                 <x-jet-nav-link href="{{ route('OrdersPanel') }}"
                                 :active="request()->routeIs('OrdersPanel')" class="top-menu">
-                    <div class="top-menu__icon"><i data-feather="sidebar"></i></div>
+                    <div class="top-menu__icon"><i data-feather="shopping-cart" class="block mx-auto"></i></div>
                     <div class="top-menu__title"> سفارش ها</div>
                 </x-jet-nav-link>
             </li>
             <li>
                 <x-jet-nav-link href="{{ route('CommentsPanel') }}"
                                 :active="request()->routeIs('CommentsPanel')" class="top-menu">
-                    <div class="top-menu__icon"><i data-feather="sidebar"></i></div>
+                    <div class="top-menu__icon">                            <i data-feather="inbox" class="block mx-auto"></i>
+                    </div>
                     <div class="top-menu__title"> نظر ها</div>
                 </x-jet-nav-link>
             </li>

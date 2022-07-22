@@ -8,15 +8,16 @@ use Livewire\Component;
 class Banner extends Component
 {
     public $banner;
+    protected $listeners = ['RefreshTable'];
 
-    public function BannerReader()
+    public function RefreshTable()
     {
-        $this->banner = Storage::disk('public')->allFiles("photos/banners");
+        $this->banner = \App\Models\Banner::all();
     }
 
     public function render()
     {
-        $this->BannerReader();
+        $this->RefreshTable();
         return view('livewire.admin.banner', [
             'image' => $this->banner
         ]);

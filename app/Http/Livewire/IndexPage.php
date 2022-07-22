@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Banner;
 use App\Models\Food;
 use App\Models\FoodParty;
 use App\Models\RestaurantDetail;
@@ -12,7 +13,8 @@ class IndexPage extends Component
 {
     public $Restaurant;
     public $FoodPartys;
-    public $FoodParty=[];
+    public $Banner;
+    public $FoodParty = [];
 
     public function RestaurantDetails()
     {
@@ -21,6 +23,7 @@ class IndexPage extends Component
         foreach ($this->FoodPartys as $item) {
             $this->FoodParty[] = Food::where('id', $item->food_id)->get();
         }
+        $this->Banner = Banner::all('path');
     }
 
     public function render()
@@ -29,6 +32,7 @@ class IndexPage extends Component
         return view('livewire.index-page', [
             'Restaurant' => $this->Restaurant,
             'FoodParty' => $this->FoodParty,
+            'Banners' => $this->Banner
         ])->layout('layouts.index');
     }
 }

@@ -2,24 +2,40 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\RestaurantDetail;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class DeleteModal extends Component
 {
-    protected $listeners = ['DeleteModal' => 'deleteMethod'];
-
+    public $CategoryDeletion;
     public $confirmingCategoryDeletion = false;
-    public $data;
+    public $modalMessage = '';
+    public $modalHeading = '';
+    public $model;
+    protected $listeners = ['DeleteModals'];
 
-    public function deleteMethod($id)
+    public function DeleteModals($modelType, $id, $modalHeading, $modalMessage)
     {
         $this->confirmingCategoryDeletion = true;
-        $this->data = $id;
+        $this->model = $modelType::findOrFail($id);
+        $this->CategoryDeletion = $id;
+        $this->modalHeading = $modalHeading;
+        $this->modalMessage = $modalMessage;
     }
 
-    public function CandelDelete()
+    public function deleteCategory()
     {
+        $name = $this->model->name;
+        if ($this->model->path != null) {
+            Storage::disk('public')->delete("photos/banners/$name");
+            $this->model->delete();
+        } else {
+            $this->model->delete();
+        }
         $this->confirmingCategoryDeletion = false;
+        $this->emit('RefreshTable');
+        $this->emitTo('livewire-toast', 'showError', " با موفقیت حذف شد $this->modalHeading !");
     }
 
     public function render()

@@ -28,12 +28,10 @@ class RestaurantCategoryAddModal extends Component
         restaurantCategories::create([
             'RestaurantType' => $this->restaurantCategory['RestaurantType'],
         ]);
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
-        ]);
 
-        $this->emit('RefreshTable');
+        $this->emit("RefreshTable");
         $this->confirmingCategoryUpdate = false;
+        $this->emitTo('livewire-toast', 'show', 'دسته بندی با موفقیت اضافه گردید :)');
     }
 
     public function render()

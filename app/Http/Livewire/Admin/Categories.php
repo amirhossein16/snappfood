@@ -15,15 +15,7 @@ use function PHPUnit\Framework\isNull;
 class Categories extends Component
 {
 
-    public $restaurantCategory;
-    public $CategoryDeletion;
-    public $confirmingCategoryDeletion = false;
-    public $confirmingCategoryUpdate = false;
-    public $wire;
-    /**
-     * @var Authenticatable|mixed|null
-     */
-    public mixed $user;
+    public $Categories;
     protected $listeners = ['RefreshTable'];
 
     public function mount()
@@ -35,30 +27,6 @@ class Categories extends Component
         });
     }
 
-    public function confirmCategoryEdit(restaurantCategories $id)
-    {
-        $this->resetErrorBag();
-        $this->restaurantCategory = $id;
-        $this->confirmingCategoryUpdate = true;
-    }
-
-
-    public function confirmCategoryDeletion($id)
-    {
-        $this->confirmingCategoryDeletion = true;
-        $this->CategoryDeletion = $id;
-    }
-
-    public function deleteCategory(restaurantCategories $category)
-    {
-        $category->delete();
-        $this->confirmingCategoryDeletion = false;
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'دسته بندی با موفقیت حذف شد'
-        ]);
-    }
-
-    public $Categories;
 
     public function RefreshTable()
     {

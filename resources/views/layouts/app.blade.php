@@ -46,7 +46,7 @@
 <!-- END: Head -->
 <body class="main">
 {{--<x-jet-banner/>--}}
-
+@livewire('livewire-toast')
 @livewire('navigation-menu')
 
 <!-- Page Content -->

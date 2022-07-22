@@ -29,8 +29,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::apiResource('carts', \App\Http\Controllers\User\UserCartController::class);
     Route::apiResource('payment', \App\Http\Controllers\User\UserOrderController::class);
 
-//    Route::post('addresses', [\App\Http\Controllers\User\AddressController::class, 'update']);
     Route::apiResource('addresses', \App\Http\Controllers\User\AddressController::class);
+    Route::get('nearbyRestaurants', [\App\Http\Controllers\User\nearbyRestaurants::class, 'index']);
+//    Route::post('nearbyRestaurants', [\App\Http\Controllers\User\nearbyRestaurants::class, 'store']);
 
     Route::apiResource('comments', \App\Http\Controllers\User\CommentsController::class);
 });

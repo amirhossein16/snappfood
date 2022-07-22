@@ -2,7 +2,7 @@
     <div class="col-span-12 mt-8">
         <div class="intro-y flex items-center h-10">
             <h2 class="text-lg font-medium truncate ml-5 flex-1 w-full btn btn-outline-danger rounded-full mx-auto relative">
-                رستوران های اسنپ فود
+                تبلیغات ( بنر )
             </h2>
             <a href="" class="mr-auto flex items-center text-theme-26 dark:text-theme-33"> <i data-feather="refresh-ccw"
                                                                                               class="w-4 h-4 ml-3"></i>
@@ -13,11 +13,13 @@
                 <div class="preview">
                     <div class="mx-6">
                         <div class="single-item">
-                            <div class="h-32 px-2">
+                            <div class="h-64 px-2">
                                 <div class="h-full bg-gray-200 w-full dark:bg-dark-1 rounded-md">
-                                    {{--                        <h3 class="h-full font-medium flex items-center justify-center text-2xl">--}}
-{{--                                    <img src="{{$image}}" alt="">--}}
-                                    {{--                        </h3>--}}
+                                    @foreach($Banners as $Banner)
+                                        <div class="h-full font-medium flex items-center justify-center text-2xl">
+                                            <img src="{{asset("storage/$Banner->path")}}" alt="Banner" class="rounded-full">
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -25,6 +27,8 @@
                 </div>
             </div>
         </div>
+            <h2 class="text-lg font-medium truncate ml-5 mt-8 flex-1 w-full btn btn-outline-warning rounded-full mx-auto relative">
+                 رستوران های اسنپ فود</h2>
         <div class="grid grid-cols-12 gap-6 mt-5">
             @foreach($Restaurant as $item)
                 <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
