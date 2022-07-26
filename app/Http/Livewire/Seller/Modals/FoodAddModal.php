@@ -14,7 +14,7 @@ class FoodAddModal extends Component
 
     protected $rules = [
         'food.title' => 'required|min:3',
-        'food.price' => 'required|min:3',
+        'food.price' => 'required|min:3|numeric',
         'food.food_categories_id' => 'required',
         'food.raw_material' => 'required'
     ];

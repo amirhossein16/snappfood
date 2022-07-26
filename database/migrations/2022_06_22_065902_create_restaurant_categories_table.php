@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('restaurant_categories', function (Blueprint $table) {
             $table->id();
             $table->string('RestaurantType');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

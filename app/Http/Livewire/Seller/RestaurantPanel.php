@@ -6,6 +6,8 @@ use App\Models\restaurantCategories;
 use App\Models\RestaurantDetail;
 use App\Models\WeekOpeningTime;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -40,7 +42,31 @@ class RestaurantPanel extends Component
 
     public function mount()
     {
+//        $table = 'restaurant_details'; // change it to your db table
+//
+//        $columns = Schema::getColumnListing($table);
+//
+//        $dates = ['created_at', 'updated_at']; // add other date, timespan, or datetime fields
+//
+//        $data = DB::table($table)->where('id', auth()->user()->restaurantDetail->id)->where(function ($query) use ($columns, $dates) {
+//            foreach ($columns as $column) {
+//                $query->orWhereNull($column);
+//
+//                if (!in_array($column, $dates)) {
+//                    $query->orWhere($column, '');
+//                }
+//            }
+//        })->get();
+//        $result = $data->mapWithKeys(function ($item) {
+//            return [
+//                $item->id => collect($item)->filter(function ($property) {
+//                    return is_null($property) || empty($property);
+//                })->keys()->toArray()
+//            ];
+//        });
+//        dd(array_key_exists(1,$result->first()),$result->first());
         $this->confirmingPanelModal = true;
+        $this->confirminglocationModal = true;
         $this->Restaurant = RestaurantDetail::where('user_id', '=', auth()->user()->id)->get()->first();
         $this->opening = $this->Restaurant->is_open;
     }
@@ -50,6 +76,7 @@ class RestaurantPanel extends Component
         'Restaurant.address' => 'required',
         'Restaurant.phone' => 'required',
         'Restaurant.ShippingCost' => 'required',
+        'Restaurant.accountNumber' => 'required',
         'Restaurant.restaurant_categories_id' => 'required',
 //        'photo' => 'image|mimes:png,jpg|max:102400', // 12MB Max
     ];
@@ -59,6 +86,7 @@ class RestaurantPanel extends Component
         'Restaurant.address.required' => 'آدرس رستوران نمیتواند خالی باشد !',
         'Restaurant.phone.required' => 'شماره تماس رستوران نمیتواند خالی باشد !',
         'Restaurant.ShippingCost.required' => 'هزینه ارسال رستوران نمیتواند خالی باشد !',
+        'Restaurant.accountNumber.required' => 'شماره حساب رستوران نمیتواند خالی باشد !',
         'Restaurant.restaurant_categories_id.required' => 'دسته بندی رستوران نمیتواند خالی باشد !',
     ];
 

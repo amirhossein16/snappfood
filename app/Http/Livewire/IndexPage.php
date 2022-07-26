@@ -18,12 +18,19 @@ class IndexPage extends Component
 
     public function RestaurantDetails()
     {
-        $this->Restaurant = RestaurantDetail::where('name', '!=', null)->get();
-        $this->FoodPartys = DB::table('food_partiey')->select('food_id')->where('food_party_id', FoodParty::where('status', true)->get()->first()->id)->get();
-        foreach ($this->FoodPartys as $item) {
-            $this->FoodParty[] = Food::where('id', $item->food_id)->get();
+        if (RestaurantDetail::all()->first() != null) {
+            $this->Restaurant = RestaurantDetail::where('name', '!=', null)->get();
         }
-        $this->Banner = Banner::all('path');
+
+        if (FoodParty::all()->first() != null && DB::table('food_partiey')->select('food_id')->get()->first() != null) {
+            $this->FoodPartys = DB::table('food_partiey')->select('food_id')->where('food_party_id', FoodParty::where('status', true)->get()->first()->id)->get();
+            foreach ($this->FoodPartys as $item) {
+                $this->FoodParty[] = Food::where('id', $item->food_id)->get();
+            }
+        }
+        if (Banner::all()->first() != null) {
+            $this->Banner = Banner::all('path');
+        }
     }
 
     public function render()

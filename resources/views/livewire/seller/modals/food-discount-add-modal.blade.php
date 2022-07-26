@@ -9,23 +9,28 @@
             <div class="col-span-12 sm:col-span-12">
                 <div class="mt-3">
                     <label for="name" class="form-label">{{ __('نام غذا') }}</label>
-                    <input id="name" type="text" class="form-control form-control-rounded cursor-not-allowed opacity-50" disabled
+                    <input id="name" type="text" class="form-control form-control-rounded cursor-not-allowed opacity-50"
+                           disabled
                            placeholder="{{ __('نام غذا') }}. . ."
                            wire:model.defer="food.title">
                     <x-jet-input-error for="food.title" class="mt-2"/>
                 </div>
-                <div class="mt-3">
-                    <label for="Category" class="form-label">{{ __('دسته بندی') }}</label>
-                    <select data-search="true" class="form-control-rounded form-control w-full" id="Category"
-                            wire:model.defer="discount.id">
-                        <optgroup label="کدتخفیف غذای خود را انتخاب نمایید">
-                            @foreach(\App\Models\Discount::all() as $discount)
-                                <option value="{{$discount->id}}">{{$discount->title}}</option>
-                            @endforeach
-                        </optgroup>
-                    </select>
-                    <x-jet-input-error for="discount.id" class="mt-2"/>
-                </div>
+                @if(\App\Models\Discount::all()->first() == null)
+                    کدتخفیف فعالی وجود ندارد !!!
+                @else
+                    <div class="mt-3">
+                        <label for="Category" class="form-label">{{ __('دسته بندی') }}</label>
+                        <select data-search="true" class="form-control-rounded form-control w-full" id="Category"
+                                wire:model.defer="discount.id">
+                            <optgroup label="کدتخفیف غذای خود را انتخاب نمایید">
+                                @foreach(\App\Models\Discount::all() as $discount)
+                                    <option value="{{$discount->id}}">{{$discount->title}}</option>
+                                @endforeach
+                            </optgroup>
+                        </select>
+                        <x-jet-input-error for="discount.id" class="mt-2"/>
+                    </div>
+                @endif
             </div>
         </x-slot>
 

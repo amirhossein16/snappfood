@@ -44,11 +44,11 @@
                                                             wire:click="$emit('EditModalConfirm',{{$Categories->id}})">
                                                         ویرایش
                                                     </button>
-                                                    <x-jet-button
+                                                    <button
                                                         class="btn btn-elevated-secondary w-24 ml-1 mb-2 text-indigo-900"
-                                                        wire:click="$emit('DeleteModals','App\\\Models\\\foodCategories',{{$Categories->id}},'حذف غذا' ,'آیا از حذف غذای {{$Categories->FoodType}} مطمئن هستید ؟')"
+                                                        wire:click="$emit('DeleteModals','App\\Models\\foodCategories',{{$Categories->id}},'حذف غذا' ,'آیا از حذف غذای {{$Categories->FoodType}} مطمئن هستید ؟')"
                                                     >حذف
-                                                    </x-jet-button>
+                                                    </button>
                                                 </td>
                                             </tr>
                                             @endforeach

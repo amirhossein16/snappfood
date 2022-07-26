@@ -1,6 +1,5 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <div class="block xl:grid grid-cols-2 gap-4">
             <!-- BEGIN: Login Info -->
             <x-slot name="LoginInfo">
                 <x-jet-authentication-card-logo/>
@@ -28,12 +27,12 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="intro-x mt-8 ">
-                            <input type="email"
-                                   class="intro-x login__input form-control py-3 px-4 border-gray-300 block "
-                                   name="email" :value="{!! old('email') !!}" id="email" placeholder="ایمیل" autofocus>
-                            <input type="password" id="password"
-                                   class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4 "
-                                   placeholder="رمزعبور" name="password" required autocomplete="current-password">
+                            <label for="email"></label><input type="email"
+                                                              class="intro-x login__input form-control py-3 px-4 border-gray-300 block "
+                                                              name="email" :value="{!! old('email') !!}" id="email" placeholder="ایمیل" autofocus>
+                            <label for="password"></label><input type="password" id="password"
+                                                                 class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4 "
+                                                                 placeholder="رمزعبور" name="password" required autocomplete="current-password">
                         </div>
                         <div class="intro-x flex text-gray-700 dark:text-gray-600 text-xs sm:text-sm mt-4 ">
                             <div class="flex items-center ml-auto ">
@@ -59,12 +58,11 @@
                     <div class="intro-x mt-10 xl:mt-24 text-gray-700 dark:text-gray-600 text-right xl:text-right">
                         با ورود شما تمامی شرایط زیر را میپذیرید
                         <br>
-                        <a class="text-theme-17 dark:text-gray-300 " href="#!">قوانین و مقررات</a> و <a
-                            class="text-theme-17 dark:text-gray-300 " href="#!">حریم شخصی</a>
+                        <a class="text-theme-17 dark:text-gray-300 " href="#">قوانین و مقررات</a> و <a
+                            class="text-theme-17 dark:text-gray-300 " href="#">حریم شخصی</a>
                     </div>
                 </div>
             </x-slot>
             <!-- END: Login Form -->
-        </div>
     </x-jet-authentication-card>
 </x-guest-layout>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Seller\Modals;
 
 use App\Models\Food;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -51,8 +52,11 @@ class PhotoModal extends Component
         for ($i = 1; $i < 6; $i++) {
             $restaurantName = str_replace(" ", "_", $this->food->title);
             $filename = $restaurantName . '_' . $i . '.jpg';
-            if (Storage::disk('public')->exists("photos/Foods/$filename"))
+            if (Storage::disk('public')->exists("photos/Foods/$filename")) {
                 Storage::disk('public')->delete("photos/Foods/$filename");
+                File::deleteDirectory('storage/photos/public');
+//                Storage::disk('temp')->delete("photos/Foods/$filename");
+            }
         }
         $this->reset();
         $this->emit('RefreshTable');

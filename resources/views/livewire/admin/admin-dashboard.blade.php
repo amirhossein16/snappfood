@@ -649,24 +649,31 @@
                                 </div>
                                 <label for="regular-form-2"></label>
                                 <div class="mt-5">
-                                    @foreach($OrdersDetails as $item)
-                                        <div class="intro-x">
-                                            <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
-                                                <div
-                                                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
-                                                    <img alt="Icewall Tailwind HTML Admin Template"
-                                                         src="dist/images/profile-7.jpg">
-                                                </div>
-                                                <div class="mr-4 ml-auto">
-                                                    <div class="font-medium">{{$item->cart->user->name}}</div>
+                                    @if(!empty($OrdersDetails))
+                                        <h2 class="text-lg mx-auto text-center" style="color: red">
+                                            <i data-feather="slash" class="mx-auto"></i>
+                                            تراکنشی موجود نیست
+                                        </h2>
+                                    @else
+                                        @foreach($OrdersDetails as $item)
+                                            <div class="intro-x">
+                                                <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
                                                     <div
-                                                        class="text-gray-600 text-xs mt-0.5">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-M-d')}}</div>
+                                                        class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                                        <img alt="Icewall Tailwind HTML Admin Template"
+                                                             src="dist/images/profile-7.jpg">
+                                                    </div>
+                                                    <div class="mr-4 ml-auto">
+                                                        <div class="font-medium">{{$item->cart->user->name}}</div>
+                                                        <div
+                                                            class="text-gray-600 text-xs mt-0.5">{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-M-d')}}</div>
+                                                    </div>
+                                                    <div class="text-emerald-500">{{$item->Total_price}}</div>
                                                 </div>
-                                                <div class="text-emerald-500">{{$item->Total_price}}</div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                    {{$OrdersDetails->links()}}
+                                        @endforeach
+                                        {{$OrdersDetails->links()}}
+                                    @endif
                                 </div>
                             </div>
                             <!-- END: Transactions -->

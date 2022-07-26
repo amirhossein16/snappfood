@@ -82,12 +82,14 @@ class UserCartController extends Controller
             if ($cart == null) {
                 $cart = Cart::create([
                     'user_id' => auth('api')->user()->id,
-                    'price' => $foodPrice ? $foodPrice * $request->count : $food->price * $request->count,
+                    'price' => $foodPrice ?
+                        ($foodPrice * $request->count) + $food->restaurant_detail_id->ShippingCost : ($food->price * $request->count) + $food->restaurant_detail_id->ShippingCost,
                     'state' => 'FirstCart',
                     'restaurant_detail_id' => $food->restaurant_detail_id
                 ]);
             } else {
                 $cart->price += ($foodPrice * $request->count);
+                $cart->price += $food->restaurant_detail_id->ShippingCost;
                 $cart->save();
             }
 

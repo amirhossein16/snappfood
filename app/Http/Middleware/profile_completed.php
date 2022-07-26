@@ -42,10 +42,7 @@ class profile_completed
                 })->keys()->toArray()
             ];
         });
-        if (empty($result)) {
-            if ($result->first()[0] == 'lat') {
-                return redirect('RestaurantPanel')->with('livewire-toast', ['type' => 'warning', 'message' => 'This is warning!']);
-            }
+        if (array_key_exists(2,$result->first())) {
             return redirect('RestaurantPanel');
         }
         return $next($request);

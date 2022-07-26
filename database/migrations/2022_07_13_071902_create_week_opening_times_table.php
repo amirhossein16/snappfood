@@ -13,15 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('week_opening_times', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\RestaurantDetail::class)->constrained();
-            $table->integer('day');
-            $table->time('start')->nullable();
-            $table->time('end')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
-        });
+
     }
 
     /**

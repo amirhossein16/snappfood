@@ -22,6 +22,19 @@
                         <x-slot name="footer">
                         </x-slot>
                     </x-jet-confirmation-modal>
+                @elseif(auth()->user()->restaurantDetail->lat == null)
+                    <x-jet-confirmation-modal wire:model="confirminglocationModal">
+                        <x-slot name="title">
+                            {{ __('اطلاعات ناقص') }}
+                        </x-slot>
+
+                        <x-slot name="content">
+                            {{ __('ثبت موقعیت مکانی رستوران اجباری میباشد !') }}
+                        </x-slot>
+
+                        <x-slot name="footer">
+                        </x-slot>
+                    </x-jet-confirmation-modal>
                 @endif
                 <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
 
@@ -66,6 +79,16 @@
                             </label>
                             <input type="number" min="0" max="100000" id="ShippingCost"
                                    wire:model.defer="Restaurant.ShippingCost"
+                                   class="form-control form-control-rounded" placeholder="هزینه ارسال . . .">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="mt-3">
+                            <label for="accountNumber" class="form-label">شماره حساب
+                                <x-jet-input-error for="Restaurant.accountNumber" class="mt-2"/>
+                            </label>
+                            <input type="number" min="0" max="100000" id="accountNumber"
+                                   wire:model.defer="Restaurant.accountNumber"
                                    class="form-control form-control-rounded" placeholder="هزینه ارسال . . .">
                         </div>
                     </div>
