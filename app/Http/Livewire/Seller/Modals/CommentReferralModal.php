@@ -22,10 +22,8 @@ class CommentReferralModal extends Component
     {
         $this->comment->confirm = 2;
         $this->comment->save();
-        $this->referralComment = false;
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'کامنت با موفقیت ارجاع داده شد'
-        ]);
+        $this->referralCommentModal = false;
+        $this->emitTo('livewire-toast', 'show', " با موفقیت ارجاع داده شد :) ");
     }
 
     public function render()

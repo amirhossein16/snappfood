@@ -10,13 +10,13 @@
 
         <x-slot name="footer">
             <x-jet-secondary-button wire:click="$set('ConfirmCommentModal',false)">
-                {{ __('Conceal') }}
+                {{ __('لغو') }}
             </x-jet-secondary-button>
 
-            <x-jet-danger-button class="btn btn-danger w-24" wire:click="ConfirmModalComment"
+            <button class="btn btn-elevated-success w-24" wire:click="ConfirmModalComment"
                                  wire:loading.attr="disabled">
-                {{ __('Delete') }}
-            </x-jet-danger-button>
+                {{ __('تایید') }}
+            </button>
         </x-slot>
     </x-jet-confirmation-modal>
 </div>

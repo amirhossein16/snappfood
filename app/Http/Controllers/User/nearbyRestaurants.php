@@ -35,15 +35,6 @@ class nearbyRestaurants extends Controller
         } else {
             return response()->json(['msg' => 'Please Set Current Location !']);
         }
-//        $data = DB::table("user_addresses")
-//            ->select("user_addresses.id"
-//                , DB::raw("6371 * acos(cos(radians(" . $lat . "))
-//                * cos(radians($lat))
-//                * cos(radians($lon) - radians(" . $lon . "))
-//                + sin(radians(" . $lat . "))
-//                * sin(radians($lat))) AS distance"))
-//            ->groupBy("user_addresses.id")
-//            ->get();
 
         dd($data);
     }

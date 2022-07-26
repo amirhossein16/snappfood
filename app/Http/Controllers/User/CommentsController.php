@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentsResource;
 use App\Models\Comment;
+use App\Models\Food;
 use App\Models\Orders;
+use App\Models\RestaurantDetail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\DB;
 
 class CommentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +27,20 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comment = Comment::where([
-            ['restaurant_detail_id', \request('restaurant_id')],
-            ['confirm', 1]])->get();
+        if (!empty(\request('restaurant_id'))) {
+            if (RestaurantDetail::find(\request('restaurant_id')) != null) {
+                $comment = Comment::where([
+                    ['restaurant_detail_id', \request('restaurant_id')],
+                    ['confirm', 1]])->get();
+            } else
+                return response()->json(['msg' => 'Restaurant Not Exist :(((']);
+        } elseif (!empty(\request('food_id')) && Food::find(\request('food_id')) != null) {
+            $comment = Comment::where([
+                ['restaurant_detail_id', Food::findOrFail(\request('food_id'))->RestaurantDetail->id],
+                ['confirm', 1]])->get();
+        } else {
+            return response()->json(['msg' => 'Food Not Exist :(((']);
+        }
         if (count($comment) != 0) {
             return CommentsResource::collection($comment);
         }

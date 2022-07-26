@@ -26,4 +26,13 @@ class Orders extends Model
     {
         return $this->belongsTo(RestaurantDetail::class);
     }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->Where('created_at', 'like', $term)
+                ->orWhere('Total_price', 'like', $term);
+        });
+    }
 }

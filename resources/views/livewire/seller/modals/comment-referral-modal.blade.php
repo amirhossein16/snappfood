@@ -10,12 +10,12 @@
 
         <x-slot name="footer">
             <x-jet-secondary-button wire:click="$set('referralCommentModal',false)">
-                {{ __('Conceal') }}
+                {{ __('لغو') }}
             </x-jet-secondary-button>
 
-            <x-jet-danger-button class="btn btn-danger w-24" wire:click="referralModalComment"
+            <x-jet-danger-button class="btn btn-warning w-24" wire:click="referralModalComment"
                                  wire:loading.attr="disabled">
-                {{ __('Delete') }}
+                {{ __('ارجاع') }}
             </x-jet-danger-button>
         </x-slot>
     </x-jet-confirmation-modal>

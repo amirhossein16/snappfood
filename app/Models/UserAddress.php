@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -46,5 +47,38 @@ class UserAddress extends Model implements JWTSubject
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeNearByRestaurants($query, $lat, $long)
+    {
+        $query->whereHas(
+            'addresses',
+            fn($addresse) => $addresse->whereRaw(DB::raw("6371 * acos(cos(radians(" . $lat . "))
+            * cos(radians(latitude))
+            * cos(radians(longitude) - radians(" . $long . "))
+            + sin(radians(" . $lat . "))
+            * sin(radians(latitude))) < 5"))
+        )->with([
+            'addresses' => fn($addersses) => $addersses->select("*", DB::raw("6371 * acos(cos(radians(" . $lat . "))
+            * cos(radians(latitude)) * cos(radians(longitude) - radians(" . $long . "))
+            + sin(radians(" . $lat . ")) * sin(radians(latitude))) AS distance"))->orderBy('distance')
+        ]);
+    }
+    public function index(Request $request) {
+
+        $lat = YOUR_CURRENT_LATTITUDE;
+        $lon = YOUR_CURRENT_LONGITUDE;
+
+        $data = DB::table("users")
+            ->select("users.id"
+                ,DB::raw("6371 * acos(cos(radians(" . $lat . "))
+		        * cos(radians(users.lat))
+		        * cos(radians(users.lon) - radians(" . $lon . "))
+		        + sin(radians(" .$lat. "))
+		        * sin(radians(users.lat))) AS distance"))
+            ->groupBy("users.id")
+            ->get();
+
+        dd($data);
     }
 }

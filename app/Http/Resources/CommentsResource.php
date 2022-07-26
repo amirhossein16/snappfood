@@ -19,7 +19,7 @@ class CommentsResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param Request $request
-     * @return array
+     * @return array|\Hamcrest\Core\IsNot|int
      */
     public function toArray($request)
     {
@@ -28,7 +28,7 @@ class CommentsResource extends JsonResource
             $id = DB::table('parent_child_comment')->where('parent_comment_id', $this->id)->get()->first()->child_comment_id;
             $this->response = Comment::where('id', $id)->get()->first();
         }
-        if (Food::where('restaurant_detail_id', $this->id)->get()->first() != null)
+        if (!empty(Food::where('restaurant_detail_id', $this->id)->get()) && $this->score != null)
             return [
                 'author' => CommentNameResource::collection(User::where('id', $this->user_id)->get()),
                 'foods' => FoodCommentResource::collection(Food::where('restaurant_detail_id', $this->id)->get()),
@@ -40,6 +40,6 @@ class CommentsResource extends JsonResource
                 })
             ];
         else
-            return [];
+            return e('-------');
     }
 }
