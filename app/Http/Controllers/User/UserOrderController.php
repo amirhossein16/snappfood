@@ -41,7 +41,6 @@ class UserOrderController extends Controller
      */
     public function store(Request $request)
     {
-
         if (auth('api')->user()->UserAddress()->get()->first() != null) {
             if (!empty(auth('api')->user()->UserAddress()->get()->where('currentAddress', 1))) {
                 try {

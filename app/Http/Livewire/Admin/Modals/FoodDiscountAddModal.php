@@ -9,7 +9,7 @@ use Livewire\Component;
 class FoodDiscountAddModal extends Component
 {
     public $discount;
-    public $confirmingDiscountAddModal = false;
+    public $confirmingDiscountaddModal = false;
     protected $listeners = ['confirmDiscountAdd'];
 
     protected $rules = [
@@ -21,11 +21,10 @@ class FoodDiscountAddModal extends Component
 
     public function confirmDiscountAdd()
     {
-        $this->reset(['discount']);
-        $this->confirmingDiscountAddModal = true;
+        $this->confirmingDiscountaddModal = true;
     }
 
-    public function saveDiscount()
+    public function addDiscount()
     {
         $this->validate();
         $this->discount['ExpireTime'] = Carbon::parse($this->discount['ExpireTime'])->timezone('Asia/Tehran');
@@ -37,12 +36,9 @@ class FoodDiscountAddModal extends Component
             'type' => $this->discount['type'],
         ]);
 
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
-        ]);
-
-        $this->emit('refreshDiscountTable');
-        $this->confirmingDiscountAddModal = false;
+        $this->emit('RefreshTable');
+        $this->emitTo('livewire-toast', 'show', " کدتخفیف با موفقیت افزوده شد :)");
+        $this->confirmingDiscountaddModal = false;
     }
 
     public function render()

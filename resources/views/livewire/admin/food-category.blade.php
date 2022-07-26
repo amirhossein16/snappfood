@@ -46,7 +46,7 @@
                                                     </button>
                                                     <x-jet-button
                                                         class="btn btn-elevated-secondary w-24 ml-1 mb-2 text-indigo-900"
-                                                        wire:click="$emitTo('delete-modal','DeleteModal',\\App\\Models\\Food',{{$Categories->id}}','Delete Food Type' ,'Are you sure you want to delete {{$Categories->FoodType}}?',)"
+                                                        wire:click="$emit('DeleteModals','App\\\Models\\\foodCategories',{{$Categories->id}},'حذف غذا' ,'آیا از حذف غذای {{$Categories->FoodType}} مطمئن هستید ؟')"
                                                     >حذف
                                                     </x-jet-button>
                                                 </td>

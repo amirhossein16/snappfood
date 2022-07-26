@@ -75,6 +75,8 @@ class UserCartController extends Controller
 
                     $foodPrice = (int)$food->price - $query->amount;
                 }
+            } else {
+                $foodPrice = (int)$food->price;
             }
 
             if ($cart == null) {

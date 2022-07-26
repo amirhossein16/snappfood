@@ -27,12 +27,14 @@ class FoodPartyAddModal extends Component
         $this->validate();
         if ($this->foodParty->id) {
             $this->foodParty->save();
+            $this->emitTo('livewire-toast', 'show', " فودپارتی با موفقیت ویرایش شد :) ");
         } else
             FoodParty::create([
                 'foodPartyName' => $this->foodParty->foodPartyName,
                 'status' => false
             ]);
-        $this->emit('reloadFoodPartyTable');
+        $this->emit('RefreshTable');
+        $this->emitTo('livewire-toast', 'show', " فودپارتی با موفقیت اضافه شد :) ");
         $this->confirmFoodPartyAddModal = false;
     }
 

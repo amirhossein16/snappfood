@@ -14,7 +14,7 @@ use function PHPUnit\Framework\isNull;
 
 class Categories extends Component
 {
-
+    public $user;
     public $Categories;
     protected $listeners = ['RefreshTable'];
 

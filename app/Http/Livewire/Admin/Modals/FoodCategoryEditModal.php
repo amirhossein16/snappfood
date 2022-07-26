@@ -28,18 +28,15 @@ class FoodCategoryEditModal extends Component
 
         if (isset($this->foodCategory->id)) {
             $this->foodCategory->save();
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
-            ]);
         }
 
         $this->reset(['foodCategory']);
         $this->emit('refreshFoodTable');
+        $this->emitTo('livewire-toast', 'show', " دسته بندی با موفقیت بروزرسانی شد :)");
         $this->confirmingCategoryUpdate = false;
     }
 
-    public
-    function render()
+    public function render()
     {
         return view('livewire.admin.modals.food-category-edit-modal');
     }

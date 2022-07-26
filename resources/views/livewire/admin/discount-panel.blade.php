@@ -61,7 +61,7 @@
                                                     </button>
                                                     <x-jet-button
                                                         class="btn btn-elevated-secondary w-24 ml-1 mb-2 text-indigo-900"
-                                                        wire:click="$emit('DeleteModal',{{$Discount->id}})"
+                                                        wire:click="$emit('DeleteModals','App\\\Models\\\Discount',{{$Discount->id}},'حذف کد تخفیف' ,'آیا از حذف کد تخفیف {{$Discount->title}} مطمئن هستید ؟')"
                                                     >حذف
                                                     </x-jet-button>
                                                 </td>

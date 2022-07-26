@@ -33,12 +33,9 @@ class FoodCategoryAddModal extends Component
         foodCategories::create([
             'FoodType' => $this->foodCategory['FoodType'],
         ]);
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
-        ]);
-
         $this->reset(['foodCategory']);
-        $this->emit('refreshFoodTable');
+        $this->emit('RefreshTable');
+        $this->emitTo('livewire-toast', 'show', " دسته بندی با موفقیت اضافه شد :)");
         $this->confirmingCategoryAdd = false;
     }
 

@@ -1,5 +1,6 @@
 <div>
     <livewire:delete-modal/>
+    <livewire:seller.modals.delete-food-discount-modal/>
     <livewire:seller.modals.photo-modal/>
     <livewire:seller.modals.food-discount-edit-modal/>
     <livewire:seller.modals.food-discount-add-modal/>
@@ -130,11 +131,13 @@
                                                         @endphp
                                                         @if ( $discounts->type == 'Percentage')
                                                             <span
-                                                                class="text-red-500"><s> {{
-                                                        ($Categories->price)*(100 - $discounts->amount)
-                                                         }}</s></span>
+                                                                class="text-red-500"><s>
+                                                                {!! $Categories->price !!}
+                                                                </s></span>
                                                             <span
-                                                                class="text-green-500"> {!! $Categories->price !!} </span>
+                                                                class="text-green-500">
+                                                                    {{(($Categories->price)*(100 - $discounts->amount))/100}}
+                                                            </span>
                                                         @elseif($discounts->type == 'Price')
                                                             <span
                                                                 class="text-red-500"><s> {!! $Categories->price !!}</s></span>
@@ -151,11 +154,11 @@
                                                             wire:click="$emit('EditModalConfirm',{{$Categories->id}})">
                                                         ویرایش
                                                     </button>
-                                                    <x-jet-button
-                                                        class="btn btn-elevated-secondary w-16 ml-1 mb-2 text-indigo-900"
-                                                        wire:click="$emit('DeleteModal',{{$Categories->id}})"
+                                                    <button
+                                                        class="btn btn-elevated-danger w-16 ml-1 p-0 pt-1 mb-2 text-indigo-900"
+                                                        wire:click="$emit('DeleteModals','\\\App\\\Models\\\Food',{{$Categories->id}},'حذف غذا' ,'آیا از حذف غذای {{$Categories->title}} مطمئن هستید ؟')"
                                                     >حذف
-                                                    </x-jet-button>
+                                                    </button>
                                                     @if($Categories->off == null || $Categories->off == 0)
                                                         <button
                                                             class="btn btn-elevated-dark w-24 ml-1 mb-2"
@@ -169,10 +172,11 @@
                                                             wire:loading.attr="disabled">
                                                             ویرایش کد تخفیف
                                                         </button>
-                                                        <button
-                                                            class="btn btn-danger ml-1 relative top-[8px] report-box__indicator tooltip cursor-pointer"
-                                                            title="حذف کد تخفیف"><i data-feather="trash"
-                                                                                    class="w-5 h-5"></i></button>
+                                                        <button wire:ignore
+                                                                wire:click="$emit('deleteDiscount',{{$Categories->id}})"
+                                                                class="btn btn-danger ml-1 relative top-[8px] report-box__indicator tooltip cursor-pointer"
+                                                                title="حذف کد تخفیف"><i data-feather="trash"
+                                                                                        class="w-5 h-5"></i></button>
                                                     @endif
                                                 </td>
                                             </tr>

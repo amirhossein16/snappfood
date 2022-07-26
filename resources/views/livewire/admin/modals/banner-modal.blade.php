@@ -36,7 +36,7 @@
                                 <div id="progressbar-label" class="p-5">
                                     <!-- Progress Bar -->
                                     <div x-show="isUploading" class="progress h-4 rounded">
-                                        <div max="100" class="progress-bar w-1/2 bg-green-500 rounded"
+                                        <div max="100" class="progress-bar w-full bg-green-500 rounded"
                                                   x-bind:value="progress"></div>
                                     </div>
                                 </div>

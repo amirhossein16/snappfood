@@ -41,7 +41,7 @@ class PhotoModal extends Component
                     $photo->storeAs('photos/Foods', $filename);
                 $row++;
             }
-        $this->emit('reloadFoodTable');
+        $this->emit('RefreshTable');
         $this->reset(['photos']);
         $this->PhotoModalConfirm = false;
     }
@@ -55,7 +55,7 @@ class PhotoModal extends Component
                 Storage::disk('public')->delete("photos/Foods/$filename");
         }
         $this->reset();
-        $this->emit('reloadFoodTable');
+        $this->emit('RefreshTable');
         $this->PhotoModalConfirm = false;
     }
 

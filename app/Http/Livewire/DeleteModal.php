@@ -17,11 +17,11 @@ class DeleteModal extends Component
 
     public function DeleteModals($modelType, $id, $modalHeading, $modalMessage)
     {
-        $this->confirmingCategoryDeletion = true;
         $this->model = $modelType::findOrFail($id);
         $this->CategoryDeletion = $id;
         $this->modalHeading = $modalHeading;
         $this->modalMessage = $modalMessage;
+        $this->confirmingCategoryDeletion = true;
     }
 
     public function deleteCategory()
@@ -35,7 +35,7 @@ class DeleteModal extends Component
         }
         $this->confirmingCategoryDeletion = false;
         $this->emit('RefreshTable');
-        $this->emitTo('livewire-toast', 'showError', " با موفقیت حذف شد $this->modalHeading !");
+        $this->emitTo('livewire-toast', 'showError', " با موفقیت حذف شد :) ");
     }
 
     public function render()

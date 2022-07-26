@@ -55,4 +55,9 @@ class RestaurantDetail extends Model
     {
         return $this->hasMany(Orders::class);
     }
+
+    public function WorkingTime()
+    {
+        return $this->hasOne(WorkingTime::class);
+    }
 }

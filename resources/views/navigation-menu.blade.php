@@ -890,9 +890,16 @@
                 </x-jet-nav-link>
             </li>
             <li>
+                <x-jet-nav-link href="{{ route('ArchiveOrder') }}"
+                                :active="request()->routeIs('ArchiveOrder')" class="top-menu">
+                    <div class="top-menu__icon"><i data-feather="shopping-cart" class="block mx-auto"></i></div>
+                    <div class="top-menu__title"> آرشیو سفارشات</div>
+                </x-jet-nav-link>
+            </li>
+            <li>
                 <x-jet-nav-link href="{{ route('CommentsPanel') }}"
                                 :active="request()->routeIs('CommentsPanel')" class="top-menu">
-                    <div class="top-menu__icon">                            <i data-feather="inbox" class="block mx-auto"></i>
+                    <div class="top-menu__icon"><i data-feather="inbox" class="block mx-auto"></i>
                     </div>
                     <div class="top-menu__title"> نظر ها</div>
                 </x-jet-nav-link>

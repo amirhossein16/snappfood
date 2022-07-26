@@ -23,12 +23,17 @@ class Food extends Model
 
     public function RestaurantDetail()
     {
-        return $this->hasOne(RestaurantDetail::class);
+        return $this->belongsTo(RestaurantDetail::class);
     }
 
     public function discount()
     {
         return $this->hasOne(Discount::class);
+    }
+
+    public function discountFood()
+    {
+        return $this->hasOne(DiscountFood::class);
     }
 
     public function cart()

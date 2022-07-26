@@ -31,7 +31,7 @@ class FoodDiscountEditModal extends Component
                 'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
             ]);
         }
-        $this->emit('reloadFoodTable');
+        $this->emit('RefreshTable');
         $this->confirmingEditDiscountModal = false;
     }
 

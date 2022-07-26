@@ -1,7 +1,7 @@
 <div class="flex flex-row gap-4">
     <label for="schedula_1" class="form-label">شنبه</label>
     <div>
-        <input type="time" id="schedula_1" wire:model.defer="schedule.1.start" wire:change="setSchedules"
+        <input type="time" id="schedula_1" wire:model.defer="schedule.1.start" wire:change.prevent="setSchedules"
                class="form-control form-control-rounded w-32 mb-4">
         <input type="time" id="schedula_1" wire:model.defer="schedule.1.end" wire:change="setSchedules"
                class="form-control form-control-rounded w-32">

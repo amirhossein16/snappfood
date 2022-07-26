@@ -28,17 +28,15 @@ class FoodAddModal extends Component
     public function saveFood()
     {
         $this->validate();
-            Food::create([
-                "food_categories_id" => $this->food['food_categories_id'],
-                "price" => $this->food['price'],
-                "raw_material" => $this->food['raw_material'],
-                "title" => $this->food['title'],
-                'restaurant_detail_id' => \auth()->user()->restaurantDetail->id,
-            ]);
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
-            ]);
-        $this->emit('reloadFoodTable');
+        Food::create([
+            "food_categories_id" => $this->food['food_categories_id'],
+            "price" => $this->food['price'],
+            "raw_material" => $this->food['raw_material'],
+            "title" => $this->food['title'],
+            'restaurant_detail_id' => \auth()->user()->restaurantDetail->id,
+        ]);
+        $this->emitTo('livewire-toast', 'show', " غذا با موفقیت افزوده شد :) ");
+        $this->emit('RefreshTable');
         $this->confirmingfoodAddModal = false;
     }
 

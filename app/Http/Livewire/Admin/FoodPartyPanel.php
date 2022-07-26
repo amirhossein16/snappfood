@@ -8,7 +8,7 @@ use Livewire\Component;
 class FoodPartyPanel extends Component
 {
     public $foodParty;
-    protected $listeners = ['reloadFoodPartyTable', 'ChangeStatus'];
+    protected $listeners = ['RefreshTable' => 'reloadFoodPartyTable', 'ChangeStatus'];
 
     public function ChangeStatus(FoodParty $id)
     {

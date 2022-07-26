@@ -13,7 +13,7 @@ use Livewire\Component;
 class DiscountPanel extends Component
 {
     public $allDiscount;
-    protected $listeners = ['refreshDiscountTable'];
+    protected $listeners = ['RefreshTable' => 'refreshDiscountTable'];
 
 //    public function confirmCategoryDeletion($id)
 //    {

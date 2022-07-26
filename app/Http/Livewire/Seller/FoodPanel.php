@@ -14,7 +14,7 @@ use Livewire\Component;
 class FoodPanel extends Component
 {
 
-    protected $listeners = ['reloadFoodTable'];
+    protected $listeners = ['RefreshTable' => 'reloadFoodTable'];
 
 //    public function confirmCategoryDeletion($id)
 //    {

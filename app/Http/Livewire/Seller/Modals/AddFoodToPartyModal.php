@@ -27,7 +27,7 @@ class AddFoodToPartyModal extends Component
                 'food_party_id' => FoodParty::where('status', true)->get()->first()->id
             ]);
         }
-        $this->emit('reloadFoodTable');
+        $this->emit('RefreshTable');
         $this->confirmFoodAddToPartyModal = false;
     }
 

@@ -1,4 +1,5 @@
 <div>
+    <livewire:delete-modal/>
     <livewire:admin.modals.food-party-add-modal/>
     <!-- BEGIN: Content -->
     <div class="wrapper wrapper--top-nav">
@@ -50,7 +51,7 @@
                                                     </button>
                                                     <x-jet-button
                                                         class="btn btn-elevated-secondary w-24 ml-1 mb-2 text-indigo-900"
-                                                        wire:click="$emit('DeleteModal',{{$FoodParties->id}})"
+                                                        wire:click="$emit('DeleteModals','App\\\Models\\\FoodParty',{{$FoodParties->id}},'حذف عنوان فودپارتی' ,'آیا از حذف فودپارتی{{$FoodParties->foodPartyName}} مطمئن هستید ؟')"
                                                     >حذف
                                                     </x-jet-button>
                                                 </td>
@@ -65,6 +66,6 @@
             </div>
         </div>
     </div>
-</div>
+</>
 <!-- END: Content -->
 

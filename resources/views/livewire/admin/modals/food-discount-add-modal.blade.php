@@ -1,5 +1,5 @@
 <div>
-    <x-jet-dialog-modal wire:model="confirmingDiscountAddModal">
+    <x-jet-dialog-modal wire:model="confirmingDiscountaddModal">
         <x-slot name="title">
             <h2 class="font-medium text-base ml-auto">
                 {{ isset($this->discount->id) ? 'ویرایش کد تخفیف' : 'افزودن کدتخفیف' }}</h2>
@@ -26,7 +26,7 @@
             </div>
             <div class="col-span-12 sm:col-span-12">
                 <div id="input-group-datepicker" class="p-5">
-                            <label for="date" class="form-label p-2">{{ __('تاریخ') }}</label>
+                    <label for="date" class="form-label p-2">{{ __('تاریخ') }}</label>
                     <div class="preview">
                         <div class="relative w-full mx-auto">
                             <div
@@ -46,8 +46,8 @@
                         <select id="discountType" data-search="true" class="tail-select w-full"
                                 wire:model.defer="discount.type">
                             <optgroup label="نوع تخفیف را انتخاب نمایدد . . .">
-                                    <option value="Price">Price</option>
-                                    <option value="Percentage">Percentage</option>
+                                <option value="Price">Price</option>
+                                <option value="Percentage">Percentage</option>
                             </optgroup>
                         </select>
                         <x-jet-input-error for="discount.type" class="mt-2"/>
@@ -57,12 +57,12 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('confirmingDiscountAddModal', false)"
+            <x-jet-secondary-button wire:click="$set('confirmingDiscountaddModal', false)"
                                     wire:loading.attr="disabled" class="btn btn-outline-secondary w-20 ml-1">
                 {{ __('لغو') }}
             </x-jet-secondary-button>
 
-            <x-jet-button class="ml-2 btn btn-primary w-20" wire:click="saveDiscount()" wire:loading.attr="disabled">
+            <x-jet-button class="ml-2 btn btn-primary w-20" wire:click="addDiscount()">
                 {{ __('ذخیره') }}
             </x-jet-button>
         </x-slot>

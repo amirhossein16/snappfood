@@ -31,11 +31,9 @@ class DiscountEditModal extends Component
         $this->discount['ExpireTime'] = Carbon::parse($this->discount['ExpireTime'])->timezone('Asia/Tehran');
         if (isset($this->discount->id)) {
             $this->discount->save();
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
-            ]);
         }
-        $this->emit('refreshDiscountTable');
+        $this->emit('RefreshTable');
+        $this->emitTo('livewire-toast', 'show', " کدتخفیف با موفقیت بروزرسانی شد :)");
         $this->confirmingDiscountEditModal = false;
     }
 

@@ -10,7 +10,7 @@ class FoodCategory extends Component
     public $foodCategory;
     public $confirmingCategoryDeletion = false;
     public $confirmingCategoryUpdate = false;
-    protected $listeners = ['refreshFoodTable'];
+    protected $listeners = ['RefreshTable' => 'refreshFoodTable'];
 
     public function confirmCategoryEdit(foodCategories $id)
     {
@@ -28,9 +28,7 @@ class FoodCategory extends Component
     {
         $category->delete();
         $this->confirmingCategoryDeletion = false;
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'دسته بندی با موفقیت حذف شد'
-        ]);
+        $this->emitTo('livewire-toast', 'showError', " دسته بندی با موفقیت حذف شد :) ");
     }
 
     public $category;

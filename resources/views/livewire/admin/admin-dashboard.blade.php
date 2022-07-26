@@ -3,7 +3,7 @@
         <!-- BEGIN: Content -->
         <div class="content">
             <div class="grid grid-cols-12 gap-6">
-                <div class="col-span-12 xxl:col-span-9">
+                <div class="col-span-12 xxl:col-span-9" wire:ignore>
                     <div class="grid grid-cols-12 gap-6">
                         <!-- BEGIN: General Report -->
                         <div class="col-span-12 mt-8">
@@ -648,7 +648,6 @@
                                     </h2>
                                 </div>
                                 <label for="regular-form-2"></label>
-                                <input wire:change="SearchInput" id="regular-form-2" type="date" class="form-control form-control-rounded" placeholder="جستجو در تراکنش ها">
                                 <div class="mt-5">
                                     @foreach($OrdersDetails as $item)
                                         <div class="intro-x">
@@ -667,9 +666,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <a href=""
-                                       class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-theme-27 dark:border-dark-5 text-theme-28 dark:text-gray-600">مشاهده
-                                        بیشتر</a>
+                                    {{$OrdersDetails->links()}}
                                 </div>
                             </div>
                             <!-- END: Transactions -->

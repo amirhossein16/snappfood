@@ -28,11 +28,9 @@ class RestaurantCategoryEditModal extends Component
 
         if (isset($this->restaurantCategory->id)) {
             $this->restaurantCategory->save();
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
-            ]);
         }
         $this->emit('refreshTable');
+        $this->emitTo('livewire-toast', 'show', 'دسته بندی با موفقیت بروزرسانی شد :)');
         $this->confirmingCategoryUpdate = false;
     }
 

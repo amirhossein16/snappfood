@@ -19,6 +19,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::group(['middleware' => ['role:superadmin']], function () {
         Route::get('Admin', \App\Http\Livewire\Admin\AdminDashboard::class)->name('Admin');
+
         Route::get('restaurantCategory', \App\Http\Livewire\Admin\Categories::class)->name('restaurantCategory');
 
         Route::get('foodCategory', \App\Http\Livewire\Admin\FoodCategory::class)->name('foodCategory');
@@ -34,9 +35,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::group(['middleware' => ['role:seller']], function () {
         Route::get('/dashboard', \App\Http\Livewire\Seller\Dashboard::class)->name('dashboard')->middleware(\App\Http\Middleware\profile_completed::class);
+
         Route::get('RestaurantPanel', \App\Http\Livewire\Seller\RestaurantPanel::class)->name('RestaurantPanel');
         Route::get('FoodPanel', \App\Http\Livewire\Seller\FoodPanel::class)->name('FoodPanel')->middleware(\App\Http\Middleware\profile_completed::class);
         Route::get('OrdersPanel', \App\Http\Livewire\Seller\OredersPanelController::class)->name('OrdersPanel')->middleware(\App\Http\Middleware\profile_completed::class);
         Route::get('CommentsPanel', \App\Http\Livewire\Seller\CommentsPanelController::class)->name('CommentsPanel')->middleware(\App\Http\Middleware\profile_completed::class);
+        Route::get('ArchiveOrder', \App\Http\Livewire\Seller\ArchiveOrder::class)->name('ArchiveOrder')->middleware(\App\Http\Middleware\profile_completed::class);
     });
 });
