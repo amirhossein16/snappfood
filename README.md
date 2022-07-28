@@ -60,13 +60,19 @@ php artisan key:generate
 DB_DATABASE=snappfood
 ```
 
-<p>6. migrate for sample data</p>
+<p>6. Instal npm packages</p>
+
+```
+npm install && npm run dev
+```
+
+<p>7. migrate for sample data</p>
 
 ```
 php artisan migrate --seed
 ```
 
-<p>7. Enjoy the app</p>
+<p>8. Enjoy the app</p>
 
 ```
 php artisan serve
@@ -78,7 +84,10 @@ php artisan serve
 *   Links to external documentation mailing lists or a code of conduct.
 *   Community and behavioral expectations.
 
-  
+<h2>💥 Future possibilities:</h2>
+
+*   Bilingual site
+*   And it continues . . . 😉
   
 <h2>💻 Built with</h2>
 
@@ -90,6 +99,8 @@ Technologies used in the project:
 *   laravel-maps
 *   jwt-auth
 *   tailwind CSS
+*   livewire-chart
+*   realtime Filter
 
 <h2>💖Like my work?</h2>
 
