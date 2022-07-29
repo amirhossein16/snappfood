@@ -88,9 +88,10 @@ php artisan queue:work
 *   Links to external documentation mailing lists or a code of conduct.
 *   Community and behavioral expectations.
 
-<h2>💥 Future possibilities:</h2>
+<h2>💥 Future features:</h2>
 
 *   Bilingual site
+*   Role Setting
 *   And it continues . . . 😉
   
 <h2>💻 Built with</h2>
