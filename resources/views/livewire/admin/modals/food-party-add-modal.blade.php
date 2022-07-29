@@ -14,6 +14,12 @@
                            wire:model.defer="foodParty.foodPartyName">
                     <x-jet-input-error for="foodParty.foodPartyName" class="mt-2"/>
                 </div>
+                <div class="mt-3">
+                    <label for="ExpireT" class="form-label">تاریخ انقضا فود پارتی</label>
+                    <input id="ExpireT" type="date" class="form-control form-control-rounded"
+                           wire:model.defer="foodParty.Expire">
+                    <x-jet-input-error for="foodParty.Expire" class="mt-2"/>
+                </div>
             </div>
         </x-slot>
 

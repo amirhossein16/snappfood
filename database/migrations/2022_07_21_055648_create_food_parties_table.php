@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('foodPartyName');
             $table->boolean('status');
+            $table->timestamp('ExpireTime');
             $table->softDeletes();
             $table->timestamps();
         });

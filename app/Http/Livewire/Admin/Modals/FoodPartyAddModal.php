@@ -19,7 +19,8 @@ class FoodPartyAddModal extends Component
     }
 
     protected $rules = [
-        'foodParty.foodPartyName' => 'required|min:5'
+        'foodParty.foodPartyName' => 'required|min:5',
+        'foodParty.Expire' => 'required|date_format:Y-m-d|after:today'
     ];
 
     public function addFoodPart()
@@ -34,6 +35,7 @@ class FoodPartyAddModal extends Component
         } else
             FoodParty::create([
                 'foodPartyName' => $this->foodParty->foodPartyName,
+                'ExpireTime' => $this->foodParty->Expire,
                 'status' => false
             ]);
 

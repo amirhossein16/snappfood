@@ -10,9 +10,14 @@ use Livewire\Component;
 class AddFoodToPartyModal extends Component
 {
     public $foods;
-    public $foodPrties = [];
+    public $discount = [];
     public $confirmFoodAddToPartyModal = false;
     protected $listeners = ['confirmFoodAddToParty'];
+
+    protected $rules = [
+        'discount.foodPrties' => 'required|string',
+        'discount.amount' => 'required|integer'
+    ];
 
     public function confirmFoodAddToParty()
     {
@@ -21,10 +26,11 @@ class AddFoodToPartyModal extends Component
 
     public function AddFoodToParty()
     {
-        foreach ($this->foodPrties as $foodPrty) {
+        foreach ($this->discount['foodPrties'] as $foodPrty) {
             DB::table('food_partiey')->insert([
                 'food_id' => $foodPrty,
-                'food_party_id' => FoodParty::where('status', true)->get()->first()->id
+                'food_party_id' => FoodParty::where('status', true)->get()->first()->id,
+                'DiscountAmount' => $this->discount['amount']
             ]);
         }
 

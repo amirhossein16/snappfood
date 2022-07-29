@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(\App\Models\Food::class)->constrained();
             $table->foreignIdFor(\App\Models\FoodParty::class)->constrained();
+            $table->integer('DiscountAmount');
             $table->softDeletes();
             $table->timestamps();
         });

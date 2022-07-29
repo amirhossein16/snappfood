@@ -85,8 +85,8 @@
     <div class="mt-5 intro-x">
         <div class="box zoom-in w-full">
             <div class="tiny-slider" id="important-notes">
-                @foreach($FoodParty as $food)
-                    @if(empty($food))
+                @foreach($FoodParty[0] as $food)
+                    @if($food->first() != null)
                         <div class="p-5">
                             @php
                                 $filename = str_replace(' ','_',$food->first()->title);
@@ -99,8 +99,12 @@
                             <div class="font-medium flex mt-5">
                                 <button type="button" class="btn btn-outline-secondary py-1 px-2 ">خرید
                                 </button>
-                                <button type="button" class="btn btn-secondary py-1 px-2 ml-auto ml-auto">مشاهده
-                                    جزئیات
+                                <button type="button" class="btn btn-secondary py-1 px-2 ml-auto ml-auto">
+                                    @foreach(DB::table('food_partiey')->get() as $item)
+                                        @if($item->food_id == $food->id)
+                                            {{$item->DiscountAmount}}% تخفیف
+                                        @endif
+                                    @endforeach
                                 </button>
 
                             </div>

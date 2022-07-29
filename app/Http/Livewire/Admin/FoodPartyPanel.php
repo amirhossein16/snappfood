@@ -12,6 +12,11 @@ class FoodPartyPanel extends Component
 
     public function ChangeStatus(FoodParty $id)
     {
+        $party = FoodParty::where('status', !$id->status)->get()->first();
+        if ($party != null) {
+            $party->status = false;
+            $party->save();
+        }
         if (!$id->status) {
             $id->status = true;
         } else {

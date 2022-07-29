@@ -58,27 +58,17 @@
                                    class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4 "
                                    placeholder="تایید رمزعبور" name="password_confirmation" required
                                    autocomplete="new-password">
-                            {{--                            <div class="intro-x w-full grid grid-cols-12 gap-4 h-1 mt-3 ">--}}
-                            {{--                                <div class="col-span-3 h-full rounded bg-theme-10 "></div>--}}
-                            {{--                                <div class="col-span-3 h-full rounded bg-theme-10 "></div>--}}
-                            {{--                                <div class="col-span-3 h-full rounded bg-theme-10 "></div>--}}
-                            {{--                                <div class="col-span-3 h-full rounded bg-gray-200 dark:bg-dark-2"></div>--}}
-                            {{--                            </div>--}}
-                            {{--                            <button class="intro-x text-gray-600 block my-4 text-xs sm:text-sm">رمزعبور امن چیست؟--}}
-                            {{--                            </button>--}}
                         </div>
                         <div
                             class="intro-x flex items-center text-gray-700 dark:text-gray-600 mt-4 text-xs sm:text-sm ">
                             <input id="remember-me " type="checkbox" class="form-check-input border ml-2 ">
-                            <label class="cursor-pointer select-none " for="remember-me ">موافقت با</label>
-                            <a class="text-theme-17 dark:text-gray-300 ml-1 " href=" ">حریم شخصی</a>.
+                            <label class="cursor-pointer select-none " for="remember-me ">من را بخاطر بسپار</label>
                         </div>
                         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                             <div class="mt-4">
                                 <x-jet-label for="terms">
                                     <div class="flex items-center">
-                                        <x-jet-checkbox name="terms" id="terms"/>
-
+                                        <x-jet-checkbox name="terms" id="terms" />
                                         <div class="ml-2">
                                             {!! __('I agree to the :terms_of_service and :privacy_policy', [
                                                     'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terms of Service').'</a>',

@@ -46,7 +46,7 @@ class RestaurantPanel extends Component
         'Restaurant.address' => 'required',
         'Restaurant.phone' => 'required',
         'Restaurant.ShippingCost' => 'required',
-        'Restaurant.accountNumber' => 'required',
+        'Restaurant.accountNumber' => 'required|min:16|max:16',
         'Restaurant.restaurant_categories_id' => 'required',
     ];
 
@@ -57,6 +57,7 @@ class RestaurantPanel extends Component
         'Restaurant.phone.required' => 'شماره تماس رستوران نمیتواند خالی باشد !',
         'Restaurant.ShippingCost.required' => 'هزینه ارسال رستوران نمیتواند خالی باشد !',
         'Restaurant.accountNumber.required' => 'شماره حساب رستوران نمیتواند خالی باشد !',
+        'Restaurant.accountNumber.min' => 'شماره حساب رستوران باید 16 کاراکتر باشد !',
         'Restaurant.restaurant_categories_id.required' => 'دسته بندی رستوران نمیتواند خالی باشد !',
     ];
 

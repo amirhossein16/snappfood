@@ -10,7 +10,8 @@
                     <div id="multi-select" class="p-5">
                         <div class="preview">
                             <label>
-                                <select wire:model="foodPrties" data-placeholder="Select your favorite actors" data-search="true"
+                                <select wire:model="discount.foodPrties" data-placeholder="Select your favorite actors"
+                                        data-search="true"
                                         class="w-full" multiple>
                                     @foreach($foods as $food)
                                         <option value="{{$food->id}}">{{$food->title}}</option>
@@ -20,6 +21,13 @@
                         </div>
                     </div>
                     <x-jet-input-error for="food.title" class="mt-2"/>
+                </div>
+                <div class="mt-3">
+                    <label for="name" class="form-label">{{ __('مقدار تخفیف') }}</label>
+                    <input id="name" type="text" class="form-control form-control-rounded"
+                           placeholder="مقدار تخفیف . . ."
+                           wire:model.defer="discount.amount">
+                    <x-jet-input-error for="discount.amount" class="mt-2"/>
                 </div>
             </div>
         </x-slot>
