@@ -16,12 +16,10 @@ class AllUsers extends Component
 
     public function Users()
     {
-        $this->users = User::where('name', '!=', null)->search(trim($this->search))->get();
-    }
-
-    public function SearchByName()
-    {
-        $this->users = User::where('name', '!=', null)->searchName(trim($this->searchbyName))->get();
+        if ($this->searchbyName != null)
+            $this->users = User::where('name', '!=', null)->searchName(trim($this->searchbyName))->get();
+        else
+            $this->users = User::where('name', '!=', null)->search(trim($this->search))->get();
     }
 
     public function ExportXlsx()
@@ -39,7 +37,6 @@ class AllUsers extends Component
     public function render()
     {
         $this->Users();
-        $this->SearchByName();
         return view('livewire.admin.all-users', [
             'users' => $this->users
         ]);

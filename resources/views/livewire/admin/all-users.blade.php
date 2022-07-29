@@ -20,7 +20,7 @@
                      aria-labelledby="layout-1-annual-fees-tab w-full">
                     <div class="col-span-12 flex-row flex items-center justify-center w-full">
                         <label for="dateSearch"></label>
-                        <select wire:model.debounce.350ms="search" id="dateSearch"
+                        <select wire:model.debounce="search" wire:change="$emit('Users')" id="dateSearch"
                                 data-placeholder="Select your favorite actors" data-search="true"
                                 class="w-full form-control form-control-rounded"
                                 style="background-position:left 0.5rem center !important;">
