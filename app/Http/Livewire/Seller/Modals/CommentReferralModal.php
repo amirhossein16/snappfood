@@ -20,10 +20,12 @@ class CommentReferralModal extends Component
 
     public function referralModalComment()
     {
-        $this->comment->confirm = 2;
+        $this->comment->status = 'reject';
         $this->comment->save();
+
+        $this->emit('RefreshTable');
         $this->referralCommentModal = false;
-        $this->emitTo('livewire-toast', 'show', " با موفقیت ارجاع داده شد :) ");
+        $this->emitTo('livewire-toast', 'showWarning', " با موفقیت ارجاع داده شد :) ");
     }
 
     public function render()

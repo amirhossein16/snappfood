@@ -28,6 +28,7 @@ class FoodAddModal extends Component
     public function saveFood()
     {
         $this->validate();
+
         Food::create([
             "food_categories_id" => $this->food['food_categories_id'],
             "price" => $this->food['price'],
@@ -35,6 +36,7 @@ class FoodAddModal extends Component
             "title" => $this->food['title'],
             'restaurant_detail_id' => \auth()->user()->restaurantDetail->id,
         ]);
+
         $this->emitTo('livewire-toast', 'show', " غذا با موفقیت افزوده شد :) ");
         $this->emit('RefreshTable');
         $this->confirmingfoodAddModal = false;

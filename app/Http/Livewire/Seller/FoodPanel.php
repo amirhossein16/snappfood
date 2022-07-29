@@ -16,20 +16,6 @@ class FoodPanel extends Component
 
     protected $listeners = ['RefreshTable' => 'reloadFoodTable'];
 
-//    public function confirmCategoryDeletion($id)
-//    {
-//        $this->confirmingCategoryDeletion = $id;
-//    }
-//
-//    public function deleteCategory(food $category)
-//    {
-//        $category->delete();
-//        $this->confirmingCategoryDeletion = false;
-//        $this->dispatchBrowserEvent('alert', [
-//            'type' => 'success', 'message' => 'دسته بندی با موفقیت حذف شد'
-//        ]);
-//    }
-
     public $Category;
 
     public function reloadFoodTable()

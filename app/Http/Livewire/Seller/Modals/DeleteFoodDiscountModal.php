@@ -7,8 +7,8 @@ use Livewire\Component;
 
 class DeleteFoodDiscountModal extends Component
 {
-    public $deleteDiscountModalConfirm = false;
     public $food;
+    public $deleteDiscountModalConfirm = false;
     protected $listeners = ['deleteDiscount'];
 
     public function deleteDiscount(Food $id)
@@ -21,7 +21,9 @@ class DeleteFoodDiscountModal extends Component
     {
         $this->food->off = 0;
         $this->food->save();
+
         $this->food->discountFood->delete();
+
         $this->emit('RefreshTable');
         $this->deleteDiscountModalConfirm = false;
         $this->emitTo('livewire-toast', 'show', " کد تخفیف با موفقیت حذف شد :) ");

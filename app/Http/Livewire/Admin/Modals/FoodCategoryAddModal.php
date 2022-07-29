@@ -3,15 +3,12 @@
 namespace App\Http\Livewire\Admin\Modals;
 
 use App\Models\foodCategories;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class FoodCategoryAddModal extends Component
 {
     public $foodCategory;
-    public $confirmingCategoryAdd;
+    public $confirmingCategoryAdd = false;
     protected $listeners = ['confirmCategoryAdd'];
 
 
@@ -33,13 +30,14 @@ class FoodCategoryAddModal extends Component
         foodCategories::create([
             'FoodType' => $this->foodCategory['FoodType'],
         ]);
+
         $this->reset(['foodCategory']);
         $this->emit('RefreshTable');
         $this->emitTo('livewire-toast', 'show', " دسته بندی با موفقیت اضافه شد :)");
         $this->confirmingCategoryAdd = false;
     }
 
-    public function render(): Factory|View|Application
+    public function render()
     {
         return view('livewire.admin.modals.food-category-add-modal');
     }

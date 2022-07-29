@@ -12,9 +12,9 @@ class PhotoModal extends Component
 {
     use WithFileUploads;
 
-    public $photos = [];
     public $photo;
     public $food;
+    public $photos = [];
     public $delPhoto = [];
     public $PhotoModaldelete = false;
     public $PhotoModalConfirm = false;
@@ -34,16 +34,21 @@ class PhotoModal extends Component
     {
         $this->validate();
         $row = 1;
+
         if (count($this->photos) < 6)
             foreach ($this->photos as $photo) {
+
                 $restaurantName = str_replace(" ", "_", $this->food->title);
                 $filename = $restaurantName . '_' . $row . '.' . $photo->extension();
+
                 if (!Storage::disk('public')->exists("photos/Foods/$filename"))
                     $photo->storeAs('photos/Foods', $filename);
                 $row++;
             }
+
         $this->emit('RefreshTable');
         $this->reset(['photos']);
+        $this->emitTo('livewire-toast', 'show', " تثویر با موفقیت اضافه شد :) ");
         $this->PhotoModalConfirm = false;
     }
 
@@ -52,12 +57,13 @@ class PhotoModal extends Component
         for ($i = 1; $i < 6; $i++) {
             $restaurantName = str_replace(" ", "_", $this->food->title);
             $filename = $restaurantName . '_' . $i . '.jpg';
+
             if (Storage::disk('public')->exists("photos/Foods/$filename")) {
                 Storage::disk('public')->delete("photos/Foods/$filename");
                 File::deleteDirectory('storage/photos/public');
-//                Storage::disk('temp')->delete("photos/Foods/$filename");
             }
         }
+
         $this->reset();
         $this->emit('RefreshTable');
         $this->PhotoModalConfirm = false;

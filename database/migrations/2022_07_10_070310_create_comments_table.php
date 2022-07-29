@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->foreignIdFor(\App\Models\Orders::class)->constrained();
             $table->foreignIdFor(\App\Models\RestaurantDetail::class)->constrained();
-            $table->enum('status', ['confirm', 'reject', 'suspended'])->default('suspended');
+            $table->enum('status', ['confirm', 'reject', 'suspended', 'referral'])->default('suspended');
             $table->text('opinion');
             $table->integer('score')->nullable();
             $table->softDeletes();

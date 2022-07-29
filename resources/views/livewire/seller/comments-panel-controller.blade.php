@@ -1,7 +1,5 @@
 <div>
     <livewire:delete-modal/>
-    <livewire:edit-modal/>
-    <livewire:add-modal/>
     <livewire:seller.modals.answer-comment-modal/>
     <livewire:seller.modals.comment-referral-modal/>
     <livewire:seller.modals.comment-confirm-modal/>
@@ -46,34 +44,48 @@
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium"> {{ $Categories->user->email }}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{$Categories->orders_id }}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
-                                                    @if($Categories->confirm == 0)
+                                                    @if($Categories->status == 'suspended')
                                                         <span class="text-red-500">تایید نشده</span>
-                                                    @elseif($Categories->confirm == 1)
+                                                    @elseif($Categories->status == 'confirm')
                                                         <span class="text-green-500">تایید شده</span>
-                                                    @elseif($Categories->confirm == 2)
+                                                    @elseif($Categories->status == 'reject')
                                                         <span class="text-amber-500">ارجاع به مدیریت</span>
                                                     @endif</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{$Categories->opinion}}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{$Categories->score}}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
-                                                    @if($Categories->confirm == 0)
+                                                    @if($Categories->status == 'suspended')
                                                         <button class="btn btn-elevated-success w-24 ml-1 mb-2 p-2"
                                                                 wire:click="$emit('ConfirmModal',{{$Categories->id}})">
                                                             تایید
                                                         </button>
-                                                        <button
-                                                            class="btn btn-elevated-warning w-24 text-sm py-3 px-2 ml-1 mb-2"
-                                                            wire:click="$emit('referralComment',{{$Categories->id}})">
-                                                            ارجاع به مدیر
-                                                        </button>
+                                                        @if(\Illuminate\Support\Facades\DB::table('parent_child_comment')->where('parent_comment_id',$Categories->id)->first() != null)
+                                                            @php
+                                                                $parent = \Illuminate\Support\Facades\DB::table('parent_child_comment')->where('parent_comment_id',$Categories->id)->first()->child_comment_id
+                                                            @endphp
+                                                            @if(\App\Models\Comment::where([['id',$parent],['user_id',1]])->first() != null)
+                                                                <button
+                                                                    title="{{\App\Models\Comment::where('id',$parent)->get()->first()->opinion}}"
+                                                                    class="btn btn-elevated-secondary w-24 text-sm py-3 px-2 ml-1 mb-2 tooltip">
+                                                                    پاسخ مدیریت
+                                                                </button>
+                                                            @endif
+                                                        @else
+                                                            <button
+                                                                class="btn btn-elevated-warning w-24 text-sm py-3 px-2 ml-1 mb-2"
+                                                                wire:click="$emit('referralComment',{{$Categories->id}})">
+                                                                ارجاع به مدیر
+                                                            </button>
+                                                        @endif
                                                         <x-jet-button
                                                             class="btn btn-elevated-danger w-32 ml-1 mb-2 px-2 h-12 text-indigo-900"
                                                             wire:click="$emit('confirmAndAnswerComment',{{$Categories->id}})"
                                                         >تایید و پاسخ
                                                         </x-jet-button>
-                                                    @elseif($Categories->confirm == 1)
-                                                        <span class="text-emerald-500"> کامنت تایید و قابل روئیت گردید :)</span>
-                                                    @elseif($Categories->confirm == 2)
+                                                    @elseif($Categories->status == 'confirm')
+                                                        <span
+                                                            class="text-emerald-500"> کامنت تایید و قابل رویت گردید :)</span>
+                                                    @elseif($Categories->status == 'reject')
                                                         <span
                                                             class="text-amber-600"> کامنت مدیریت ارجاع داده شد :)</span>
                                                     @endif

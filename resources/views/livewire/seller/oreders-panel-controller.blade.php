@@ -1,5 +1,4 @@
 <div>
-    <livewire:delete-modal/>
     <livewire:seller.modals.order-details-modal/>
     <livewire:seller.modals.change-order-status-modal/>
     <!-- BEGIN: Content -->
@@ -34,55 +33,55 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($Category as $Categories)
-                                        @if( $Categories->id % 2 == 0  )
+                                    @foreach ($Orders as $order)
+                                        @if( $order->id % 2 == 0  )
                                             <tr>
                                         @else
                                             <tr class="bg-gray-200 dark:bg-dark-1">
                                                 @endif
-                                                <td class="border-b dark:border-dark-5 text-lg font-medium">{{ $Categories->id }}</td>
+                                                <td class="border-b dark:border-dark-5 text-lg font-medium">{{ $order->id }}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
-                                                    {{$Categories->cart->user->name}}
+                                                    {{$order->cart->user->name}}
                                                 </td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
-                                                    {{$Categories->Total_price}}
+                                                    {{\App\Models\Cart::where('id',$order->cart->id)->get()->first()->price}}
                                                 </td>
-                                                @if($Categories->cart->user->UserAddress->where('currentAddress',1)->first() !=null)
+                                                @if($order->cart->user->UserAddress->where('currentAddress',1)->first() !=null)
                                                     <td class="report-box__indicator tooltip cursor-pointer border-b dark:border-dark-5 text-lg font-medium"
-                                                        title="{{$Categories->cart->user->UserAddress->where('currentAddress',1)->first()->address}}">
-                                                        {{ Str::limit($Categories->cart->user->UserAddress->where('currentAddress',1)->first()->address, 50) }}
+                                                        title="{{$order->cart->user->UserAddress->where('currentAddress',1)->first()->address}}">
+                                                        {{ Str::limit($order->cart->user->UserAddress->where('currentAddress',1)->first()->address, 50) }}
                                                     </td>
                                                 @else
                                                     <td class="border-b dark:border-dark-5 text-lg font-medium">
                                                     </td>
                                                 @endif
-                                                <td class="border-b dark:border-dark-5 text-lg font-medium">{{$Categories->created_at}}</td>
+                                                <td class="border-b dark:border-dark-5 text-lg font-medium">{{$order->created_at}}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">@php
-                                                        if ($Categories->OrderStatus == 1)
+                                                        if ($order->OrderStatus == 1)
                                                             echo "در حال بررسی";
-                                                        elseif ($Categories->OrderStatus == 2)
+                                                        elseif ($order->OrderStatus == 2)
                                                             echo "در حال آماده سازی";
-                                                        elseif ($Categories->OrderStatus == 3)
+                                                        elseif ($order->OrderStatus == 3)
                                                             echo "ارسال به مقصد";
-                                                        elseif ($Categories->OrderStatus == 4)
+                                                        elseif ($order->OrderStatus == 4)
                                                             echo "تحویل گرفته شد";
                                                     @endphp</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
-                                                    @if($Categories->OrderStatus == 4)
+                                                    @if($order->OrderStatus == 4)
                                                         <x-jet-button
                                                             class="btn btn-elevated-success w-44 h-12 ml-1 mb-2 disabled:opacity-75 disabled:cursor-not-allowed"
                                                             disabled> سفارش تکمیل شد
                                                         </x-jet-button>
                                                     @else
                                                         <x-jet-button
-                                                            wire:click="$emit('ChangeOrderStatus',{{ $Categories->id }})"
+                                                            wire:click="$emit('ChangeOrderStatus',{{ $order->id }})"
                                                             class="btn btn-elevated-primary w-44 h-12 ml-1 mb-2"
                                                         >
                                                             تبدیل وضعیت سفارش
                                                         </x-jet-button>
                                                     @endif
                                                     <button
-                                                        wire:click="$emit('OrderDetails', {{ $Categories->id }})"
+                                                        wire:click="$emit('OrderDetails', {{ $order->id }})"
                                                         class="btn btn-elevated-secondary text-indigo-900 w-32 h-12 ml-1 mb-2"
                                                     >
                                                         جزئیات سفارش

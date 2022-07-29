@@ -31,6 +31,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('FoodParty', \App\Http\Livewire\Admin\FoodPartyPanel::class)->name('FoodParty');
 
         Route::get('FrontBanner', \App\Http\Livewire\Admin\Banner::class)->name('FrontBanner');
+
+        Route::get('AllUsers', \App\Http\Livewire\Admin\AllUsers::class)->name('AllUsers');
+
+        Route::get('CommentManagment', \App\Http\Livewire\Admin\CommentManagment::class)->name('CommentManagment');
+        Route::get('AllComments', \App\Http\Livewire\Admin\AllComment::class)->name('AllComments');
+        Route::get('DeletedComment', \App\Http\Livewire\Admin\DeleteComments::class)->name('DeletedComment');
     });
 
     Route::group(['middleware' => ['role:seller']], function () {

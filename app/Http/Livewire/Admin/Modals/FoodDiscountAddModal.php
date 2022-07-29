@@ -13,10 +13,10 @@ class FoodDiscountAddModal extends Component
     protected $listeners = ['confirmDiscountAdd'];
 
     protected $rules = [
-        'discount.title' => 'required|min:3',
-        'discount.type' => 'required|min:3',
-        'discount.amount' => 'required',
-        'discount.ExpireTime' => 'required|after:today',
+        'discount.title' => 'required|min:4',
+        'discount.amount' => 'required|integer',
+        'discount.ExpireTime' => 'required|date_format:Y-m-d|after:today',
+        'discount.type' => 'required',
     ];
 
     public function confirmDiscountAdd()

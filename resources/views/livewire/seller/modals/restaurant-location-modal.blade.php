@@ -10,12 +10,12 @@
                     <div class="mt-3">
                         <label for="Location" class="form-label">لوکیشن رستوران</label>
                         <x-jet-input-error for="lat" class="mt-2" />
-                        <x-maps-leaflet 
+                        <x-maps-leaflet
                         :center-point="['lat' => 35.701253490910126, 'long' => 51.34916022406515]"
-                        :zoom-level="6" 
-                        :markers="[['lat' => 35.701253490910126, 'long' => 51.34916022406515]]" 
-                        wire:model.click="$emit('saveLocation')" 
-                        class="w-1/2 h-20 mx-auto border border-solid border-indigo-400 border-b-violet-700">
+                        :zoom-level="18"
+                        :markers="[['lat' => 35.701253490910126, 'long' => 51.34916022406515]]"
+                        wire:model.click="$emit('saveLocation')"
+                        class="w-full h-3 mx-auto border border-solid border-indigo-400 border-b-violet-700">
                     </x-maps-leaflet>
                     </div>
                 </div>

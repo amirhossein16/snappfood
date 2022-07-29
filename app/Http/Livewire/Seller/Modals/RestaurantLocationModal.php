@@ -6,17 +6,17 @@ use Livewire\Component;
 
 class RestaurantLocationModal extends Component
 {
+    public $latitude;
+    public $longitude;
     public $confirmRestaurantLocationModal = false;
-    public $lat;
-    public $long;
     protected $listeners = ['OpenLocationModal', 'saveLocation'];
 
-    protected $rules = ['lat' => 'required', 'long' => 'required'];
+    protected $rules = ['latitude' => 'required', 'longitude' => 'required'];
 
-    public function saveLocation($lat, $long)
+    public function saveLocation($latitude, $longitude)
     {
-        $this->lat = $lat;
-        $this->long = $long;
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
     }
 
     public function OpenLocationModal()
@@ -27,9 +27,11 @@ class RestaurantLocationModal extends Component
     public function EditLocation()
     {
         $this->validate();
-        auth()->user()->restaurantDetail->lat = $this->lat;
-        auth()->user()->restaurantDetail->long = $this->long;
+
+        auth()->user()->restaurantDetail->latitude = $this->latitude;
+        auth()->user()->restaurantDetail->longitude = $this->longitude;
         auth()->user()->restaurantDetail->save();
+
         $this->confirmRestaurantLocationModal = false;
         $this->emitTo('livewire-toast', 'show', 'اطلاعات موقعیت مکانی با موفقیت بروز شد :)');
     }

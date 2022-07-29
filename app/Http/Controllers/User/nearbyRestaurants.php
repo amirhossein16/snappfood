@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\RestaurantDetail;
 use App\Models\UserAddress;
 use Illuminate\Support\Facades\DB;
 
@@ -14,29 +15,28 @@ class nearbyRestaurants extends Controller
         $this->middleware('auth:api');
     }
 
+    public $lat;
+    public $long;
+    public $array = [];
+
     public function index()
     {
         $query = UserAddress::where([['currentAddress', 1], ['user_id', auth('api')->user()->id]])->get()->first();
         if ($query != null) {
-            $lat = $query->latitude;
-            $lon = $query->longitude;
-            $restaurant = DB::table('restaurant_details')->where('lat', '!=', null)->get()->first();
-            if (DB::table('restaurant_details')->where('lat', '!=', null)) {
-                $data = DB::table("restaurant_details")
-                    ->select("restaurant_details.id"
-                        , DB::raw("6371 * acos(cos(radians(" . $lat . "))
-                * cos(radians($restaurant->lat))
-                * cos(radians($restaurant->long) - radians(" . $lon . "))
-                + sin(radians(" . $lat . "))
-                * sin(radians($restaurant->lat))) AS distance"))
-                    ->groupBy("restaurant_details.id")
-                    ->get();
-            }
+            $this->lat = $query->latitude;
+            $this->long = $query->longitude;
+            RestaurantDetail::all()->map(function ($value) {
+                $this->array[] = $value->select("*", DB::raw("6371 * acos(cos(radians(" . $this->lat . "))
+                                * cos(radians(latitude)) * cos(radians(longitude) - radians(" . $this->long . "))
+                                + sin(radians(" . $this->lat . ")) * sin(radians(latitude))) AS distance"))->orderBy('distance')->get();
+            });
+            unset($this->array[1]);
+            return $this->array;
         } else {
             return response()->json(['msg' => 'Please Set Current Location !']);
         }
 
-        dd($data);
+//        dd($data);
     }
 
     public function store()

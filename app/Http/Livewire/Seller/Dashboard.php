@@ -2,12 +2,17 @@
 
 namespace App\Http\Livewire\Seller;
 
+use App\Models\CartFood;
+use App\Models\Food;
 use App\Models\Orders;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Dashboard extends Component
 {
+    use WithPagination;
+
     public $sellCount;
     public $query;
     public $search;
@@ -34,21 +39,7 @@ class Dashboard extends Component
 
     public function sellSusspendStatus()
     {
-        return $this->query->where('OrderStatus', 1)->count();
-    }
-
-    public function SearchInput()
-    {
-        if (!is_null($this->search)) {
-            return $this->query->where('created_at', 'Like', $this->search)->get();
-        } else {
-            return $this->query;
-        }
-    }
-
-    public function OrderSend()
-    {
-        return $this->query->where('OrderStatus', 4);
+        return $this->query->where('OrderStatus', "<", 4)->count();
     }
 
     public function render()
@@ -58,8 +49,12 @@ class Dashboard extends Component
             'sumSellPrice' => $this->sumSellPrice(),
             'SellCompleteStatus' => $this->SellCompleteStatus(),
             'sellSusspendStatus' => $this->sellSusspendStatus(),
-            'OrdersDetails' => $this->SearchInput(),
-            'OrderSend' => $this->OrderSend()
+            'OrdersDetails' => Orders::where('restaurant_detail_id', auth()->user()->restaurantDetail->id)->paginate(5),
+            'OrderSend' => Orders::where([['restaurant_detail_id', auth()->user()->restaurantDetail->id], ['OrderStatus', 4]])->paginate(5),
+            'BestSeller' => Orders::all()->groupBy('restaurant_detail_id'),
+//            'TheBestFood' => CartFood::where('food_id', Food::where('restaurant_detail_id', '=', \auth()->user()->restaurantDetail->id)->get()->map(function ($value) {
+//                return $value->id;
+//            }))->get()->groupBy('food_id')
         ]);
     }
 }

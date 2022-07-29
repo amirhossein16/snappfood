@@ -1,7 +1,6 @@
 <div>
     <livewire:delete-modal/>
     <livewire:seller.modals.order-details-modal/>
-    <livewire:seller.modals.change-order-status-modal/>
     <!-- BEGIN: Content -->
     <div class="wrapper wrapper--top-nav">
         <div class="wrapper-box">
@@ -35,7 +34,8 @@
                                 <div id="layout-1-monthly-fees" class="tab-pane flex flex-col lg:flex-row active w-full"
                                      role="tabpanel" aria-labelledby="layout-1-monthly-fees-tab">
                                     <div class="col-span-12 flex-row flex items-center justify-center w-full">
-                                        <label for="search"></label><input id="search" type="text" wire:model.debounce.350ms="search"
+                                        <label for="search"></label><input id="search" type="text"
+                                                                           wire:model.debounce.350ms="search"
                                                                            class="shadow-md w-full form-control form-control-rounded justify-center mt-2"/>
                                     </div>
                                 </div>
@@ -43,7 +43,8 @@
                                      role="tabpanel"
                                      aria-labelledby="layout-1-annual-fees-tab w-full">
                                     <div class="col-span-12 flex-row flex items-center justify-center w-full">
-                                        <label for="dateSearch"></label><input id="dateSearch" type="date" wire:model.debounce.350ms="search"
+                                        <label for="dateSearch"></label><input id="dateSearch" type="date"
+                                                                               wire:model.debounce.350ms="search"
                                                                                class="shadow-md w-full form-control form-control-rounded justify-center mt-2"/>
                                     </div>
                                 </div>
@@ -80,7 +81,7 @@
                                                     {{$order->cart->user->name}}
                                                 </td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
-                                                    {{$order->Total_price}}
+                                                    {{\App\Models\Cart::where('id',$order->cart->id)->get()->first()->price}}
                                                 </td>
                                                 @if($order->cart->user->UserAddress->where('currentAddress',1)->first() !=null)
                                                     <td class="report-box__indicator tooltip cursor-pointer border-b dark:border-dark-5 text-lg font-medium"
@@ -92,16 +93,11 @@
                                                     </td>
                                                 @endif
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{$order->created_at}}</td>
-                                                <td class="border-b dark:border-dark-5 text-lg font-medium">@php
-                                                        if ($order->OrderStatus == 1)
-                                                            echo "در حال بررسی";
-                                                        elseif ($order->OrderStatus == 2)
-                                                            echo "در حال آماده سازی";
-                                                        elseif ($order->OrderStatus == 3)
-                                                            echo "ارسال به مقصد";
-                                                        elseif ($order->OrderStatus == 4)
-                                                            echo "تحویل گرفته شد";
-                                                    @endphp</td>
+                                                <td class="border-b dark:border-dark-5 text-lg font-medium">
+                                                    @if ($order->OrderStatus == 4)
+                                                        تحویل گرفته شد
+                                                    @endif
+                                                </td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
                                                     @if($order->OrderStatus == 4)
                                                         <x-jet-button

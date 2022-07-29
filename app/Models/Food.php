@@ -45,4 +45,9 @@ class Food extends Model
     {
         return $this->hasOne(CartFood::class);
     }
+
+    public function foodCategories()
+    {
+        return $this->belongsTo(foodCategories::class);
+    }
 }

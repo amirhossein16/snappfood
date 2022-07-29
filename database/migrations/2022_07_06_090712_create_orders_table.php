@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(\App\Models\Cart::class)->constrained();
             $table->foreignIdFor(\App\Models\RestaurantDetail::class)->constrained();
-            $table->string('Total_price');
+            $table->bigInteger('Total_price');
             $table->integer('OrderStatus')->default(1);
             $table->timestamps();
         });

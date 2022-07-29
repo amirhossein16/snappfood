@@ -28,10 +28,13 @@ class DiscountEditModal extends Component
     public function editDiscount()
     {
         $this->validate();
+
         $this->discount['ExpireTime'] = Carbon::parse($this->discount['ExpireTime'])->timezone('Asia/Tehran');
+
         if (isset($this->discount->id)) {
             $this->discount->save();
         }
+
         $this->emit('RefreshTable');
         $this->emitTo('livewire-toast', 'show', " کدتخفیف با موفقیت بروزرسانی شد :)");
         $this->confirmingDiscountEditModal = false;

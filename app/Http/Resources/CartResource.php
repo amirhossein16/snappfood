@@ -33,8 +33,7 @@ class CartResource extends JsonResource
         return [
             'id' => $this->id,
             'restaurant' => CartRestaurantResource::collection(RestaurantDetail::where('id', $this->restaurant_detail_id)->get()),
-            'foods' => CartFoodResource::collection(CartFood::where('cart_id', $this->id)->get())
-            ,
+            'foods' => CartFoodResource::collection(CartFood::where('cart_id', $this->id)->get()),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

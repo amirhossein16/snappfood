@@ -28,15 +28,6 @@ class RestaurantWorkTimeModal extends Component
         'Friday_start' => 'required',
         'Friday_end' => 'required|after:Friday_start',
     ];
-//    public $message = [
-//        'Saturday_end.after' => 'زمان شروع روز شنبه نمیتواند دیرتر از پایان آن باشد ! ! !',
-//        'Sunday_end.after' => 'زمان شروع روز یکشنبه نمیتواند دیرتر از پایان آن باشد ! ! !',
-//        'Monday_end.after' => 'زمان شروع روز دوشنبه نمیتواند دیرتر از پایان آن باشد ! ! !',
-//        'Tuesday_end.after' => 'زمان شروع روز سه شنبه نمیتواند دیرتر از پایان آن باشد ! ! !',
-//        'Wednesday_end.after' => 'زمان شروع روز چهارشنبه نمیتواند دیرتر از پایان آن باشد ! ! !',
-//        'Thursday_end.after' => 'زمان شروع روز پنجشنبه نمیتواند دیرتر از پایان آن باشد ! ! !',
-//        'Friday_end.after' => 'زمان شروع روز جمعه نمیتواند دیرتر از پایان آن باشد ! ! !',
-//    ];
 
     public function OpenWorkingTimeModal($id)
     {

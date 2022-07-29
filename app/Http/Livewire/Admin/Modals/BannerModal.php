@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire\Admin\Modals;
 
-use App\Http\Livewire\Admin\Banner;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -28,17 +26,22 @@ class BannerModal extends Component
     public function AddBanner()
     {
         $this->validate();
+
         $BannerName = str_replace(" ", "_", $this->photo->hashName());
         $filename = $BannerName . '.' . $this->photo->getClientOriginalExtension();
+
         if (!Storage::disk('public')->exists("photos/Banners/$filename")) {
+
             \App\Models\Banner::create([
                 'name' => $BannerName,
                 'path' => "photos/Banners/$filename"
             ]);
+
             $this->photo->storeAs('photos/Banners', $filename);
             $this->confirmBannerAddModal = false;
             $this->emitTo('livewire-toast', 'show', 'ّبنر با موفقیت اضافه شد :)');
         }
+
         $this->emit('RefreshTable');
         $this->confirmBannerAddModal = false;
     }

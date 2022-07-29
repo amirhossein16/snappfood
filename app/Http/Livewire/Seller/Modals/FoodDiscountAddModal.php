@@ -33,11 +33,13 @@ class FoodDiscountAddModal extends Component
             'food_id' => $this->food->id,
             'discount_id' => $this->discount['id']
         ]);
+
         $discountAdd = Food::find($this->food->id);
         if ($discountAdd->off == null || $discountAdd->off == 0) {
             $discountAdd->off = 1;
             $discountAdd->save();
         }
+
         $this->emitTo('livewire-toast', 'show', " کد تخفیف با موفقیت افزوده شد :) ");
         $this->emit('RefreshTable');
         $this->confirmAddDiscountModal = false;

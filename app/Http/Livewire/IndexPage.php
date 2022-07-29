@@ -22,8 +22,12 @@ class IndexPage extends Component
             $this->Restaurant = RestaurantDetail::where('name', '!=', null)->get();
         }
 
-        if (FoodParty::all()->first() != null && DB::table('food_partiey')->select('food_id')->get()->first() != null) {
-            $this->FoodPartys = DB::table('food_partiey')->select('food_id')->where('food_party_id', FoodParty::where('status', true)->get()->first()->id)->get();
+        if (FoodParty::all()->first() != null &&
+            DB::table('food_partiey')->select('food_id')->get()->first() != null) {
+            $this->FoodPartys = DB::table('food_partiey')
+                ->select('food_id')
+                ->where('food_party_id',
+                    FoodParty::where('status', true)->get()->first()->id)->get();
             foreach ($this->FoodPartys as $item) {
                 $this->FoodParty[] = Food::where('id', $item->food_id)->get();
             }

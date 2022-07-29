@@ -19,13 +19,12 @@ class CommentConfirmModal extends Component
 
     public function ConfirmModalComment()
     {
-        $this->comment->confirm = true;
+        $this->comment->status = 'confirm';
         $this->comment->save();
+
         $this->ConfirmCommentModal = false;
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'کامنت با موفقیت تایید شد'
-        ]);
-        $this->emit('reloadCommentTable');
+        $this->emitTo('livewire-toast', 'show', 'نظر با موفقیت تایید شد :)');
+        $this->emit('RefreshTable');
     }
 
     public function render()

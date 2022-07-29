@@ -2,7 +2,7 @@
     <x-jet-dialog-modal wire:model="confirmingDiscountEditModal">
         <x-slot name="title">
             <h2 class="font-medium text-base ml-auto">
-                {{ isset($this->discount->id) ? 'ویرایش کد تخفیف' : 'افزودن کدتخفیف' }}</h2>
+                {{ __('ویرایش کد تخفیف') }}</h2>
         </x-slot>
 
         <x-slot name="content">

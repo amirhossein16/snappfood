@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('type');
             $table->date('ExpireTime');
             $table->string('amount');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

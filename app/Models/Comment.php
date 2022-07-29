@@ -17,7 +17,7 @@ class Comment extends Model
         'restaurant_detail_id',
         'opinion',
         'score',
-        'confirm'
+        'status'
     ];
 
     public function user()

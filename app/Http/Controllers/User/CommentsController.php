@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCommentRequest;
 use App\Http\Resources\CommentsResource;
 use App\Models\Comment;
 use App\Models\Food;
@@ -31,13 +32,13 @@ class CommentsController extends Controller
             if (RestaurantDetail::find(\request('restaurant_id')) != null) {
                 $comment = Comment::where([
                     ['restaurant_detail_id', \request('restaurant_id')],
-                    ['confirm', 1]])->get();
+                    ['status', 'confirm']])->get();
             } else
                 return response()->json(['msg' => 'Restaurant Not Exist :(((']);
         } elseif (!empty(\request('food_id')) && Food::find(\request('food_id')) != null) {
             $comment = Comment::where([
                 ['restaurant_detail_id', Food::findOrFail(\request('food_id'))->RestaurantDetail->id],
-                ['confirm', 1]])->get();
+                ['status', 'confirm']])->get();
         } else {
             return response()->json(['msg' => 'Food Not Exist :(((']);
         }
@@ -50,11 +51,12 @@ class CommentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return JsonResponse|void
+     * @param StoreCommentRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreCommentRequest $request)
     {
+        $request->validated();
         if (Orders::where('id', $request['orders_id'])->get()->first()->OrderStatus == 4 &&
             Orders::where([['id', $request['orders_id']], ['cart_id', auth('api')->user()->cart->id]]) != null
         ) {
@@ -64,7 +66,7 @@ class CommentsController extends Controller
                 'restaurant_detail_id' => Orders::where('id', $request['orders_id'])->get()->first()->restaurant_detail_id,
                 'opinion' => $request['message'],
                 'score' => $request['score'],
-                'confirm' => false,
+                'status'=> 'suspended',
             ]);
             return response()->json(['msg' => 'comment Added Successfully']);
         } else {
@@ -86,7 +88,7 @@ class CommentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
      * @return void
      */

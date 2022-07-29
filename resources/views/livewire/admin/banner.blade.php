@@ -35,11 +35,7 @@
                                         $Row = 0;
                                     @endphp
                                     @foreach($image as $pic)
-                                        {{--                                        @if( $pic  )--}}
-                                        {{--                                            <tr>--}}
-                                        {{--                                        @else--}}
                                         <tr class="bg-gray-200 dark:bg-dark-1 h-64">
-                                            {{--                                                @endif--}}
                                             <td class="border-b dark:border-dark-5 text-lg font-medium">{{ ++$Row }}</td>
                                             <td class="report-box__indicator tooltip cursor-pointer border-b dark:border-dark-5 text-lg font-medium"
                                                 title="{{$pic->name}}">

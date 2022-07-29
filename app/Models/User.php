@@ -22,6 +22,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use Notifiable;
 
 
     protected $guard_name = 'admin';
@@ -95,9 +96,6 @@ class User extends Authenticatable implements JWTSubject
         return true;
     }
 
-    use Notifiable;
-
-
     // Rest omitted for brevity
 
     /**
@@ -145,4 +143,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(UserAddress::class);
     }
 
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->Where('role', 'like', $term);});
+    }
 }

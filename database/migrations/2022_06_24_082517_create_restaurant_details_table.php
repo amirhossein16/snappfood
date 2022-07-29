@@ -20,8 +20,8 @@ return new class extends Migration {
             $table->boolean('is_open')->default(0);
             $table->bigInteger('accountNumber')->nullable();
             $table->string('address')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('long')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->string('ShippingCost')->nullable();
             $table->string('phone')->nullable();
             $table->softDeletes();

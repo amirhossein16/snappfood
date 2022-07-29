@@ -62,7 +62,8 @@ class UserCartController extends Controller
                 return response()->json(['msg' => 'Food Exist']);
             DB::beginTransaction();
 
-            $cart = Cart::where([['user_id', auth('api')->id()], ['state', 'FirstCart'], ['restaurant_detail_id', $food->restaurant_detail_id]])->get()->first();
+            $cart = Cart::where([['user_id', auth('api')->id()], ['state', 'FirstCart'], ['restaurant_detail_id',
+                $food->restaurant_detail_id]])->get()->first();
             if ($food->off == 1) {
 
                 $query = Discount::where('id', DiscountFood::where('food_id', $food->id)->get()->first()->discount_id)->get()->first();
@@ -78,18 +79,17 @@ class UserCartController extends Controller
             } else {
                 $foodPrice = (int)$food->price;
             }
-
             if ($cart == null) {
+                $price = $foodPrice != null ? (($food->price * $request->count) + (int)$food->RestaurantDetail->ShippingCost) :
+                    (($foodPrice * $request->count) + (int)$food->RestaurantDetail->ShippingCost);
                 $cart = Cart::create([
                     'user_id' => auth('api')->user()->id,
-                    'price' => $foodPrice ?
-                        ($foodPrice * $request->count) + $food->restaurant_detail_id->ShippingCost : ($food->price * $request->count) + $food->restaurant_detail_id->ShippingCost,
+                    'price' => $price,
                     'state' => 'FirstCart',
                     'restaurant_detail_id' => $food->restaurant_detail_id
                 ]);
             } else {
-                $cart->price += ($foodPrice * $request->count);
-                $cart->price += $food->restaurant_detail_id->ShippingCost;
+                $cart->price += (($foodPrice * $request->count) + (int)$food->RestaurantDetail->ShippingCost);
                 $cart->save();
             }
 

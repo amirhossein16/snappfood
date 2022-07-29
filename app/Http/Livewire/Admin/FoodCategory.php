@@ -7,31 +7,9 @@ use Livewire\Component;
 
 class FoodCategory extends Component
 {
-    public $foodCategory;
-    public $confirmingCategoryDeletion = false;
-    public $confirmingCategoryUpdate = false;
-    protected $listeners = ['RefreshTable' => 'refreshFoodTable'];
-
-    public function confirmCategoryEdit(foodCategories $id)
-    {
-        $this->resetErrorBag();
-        $this->foodCategory = $id;
-        $this->confirmingCategoryUpdate = true;
-    }
-
-    public function confirmCategoryDeletion($id)
-    {
-        $this->confirmingCategoryDeletion = $id;
-    }
-
-    public function deleteCategory(foodCategories $category)
-    {
-        $category->delete();
-        $this->confirmingCategoryDeletion = false;
-        $this->emitTo('livewire-toast', 'showError', " دسته بندی با موفقیت حذف شد :) ");
-    }
-
     public $category;
+
+    protected $listeners = ['RefreshTable' => 'refreshFoodTable'];
 
     public function refreshFoodTable()
     {

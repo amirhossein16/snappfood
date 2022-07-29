@@ -27,6 +27,8 @@ class AddFoodToPartyModal extends Component
                 'food_party_id' => FoodParty::where('status', true)->get()->first()->id
             ]);
         }
+
+        $this->emitTo('livewire-toast', 'show', "با موفقیت به فودپارتی افزوده شد :) ");
         $this->emit('RefreshTable');
         $this->confirmFoodAddToPartyModal = false;
     }

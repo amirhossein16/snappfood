@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\RestaurantDetail::class)->constrained();
             $table->enum('state', ['FirstCart', 'SecondCart', 'Payed']);
             $table->integer('orderStatus')->default(1);
-            $table->integer('price');
+            $table->bigInteger('price');
             $table->softDeletes();
             $table->timestamps();
         });

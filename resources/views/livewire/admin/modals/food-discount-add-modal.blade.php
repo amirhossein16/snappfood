@@ -2,7 +2,7 @@
     <x-jet-dialog-modal wire:model="confirmingDiscountaddModal">
         <x-slot name="title">
             <h2 class="font-medium text-base ml-auto">
-                {{ isset($this->discount->id) ? 'ویرایش کد تخفیف' : 'افزودن کدتخفیف' }}</h2>
+                {{ __('افزودن کدتخفیف')}}</h2>
         </x-slot>
 
         <x-slot name="content">
@@ -43,7 +43,7 @@
                 <div class="mt-3">
                     <label for="discountType">نوع تخفیف</label>
                     <div class="mt-2">
-                        <select id="discountType" data-search="true" class="tail-select w-full"
+                        <select id="discountType" class="form-control-rounded form-control w-full"
                                 wire:model.defer="discount.type">
                             <optgroup label="نوع تخفیف را انتخاب نمایدد . . .">
                                 <option value="Price">Price</option>
@@ -62,7 +62,7 @@
                 {{ __('لغو') }}
             </x-jet-secondary-button>
 
-            <x-jet-button class="ml-2 btn btn-primary w-20" wire:click="addDiscount()">
+            <x-jet-button class="ml-2 btn btn-primary w-20" wire:click="addDiscount()" wire:loading.attr="disabled">
                 {{ __('ذخیره') }}
             </x-jet-button>
         </x-slot>

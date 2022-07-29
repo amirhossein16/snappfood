@@ -855,6 +855,47 @@
                     <div class="top-menu__title">تنظیمات بنر</div>
                 </x-jet-nav-link>
             </li>
+            <li>
+                <x-jet-nav-link href="{{ route('AllUsers') }}" :active="request()->routeIs('AllUsers')"
+                                class="top-menu">
+                    <div class="top-menu__icon">
+                        <i data-feather="users" class="block mx-auto"></i>
+                    </div>
+                    <div class="top-menu__title">کاربران</div>
+                </x-jet-nav-link>
+            </li>
+            <li>
+                <a href="javascript:;" class="top-menu p-0">
+                    <div class="menu__icon ml-2"><i data-feather="message-circle" class="block mx-auto"></i></div>
+                    <div class="menu__title"> تنظیمات نظرات <i data-feather="chevron-down"
+                                                               class="menu__sub-icon text-sm"></i>
+                    </div>
+                </a>
+                <ul class="">
+                    <li>
+                        <x-jet-nav-link href="{{ route('AllComments') }}" :active="request()->routeIs('AllComments')"
+                                        class="top-menu">
+                            <div class="menu__icon"><i data-feather="message-circle" class="block mx-auto"></i></div>
+                            <div class="menu__title"> وضعیت نظرات</div>
+                        </x-jet-nav-link>
+                    </li>
+                    <li>
+                        <x-jet-nav-link href="{{ route('CommentManagment') }}"
+                                        :active="request()->routeIs('CommentManagment')" class="top-menu">
+                            <div class="menu__icon"><i data-feather="message-circle" class="block mx-auto"></i></div>
+                            <div class="menu__title"> تنظیمات نظرات</div>
+                        </x-jet-nav-link>
+                    </li>
+                    <li>
+                        <x-jet-nav-link href="{{route('DeletedComment')}}"
+                                        :active="request()->routeIs('DeletedComment')"
+                                        class="top-menu">
+                            <div class="menu__icon"><i data-feather="activity"></i></div>
+                            <div class="menu__title"> نظرات حذف شده</div>
+                        </x-jet-nav-link>
+                    </li>
+                </ul>
+            </li>
             @endrole
             @role('seller')
             <li>

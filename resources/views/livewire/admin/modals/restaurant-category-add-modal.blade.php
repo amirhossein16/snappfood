@@ -2,7 +2,7 @@
     <x-jet-dialog-modal wire:model="confirmingCategoryUpdate">
         <x-slot name="title">
             <h2 class="font-medium text-base ml-auto">
-                {{ isset($this->restaurantCategory->id) ? 'ویرایش دسته بندی' : 'افزودن دسته بندی' }}</h2>
+                {{ __('افزودن دسته بندی') }}</h2>
         </x-slot>
 
         <x-slot name="content">

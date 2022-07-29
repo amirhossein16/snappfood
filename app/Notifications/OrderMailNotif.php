@@ -12,6 +12,7 @@ class OrderMailNotif extends Notification implements ShouldQueue
     use Queueable;
 
     public $orders;
+    public $message;
 
     /**
      * Create a new notification instance.
@@ -21,6 +22,20 @@ class OrderMailNotif extends Notification implements ShouldQueue
     public function __construct($order)
     {
         $this->orders = $order;
+        switch ($this->orders->OrderStatus) {
+            case 1:
+                $this->message = 'در حال بررسی';
+                break;
+            case 2:
+                $this->message = 'در حال آماده سازی';
+                break;
+            case 3:
+                $this->message = 'ارسال به مقصد';
+                break;
+            case 4:
+                $this->message = 'تحویل گرفته شد';
+        }
+
     }
 
     /**
@@ -44,8 +59,8 @@ class OrderMailNotif extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->line('Your Total Price is : ' . $this->orders->Total_price)
-            ->action('Notification Action', url('/'))
-            ->line('Your Order was send :)');
+            ->line('Your OrderStatus is : ' . $this->message)
+            ->action('Notification Action', url('/'));
     }
 
     /**

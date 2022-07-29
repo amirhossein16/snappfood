@@ -29,12 +29,12 @@ class FoodEditModal extends Component
     public function editFood()
     {
         $this->validate();
+
         if (isset($this->food->id)) {
             $this->food->save();
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
-            ]);
+            $this->emitTo('livewire-toast', 'show', " غذا با موفقیت ّروزرسانی شد :) ");
         }
+
         $this->emit('RefreshTable');
         $this->confirmingfoodEditModal = false;
     }

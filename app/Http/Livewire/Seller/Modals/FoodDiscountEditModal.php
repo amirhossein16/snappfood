@@ -24,12 +24,11 @@ class FoodDiscountEditModal extends Component
     {
         if (isset($this->food->id)) {
             $this->food->save();
+
             $dis = DiscountFood::where('food_id', '=', $this->food->id)->get()[0];
             $dis->discount_id = $this->discount['id'];
             $dis->save();
-            $this->dispatchBrowserEvent('alert', [
-                'type' => 'success', 'message' => 'دسته بندی با موفقیت بروزرسانی شد :)'
-            ]);
+            $this->emitTo('livewire-toast', 'show', " کد تخفیف با موفقیت ّروزرسانی شد :) ");
         }
         $this->emit('RefreshTable');
         $this->confirmingEditDiscountModal = false;

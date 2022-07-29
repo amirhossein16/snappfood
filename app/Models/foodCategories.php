@@ -10,4 +10,9 @@ class foodCategories extends Model
     use HasFactory;
 
     protected $fillable = ['FoodType'];
+
+    public function Food()
+    {
+        return $this->hasOne(Food::class);
+    }
 }

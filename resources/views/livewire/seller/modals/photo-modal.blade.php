@@ -2,7 +2,7 @@
     <x-jet-dialog-modal wire:model="PhotoModalConfirm">
         <x-slot name="title">
             <h2 class="font-medium text-base ml-auto">
-                {{ isset($this->food->id) ? 'ویرایش غذا' : 'افزودن غذای جدید' }}</h2>
+                {{ __('افزودن تصویر غذا') }}</h2>
         </x-slot>
 
         <x-slot name="content">

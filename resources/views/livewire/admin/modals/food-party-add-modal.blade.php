@@ -2,7 +2,7 @@
     <x-jet-dialog-modal wire:model="confirmFoodPartyAddModal">
         <x-slot name="title">
             <h2 class="font-medium text-base ml-auto">
-                {{ 'افزودن فودپارتی' }}</h2>
+                {{ __('افزودن فودپارتی') }}</h2>
         </x-slot>
 
         <x-slot name="content">

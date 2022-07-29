@@ -124,7 +124,7 @@
                                                         @endif
                                                     @endif</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">@if($Categories->off == null || $Categories->off == 0)
-                                                        {{ $Categories->price }}
+                                                        {{ $Categories->price }} تومان &nbsp;
                                                     @elseif($Categories->off == 1)
                                                         @php
                                                             $discounts =\App\Models\Discount::find(\App\Models\DiscountFood::where('food_id','=',$Categories->id)->get()->first()->discount_id);
@@ -132,17 +132,17 @@
                                                         @if ( $discounts->type == 'Percentage')
                                                             <span
                                                                 class="text-red-500"><s>
-                                                                {!! $Categories->price !!}
+                                                                {!! $Categories->price !!} تومان &nbsp;
                                                                 </s></span>
                                                             <span
                                                                 class="text-green-500">
-                                                                    {{(($Categories->price)*(100 - $discounts->amount))/100}}
+                                                                    {{(($Categories->price)*(100 - $discounts->amount))/100}} تومان &nbsp;
                                                             </span>
                                                         @elseif($discounts->type == 'Price')
                                                             <span
-                                                                class="text-red-500"><s> {!! $Categories->price !!}</s></span>
+                                                                class="text-red-500"><s> {!! $Categories->price !!}تومان &nbsp;</s></span>
                                                             <span
-                                                                class="text-green-500">{!! $Categories->price -= $discounts->amount !!}</span>
+                                                                class="text-green-500">{!! $Categories->price -= $discounts->amount !!}تومان &nbsp;</span>
                                                         @endif
                                                     @endif</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">

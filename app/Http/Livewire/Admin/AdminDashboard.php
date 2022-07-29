@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Orders;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -46,7 +45,7 @@ class AdminDashboard extends Component
             'sumSellPrice' => $this->sumSellPrice(),
             'SellCompleteStatus' => $this->SellCompleteStatus(),
             'sellSusspendStatus' => $this->sellSusspendStatus(),
-            'OrdersDetails' => Orders::where('OrderStatus', '!=', 5)->paginate(5)
+            'OrdersDetails' => Orders::where('OrderStatus', '!=', 5)->paginate(5),
         ]);
     }
 }

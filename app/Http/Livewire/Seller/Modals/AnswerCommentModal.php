@@ -28,24 +28,26 @@ class AnswerCommentModal extends Component
     public function saveAnswer()
     {
         $this->validate();
+
         $res = Comment::create([
             'user_id' => auth()->user()->id,
             'orders_id' => $this->comment->orders_id,
             'restaurant_detail_id' => $this->comment->restaurant_detail_id,
             'opinion' => $this->comments['response'],
             'score' => null,
-            'confirm' => true,
+            'status' => 'confirm',
         ]);
+
         DB::table('parent_child_comment')->insert([
             'parent_comment_id' => $this->comment->id,
             'child_comment_id' => $res->id,
         ]);
-        $this->comment->confirm = 1;
+
+        $this->comment->status = 'confirm';
         $this->comment->save();
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success', 'message' => 'دسته بندی با موفقیت اضافه شد :)'
-        ]);
-        $this->emit('reloadCommentTable');
+
+        $this->emitTo('livewire-toast', 'show', 'نظر با موفقیت تایید و پاسخ شما ثبت شد :)');
+        $this->emit('RefreshTable');
         $this->confirmAndAnswerCommentModal = false;
     }
 

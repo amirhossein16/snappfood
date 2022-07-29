@@ -40,7 +40,7 @@
                                         </td>
                                         <td class="w-40">
                                             <span class="flex items-center justify-center text-theme-10">
-                                                {{$item->price}}
+                                                {{\App\Models\Cart::where('id',$item->cart_id)->get()->first()->price}}
                                             </span>
                                         </td>
                                     </tr>

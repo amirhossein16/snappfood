@@ -8,7 +8,7 @@ use Livewire\Component;
 class FoodCategoryEditModal extends Component
 {
     public $foodCategory;
-    public $confirmingCategoryUpdate;
+    public $confirmingCategoryUpdate = false;
 
     protected $listeners = ['EditModalConfirm'];
 

@@ -1,6 +1,5 @@
 <div>
     <livewire:delete-modal/>
-    <livewire:edit-modal/>
     <livewire:seller.modals.restaurant-profile-modal/>
     <livewire:seller.modals.restaurant-location-modal/>
     <livewire:seller.modals.restaurant-work-time-modal/>
@@ -22,7 +21,7 @@
                         <x-slot name="footer">
                         </x-slot>
                     </x-jet-confirmation-modal>
-                @elseif(auth()->user()->restaurantDetail->lat == null)
+                @elseif(auth()->user()->restaurantDetail->latitude == null)
                     <x-jet-confirmation-modal wire:model="confirminglocationModal">
                         <x-slot name="title">
                             {{ __('اطلاعات ناقص') }}
@@ -141,7 +140,6 @@
                             </div>
                         </div>
                     </div>
-                    {{--                                            @include('component.timeInput')--}}
                     <button type="submit" wire:click="saveRestaurant"
                             class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-1/2 px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 w-1/2 mr-96 mt-6">
                         ویرایش اطلاعات

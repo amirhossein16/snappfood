@@ -18,10 +18,12 @@ class OrderDetailsModal extends Component
     public function OrderDetails(Orders $id)
     {
         $this->total = 0;
+
         foreach (CartFood::where('cart_id', $id->cart_id)->get() as $item) {
             $this->details[] = $item;
-            $this->total += $item->price;
+            $this->total += \App\Models\Cart::where('id',$id->cart_id)->get()->first()->price;
         }
+
         $this->OrderDetailsModal = true;
     }
 
