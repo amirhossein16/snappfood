@@ -82,7 +82,7 @@ php artisan queue:work
 ```
 <p>10. Enjoy the app</p>
 
-<h2>💥 Detail For Admin:</h2>
+<h2>🔑 Detail For Admin:</h2>
 
 *   email : superadmin@example.com
 *   password : 12345678
