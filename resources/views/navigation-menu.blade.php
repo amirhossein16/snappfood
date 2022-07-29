@@ -15,7 +15,7 @@
                     href="{{ route('Admin') }}"
                     :active="request()->routeIs('Admin')" class="menu menu--active">
                     <div class="menu__icon"><i data-feather="home"></i></div>
-                    <div class="menu__title"> داشبورد </div>
+                    <div class="menu__title"> داشبورد</div>
                 </x-jet-nav-link>
             </li>
             <li>
@@ -731,6 +731,15 @@
                         <i data-feather="image" class="block mx-auto"></i>
                     </div>
                     <div class="top-menu__title">تنظیمات بنر</div>
+                </x-jet-nav-link>
+            </li>
+            <li>
+                <x-jet-nav-link href="{{ route('ReportCharts') }}" :active="request()->routeIs('ReportCharts')"
+                                class="top-menu">
+                    <div class="top-menu__icon">
+                        <i data-feather="database" class="block mx-auto"></i>
+                    </div>
+                    <div class="top-menu__title">گزارشات</div>
                 </x-jet-nav-link>
             </li>
             <li>
