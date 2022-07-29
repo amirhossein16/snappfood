@@ -4,6 +4,6 @@
     </div>
 
     <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
-        {{ $slot }}
+        {{ $LoginForm }}
     </div>
 </div>
