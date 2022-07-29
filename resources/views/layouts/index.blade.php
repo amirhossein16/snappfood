@@ -31,14 +31,14 @@
                     <div class="hidden fixed top-0 right-0 px-6 py-4 w-full sm:flex justify-center">
                         @auth
                             @role('seller')
-                            <span class="text-red-500 font-bold text-lg">Hello : {{auth()->user()->name}}</span>
                             <a href="{{ url('/dashboard') }}"
-                               class="btn btn-outline-success w-24 inline-block ml-1 mb-2">پنل کاربری</a>
+                               class="btn btn-outline-success w-24 py-4 inline-block ml-1 mb-2">پنل کاربری</a>
+                            <span class="btn btn-outline-info text-indigo-400 font-bold px-2 py-1 h-14 mr-3">Hello : {{auth()->user()->name}}</span>
                             @endrole
                             @role('superadmin')
-                            <span class="text-red-500 font-bold text-lg">Hello : {{auth()->user()->name}}</span>
-                            <a href="{{ url('/Admin') }}" class="btn btn-outline-success w-24 inline-block ml-1 mb-2">پنل
+                            <a href="{{ url('/Admin') }}" class="btn btn-outline-success w-24 py-4 inline-block ml-1 mb-2">پنل
                                 کاربری</a>
+                            <span class="btn btn-outline-info text-indigo-400 font-bold px-2 py-1 h-14 mr-3">Hello : {{auth()->user()->name}}</span>
                             @endrole
                         @else
                             <a href="{{ route('login') }}" class="btn btn-elevated-warning w-24 ml-4 mb-2">ورود</a>

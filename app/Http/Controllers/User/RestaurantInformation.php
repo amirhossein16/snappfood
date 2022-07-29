@@ -24,12 +24,16 @@ class RestaurantInformation extends Controller
         $restaurantType = \request('type');
         $is_open = \request('is_open');
         $scoreGet = \request('score_gt');
+
         if (!empty($is_open) && empty($restaurantType))
             return RestaurantsResource::collection(RestaurantDetail::where('is_open', '=', $is_open)->get());
+
         if (!empty($restaurantType) && !empty($is_open))
             return RestaurantsResource::collection(RestaurantDetail::where([['is_open', $is_open], ['restaurant_categories_id', $restaurantType]])->get());
+
         if (!empty($restaurantType) && empty($is_open))
             return RestaurantsResource::collection(RestaurantDetail::where('restaurant_categories_id', $restaurantType)->get());
+
         return RestaurantsResource::collection(RestaurantDetail::all());
     }
 

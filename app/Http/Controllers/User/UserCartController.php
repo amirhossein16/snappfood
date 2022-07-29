@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\api\CartRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\CartFood;
@@ -48,12 +49,13 @@ class UserCartController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(Request $request)
+    public function store(CartRequest $request)
     {
+        $request->validated();
         try {
             $food = Food::findOrFail($request->food_id);
         } catch (Exception $e) {
-            return response()->json(['msg' => 'Food Not Found' . $e->getMessage()], 404);
+            return response()->json(['msg' => 'Food Not Found ~~~ ' . $e->getMessage()], 404);
         }
         try {
             if (empty(

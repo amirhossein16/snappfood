@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCommentRequest extends FormRequest
+class OrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'orders_id' => 'required',
-            'score' => 'required|min:1|max:5|numeric',
-            'message' => 'required|max:255|min:3'
+            "cart_id" => 'required'
         ];
     }
 }

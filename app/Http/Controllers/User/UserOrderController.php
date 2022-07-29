@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\api\OrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Cart;
 use App\Models\Orders;
@@ -43,8 +44,9 @@ class UserOrderController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
+        $request->validated();
         if (auth('api')->user()->UserAddress()->get()->first() != null) {
             if (!empty(auth('api')->user()->UserAddress()->get()->where('currentAddress', 1))) {
                 try {
@@ -59,16 +61,16 @@ class UserOrderController extends Controller
                             'Total_price' => $orders->price,
                             'OrderStatus' => 1
                         ]);
-                        DB::commit();
                         Notification::route('mail', [
                             'SnappFood@example.com' => 'Amirhossein MansourSamaee',
                         ])->notify(new OrderMailNotif($lastOrder));
+                        DB::commit();
                         return response()->json(['msg' => 'payed successfully']);
-                    } elseif ($order != null && $order->state == 'Payed') {
-                        DB::rollBack();
+                    } elseif ($orders != null && $orders->state == 'Payed') {
                         return response()->json(['msg' => 'This shopping cart has already been paid for']);
                     } else
-                        return response()->json(['msg' => 'The shopping cart is not available or you do not have access !(']);
+                        DB::rollBack();
+                    return response()->json(['msg' => 'The shopping cart is not available or you do not have access !(']);
                 } catch (ModelNotFoundException $e) {
                     return response()->json(['msg' => 'Cart Not Found' . $e->getMessage()], 404);
                 }

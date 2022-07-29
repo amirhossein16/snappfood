@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\api\AddressRequest;
 use App\Http\Resources\UsersAddressResource;
 use App\Models\User;
 use App\Models\UserAddress;
@@ -36,14 +37,9 @@ class AddressController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(AddressRequest $request)
     {
-        $input = $request->validate([
-            'title' => 'required|max:150',
-            'address' => 'required|max:255',
-            'latitude' => 'required',
-            'longitude' => 'required'
-        ]);
+        $input = $request->validated();
         UserAddress::create([
             'user_id' => auth('api')->user()->id,
             'title' => $input['title'],

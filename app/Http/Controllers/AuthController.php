@@ -33,6 +33,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
         ]);
+
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
@@ -41,6 +42,7 @@ class AuthController extends Controller
             $validator->validated(),
             ['password' => bcrypt($request->password), 'role' => 'user']
         ));
+
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $user
@@ -67,13 +69,6 @@ class AuthController extends Controller
         }
 
         return $this->createNewToken($token);
-//        $credentials = request(['email', 'password']);
-//
-//        if (! $token = auth()->attempt($credentials)) {
-//            return response()->json(['error' => 'Unauthorized'], 401);
-//        }
-//
-//        return $this->createNewToken($token);
     }
 
     /**
