@@ -62,14 +62,4 @@ class RestaurantDetail extends Model
     {
         return $this->hasOne(WorkingTime::class);
     }
-
-//    public function getDistanceAttribute()
-//    {
-//        $query = UserAddress::where([['currentAddress', 1], ['user_id', auth('api')->user()->id]])->get()->first();
-//        $lat = $query->latitude;
-//        $lon = $query->longitude;
-//        return $this->select("*", DB::raw("6371 * acos(cos(radians(" . $lat . "))
-//                                * cos(radians(latitude)) * cos(radians(longitude) - radians(" . $lon . "))
-//                                + sin(radians(" . $lat . ")) * sin(radians(latitude))) AS distance"))->orderBy('distance');
-//    }
 }

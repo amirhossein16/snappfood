@@ -23,6 +23,7 @@ class UserOrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+//        $this->middleware('isOpenRestaurant');
     }
 
     /**
@@ -41,7 +42,7 @@ class UserOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param OrderRequest $request
      * @return JsonResponse
      */
     public function store(OrderRequest $request)

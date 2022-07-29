@@ -85,32 +85,34 @@
     <div class="mt-5 intro-x">
         <div class="box zoom-in w-full">
             <div class="tiny-slider" id="important-notes">
-                @foreach($FoodParty[0] as $food)
-                    @if($food->first() != null)
-                        <div class="p-5">
-                            @php
-                                $filename = str_replace(' ','_',$food->first()->title);
-                            @endphp
-                            <img alt="Icewall Tailwind HTML Admin Template" class="image-fit w-full"
-                                 src="{{asset("/storage/photos/Foods/$filename"."_1.jpg")}}">
-                            <div class="text-base font-medium truncate mt-2">{{$food->first()->title}} </div>
-                            <div class="text-gray-500 mt-1">{{$food->first()->price}}</div>
-                            <div class="text-gray-600 text-right mt-1">{{$food->first()->raw_material}}</div>
-                            <div class="font-medium flex mt-5">
-                                <button type="button" class="btn btn-outline-secondary py-1 px-2 ">خرید
-                                </button>
-                                <button type="button" class="btn btn-secondary py-1 px-2 ml-auto ml-auto">
-                                    @foreach(DB::table('food_partiey')->get() as $item)
-                                        @if($item->food_id == $food->id)
-                                            {{$item->DiscountAmount}}% تخفیف
-                                        @endif
-                                    @endforeach
-                                </button>
+                @if(!empty($FoodParty))
+                    @foreach($FoodParty[0] as $food)
+                        @if($food->first() != null)
+                            <div class="p-5">
+                                @php
+                                    $filename = str_replace(' ','_',$food->first()->title);
+                                @endphp
+                                <img alt="Icewall Tailwind HTML Admin Template" class="image-fit w-full"
+                                     src="{{asset("/storage/photos/Foods/$filename"."_1.jpg")}}">
+                                <div class="text-base font-medium truncate mt-2">{{$food->first()->title}} </div>
+                                <div class="text-gray-500 mt-1">{{$food->first()->price}}</div>
+                                <div class="text-gray-600 text-right mt-1">{{$food->first()->raw_material}}</div>
+                                <div class="font-medium flex mt-5">
+                                    <button type="button" class="btn btn-outline-secondary py-1 px-2 ">خرید
+                                    </button>
+                                    <button type="button" class="btn btn-secondary py-1 px-2 ml-auto ml-auto">
+                                        @foreach(DB::table('food_partiey')->get() as $item)
+                                            @if($item->food_id == $food->id)
+                                                {{$item->DiscountAmount}}% تخفیف
+                                            @endif
+                                        @endforeach
+                                    </button>
 
+                                </div>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
+                        @endif
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
