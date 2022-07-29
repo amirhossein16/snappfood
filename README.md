@@ -69,11 +69,18 @@ npm install && npm run dev
 php artisan migrate --seed
 ```
 
-<p>8. Enjoy the app</p>
+<p>8. Run Server</p>
 
 ```
 php artisan serve
 ```
+
+<p>9. Run Queue Work</p>
+
+```
+php artisan queue:work
+```
+<p>10. Enjoy the app</p>
 
 <h2>🍰 Contribution Guidelines:</h2>
 
