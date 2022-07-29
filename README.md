@@ -12,10 +12,7 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images" alt="project-screenshot" width="250px" height="250px/">
-
-<img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images" alt="project-screenshot" width="250" height="250/">
-
+<img src="https://github.com/amirhossein16/snappfood/blob/741449ebfa51e5cf5c87aa9921b792cf925c02af/screencapture-127-0-0-1-8000-FoodPanel-2022-07-28-15_56_34.png" alt="project-screenshot" width="250px" height="250px/">
   
   
 <h2>🧐 Features</h2>
