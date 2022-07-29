@@ -9,15 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class nearbyRestaurants extends Controller
 {
+    public $lat;
+    public $long;
+    public $array = [];
 
     public function __construct()
     {
         $this->middleware('auth:api');
     }
-
-    public $lat;
-    public $long;
-    public $array = [];
 
     public function index()
     {
@@ -35,8 +34,6 @@ class nearbyRestaurants extends Controller
         } else {
             return response()->json(['msg' => 'Please Set Current Location !']);
         }
-
-//        dd($data);
     }
 
     public function store()

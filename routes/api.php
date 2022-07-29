@@ -34,8 +34,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 //    Route::post('nearbyRestaurants', [\App\Http\Controllers\User\nearbyRestaurants::class, 'store']);
 
     Route::apiResource('comments', \App\Http\Controllers\User\CommentsController::class);
+
 });
 
+
 Route::get('restaurants/{restaurant_id}/foods', [\App\Http\Controllers\User\FoodController::class, 'show']);
-Route::apiResource('restaurants/foods', \App\Http\Controllers\User\FoodController::class, ['except' => 'show']);
-Route::resource('restaurants', \App\Http\Controllers\User\RestaurantInformation::class);
+Route::apiResource('restaurants', \App\Http\Controllers\User\RestaurantInformation::class);
+
