@@ -51,36 +51,42 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-<p>5. make database</p>
+<p>5. Generate Jwtkey</p>
+
+```
+php artisan jwt:secret
+```
+
+<p>6. make database</p>
 
 ```
 DB_DATABASE=snappfood
 ```
 
-<p>6. Instal npm packages</p>
+<p>7. Instal npm packages</p>
 
 ```
 npm install && npm run dev
 ```
 
-<p>7. migrate for sample data</p>
+<p>8. migrate for sample data</p>
 
 ```
 php artisan migrate --seed
 ```
 
-<p>8. Run Server</p>
+<p>9. Run Server</p>
 
 ```
 php artisan serve
 ```
 
-<p>9. Run Queue Work</p>
+<p>10. Run Queue Work</p>
 
 ```
 php artisan queue:work
 ```
-<p>10. Enjoy the app</p>
+<p>11. Enjoy the app</p>
 
 <h2>🔑 Detail For Admin:</h2>
 
