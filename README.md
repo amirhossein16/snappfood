@@ -1,6 +1,6 @@
 <h1 align="center" id="title">Snapp Food</h1>
 
-<p align="center"><img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images/" alt="project-image"></p>
+<p align="center"><img src="https://github.com/amirhossein16/snappfood/blob/79cb006756b0218226bd355f4f8be2ec6490a64b/download.png" alt="project-image"></p>
 
 <p id="description">Sample Laravel Project - Simulated from Snapp Food</p>
 
@@ -69,11 +69,18 @@ npm install && npm run dev
 php artisan migrate --seed
 ```
 
-<p>8. Enjoy the app</p>
+<p>8. Run Server</p>
 
 ```
 php artisan serve
 ```
+
+<p>9. Run Queue Work</p>
+
+```
+php artisan queue:work
+```
+<p>10. Enjoy the app</p>
 
 <h2>🍰 Contribution Guidelines:</h2>
 
