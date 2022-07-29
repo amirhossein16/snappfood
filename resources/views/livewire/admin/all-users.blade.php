@@ -7,7 +7,7 @@
                 <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
 
                     <x-tables.header>
-                        مدیریت نظرات
+                        کاربران
                     </x-tables.header>
                     <div>
                         <button wire:click="$emit('ExportXlsx')">
@@ -23,6 +23,7 @@
                         <select wire:model.debounce.350ms="search" id="dateSearch"
                                 data-placeholder="Select your favorite actors" data-search="true"
                                 class="w-full form-control form-control-rounded" style="background-position:left 0.5rem center !important;">
+                            <option value="">AllUser</option>
                             <option value="Seller">Seller</option>
                             <option value="User">User</option>
                         </select>

@@ -702,12 +702,12 @@
                     <div class="top-menu__title"> دسته بندی غذا ها</div>
                 </x-jet-nav-link>
             </li>
-            <li>
-                <x-jet-nav-link href="{{ route('roles') }}" :active="request()->routeIs('roles')" class="top-menu">
-                    <div class="top-menu__icon"><i data-feather="settings" class="block mx-auto"></i></div>
-                    <div class="top-menu__title"> تنظیمات دسترسی ها</div>
-                </x-jet-nav-link>
-            </li>
+{{--            <li>--}}
+{{--                <x-jet-nav-link href="{{ route('roles') }}" :active="request()->routeIs('roles')" class="top-menu">--}}
+{{--                    <div class="top-menu__icon"><i data-feather="settings" class="block mx-auto"></i></div>--}}
+{{--                    <div class="top-menu__title"> تنظیمات دسترسی ها</div>--}}
+{{--                </x-jet-nav-link>--}}
+{{--            </li>--}}
             <li>
                 <x-jet-nav-link href="{{ route('DiscountPanel') }}" :active="request()->routeIs('DiscountPanel')"
                                 class="top-menu">
