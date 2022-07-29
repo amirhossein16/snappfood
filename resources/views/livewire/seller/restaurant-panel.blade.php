@@ -3,6 +3,12 @@
     <livewire:seller.modals.restaurant-profile-modal/>
     <livewire:seller.modals.restaurant-location-modal/>
     <livewire:seller.modals.restaurant-work-time-modal/>
+    <link href="https://static.neshan.org/sdk/openlayers/5.3.0/ol.css" rel="stylesheet" type="text/css">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet'/>
+    <script
+        src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://static.neshan.org/sdk/openlayers/5.3.0/ol.js" type="text/javascript"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <!-- BEGIN: Content -->
     <div class="wrapper wrapper--top-nav">
         <div class="wrapper-box">
