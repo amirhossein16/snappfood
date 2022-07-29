@@ -9,21 +9,34 @@
                 <div class="mb-6">
                     <div class="mt-3">
                         <label for="Location" class="form-label">لوکیشن رستوران</label>
-                        <x-jet-input-error for="lat" class="mt-2" />
-                        <x-maps-leaflet
-                        :center-point="['lat' => 35.701253490910126, 'long' => 51.34916022406515]"
-                        :zoom-level="18"
-                        :markers="[['lat' => 35.701253490910126, 'long' => 51.34916022406515]]"
-                        wire:model.click="$emit('saveLocation')"
-                        class="w-full h-3 mx-auto border border-solid border-indigo-400 border-b-violet-700">
-                    </x-maps-leaflet>
+                        <x-jet-input-error for="lat" class="mt-2"/>
+                        <x-maps-leaflet id="map"
+                                        :center-point="['lat' => 35.701253490910126, 'long' => 51.34916022406515]"
+                                        :zoom-level="18"
+                                        :markers="[['lat' => 35.701253490910126, 'long' => 51.34916022406515]]"
+                                        wire:model.click="$emit('saveLocation')"
+                                        style="width: 600px; height: 450px; background: #eee; border: 2px solid #aaa;"></x-maps-leaflet>
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                var myMap = new ol.Map({
+                    target: 'map',
+                    key: 'web.573927d2a1354b129a4616f6c08c6fd5',
+                    maptype: 'neshan',
+                    poi: true,
+                    traffic: false,
+                    view: new ol.View({
+                        center: ol.proj.fromLonLat([51.338076, 35.699756]),
+                        zoom: 14
+                    })
+                });
+            </script>
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('confirmRestaurantLocationModal', false)" class="btn btn-outline-secondary w-20 ml-1">
+            <x-jet-secondary-button wire:click="$set('confirmRestaurantLocationModal', false)"
+                                    class="btn btn-outline-secondary w-20 ml-1">
                 {{ __('لغو') }}
             </x-jet-secondary-button>
 
