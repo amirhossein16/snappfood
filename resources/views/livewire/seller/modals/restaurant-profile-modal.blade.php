@@ -30,7 +30,7 @@
                             <div class="preview">
                                 <div class="dropzone">
                                     <div class="fallback">
-                                        <input wire:model="photo" type="file" multiple/>
+                                        <input wire:model="photo" type="file"/>
                                     </div>
                                     <div class="dz-message" data-dz-message>
                                         <div class="text-lg font-medium">فایل خود را اینجا بکشید و رها کنید
@@ -42,13 +42,15 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Progress Bar -->
-                        <div x-show="isUploading">
-                            <div max="100" class="progress-bar w-full bg-green-500 rounded"
-                                 x-bind:value="progress"></div>
+                        <div id="progressbar-label" class="p-5">
+                            <!-- Progress Bar -->
+                            <div x-show="isUploading" class="progress h-4 rounded">
+                                <div max="100" class="progress-bar w-full bg-green-500 rounded"
+                                     x-bind:value="progress"></div>
+                            </div>
                         </div>
-                        <x-jet-input-error for="photo" class="mt-2"/>
                     </div>
+                    <x-jet-input-error for="photo" class="mt-2"/>
                 </div>
             </div>
         </x-slot>

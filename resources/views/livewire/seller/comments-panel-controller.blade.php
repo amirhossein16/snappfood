@@ -3,6 +3,7 @@
     <livewire:seller.modals.answer-comment-modal/>
     <livewire:seller.modals.comment-referral-modal/>
     <livewire:seller.modals.comment-confirm-modal/>
+    <livewire:seller.modals.show-and-edit-comment-modal/>
     <!-- BEGIN: Content -->
     <div class="wrapper wrapper--top-nav">
         <div class="wrapper-box">
@@ -51,7 +52,8 @@
                                                     @elseif($Categories->status == 'reject')
                                                         <span class="text-amber-500">ارجاع به مدیریت</span>
                                                     @endif</td>
-                                                <td class="border-b dark:border-dark-5 text-lg font-medium">{{$Categories->opinion}}</td>
+                                                <td class="border-b dark:border-dark-5 text-lg font-medium tooltip cursor-pointer"
+                                                    title="{{$Categories->opinion}}">{{\Illuminate\Support\Str::limit($Categories->opinion,20)}}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">{{$Categories->score}}</td>
                                                 <td class="border-b dark:border-dark-5 text-lg font-medium">
                                                     @if($Categories->status == 'suspended')
@@ -85,6 +87,13 @@
                                                     @elseif($Categories->status == 'confirm')
                                                         <span
                                                             class="text-emerald-500"> کامنت تایید و قابل رویت گردید :)</span>
+                                                        <button class="tooltip btn btn-outline-success mr-3"
+                                                                title="
+                                                                {{\App\Models\Comment::find(DB::table('parent_child_comment')->where('parent_comment_id', $Categories->id)->get()->first()->child_comment_id)->opinion}}
+                                                                "
+                                                                wire:click="$emit('ShowAndEdit',{{$Categories->id}})"
+                                                        >نمایش پاسخ یا ویرایش
+                                                        </button>
                                                     @elseif($Categories->status == 'reject')
                                                         <span
                                                             class="text-amber-600"> کامنت مدیریت ارجاع داده شد :)</span>

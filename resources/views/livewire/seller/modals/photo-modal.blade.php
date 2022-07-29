@@ -62,7 +62,7 @@
                 {{ __('لغو') }}
             </x-jet-secondary-button>
 
-            <x-jet-button class="ml-2 btn btn-primary w-20" wire:click.debounce.2000ms="AddPhoto()">
+            <x-jet-button class="ml-2 btn btn-primary w-20" wire:click.debounce.1000ms="AddPhoto()">
                 {{ __('ذخیره') }}
             </x-jet-button>
         </x-slot>

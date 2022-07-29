@@ -107,7 +107,7 @@
                             </label>
                             <div class="mt-2">
                                 <select data-search="true"
-                                        class="tail-select w-full form-control form-control-rounded" id="Category"
+                                        class="w-full form-control form-control-rounded" id="Category"
                                         wire:model.defer="Restaurant.restaurant_categories_id">
                                     <optgroup label="دسته بندی رستوران خود را انتخاب نمایید">
                                         @foreach($categories as $category)
@@ -140,7 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" wire:click="saveRestaurant"
+                    <button wire:click="saveRestaurant"
                             class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-1/2 px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 w-1/2 mr-96 mt-6">
                         ویرایش اطلاعات
                     </button>

@@ -9,7 +9,7 @@ class RestaurantProfileModal extends Component
 {
     use WithFileUploads;
 
-    public $photo;
+    public $photo = [];
     public $confirmRestaurantProfileModal = false;
     protected $listeners = ['OpenProfileModal'];
 
@@ -33,7 +33,7 @@ class RestaurantProfileModal extends Component
             auth()->user()->restaurantDetail->save();
             $this->emitTo('livewire-toast', 'show', 'تصویر با موفقیت بروز شد :)');
         }
-
+        $this->reset(['photo']);
         $this->confirmRestaurantProfileModal = false;
     }
 
