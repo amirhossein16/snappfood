@@ -1,6 +1,6 @@
 <h1 align="center" id="title">Snapp Food</h1>
 
-<p align="center"><img src="https://github.com/amirhossein16/snappfood/blob/master/public/dist/images/" alt="project-image"></p>
+<p align="center"><img src="https://github.com/amirhossein16/snappfood/blob/79cb006756b0218226bd355f4f8be2ec6490a64b/download.png" alt="project-image"></p>
 
 <p id="description">Sample Laravel Project - Simulated from Snapp Food</p>
 
