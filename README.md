@@ -82,6 +82,11 @@ php artisan queue:work
 ```
 <p>10. Enjoy the app</p>
 
+<h2>💥 Detail For Admin:</h2>
+
+*   email : superadmin@example.com
+*   password : 12345678
+  
 <h2>🍰 Contribution Guidelines:</h2>
 
 *   Steps for creating good issues or pull requests.
