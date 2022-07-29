@@ -149,4 +149,11 @@ class User extends Authenticatable implements JWTSubject
         $query->where(function ($query) use ($term) {
             $query->Where('role', 'like', $term);});
     }
+
+    public function scopeSearchName($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->Where('name', 'like', $term);});
+    }
 }

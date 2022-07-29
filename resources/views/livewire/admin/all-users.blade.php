@@ -22,11 +22,21 @@
                         <label for="dateSearch"></label>
                         <select wire:model.debounce.350ms="search" id="dateSearch"
                                 data-placeholder="Select your favorite actors" data-search="true"
-                                class="w-full form-control form-control-rounded" style="background-position:left 0.5rem center !important;">
+                                class="w-full form-control form-control-rounded"
+                                style="background-position:left 0.5rem center !important;">
                             <option value="">AllUser</option>
                             <option value="Seller">Seller</option>
                             <option value="User">User</option>
                         </select>
+                    </div>
+                </div>
+                <div id="layout-1-annual-fees" class="tab-pane flex flex-col lg:flex-row w-full"
+                     role="tabpanel"
+                     aria-labelledby="layout-1-annual-fees-tab w-full">
+                    <div class="col-span-12 flex-row flex items-center justify-center w-full">
+                        <label for="dateSearchName"></label>
+                        <input type="text" id="dateSearchName" wire:model.debounce="searchbyName" class="w-full form-control form-control-rounded"
+                               style="background-position:left 0.5rem center !important;" placeholder="اسم کاربر مد نظر را ارد نمایید . . . .">
                     </div>
                 </div>
                 <div class="intro-y box p-5 mt-5">
